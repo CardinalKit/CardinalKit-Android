@@ -1,0 +1,32 @@
+buildscript {
+    ext {
+        gradle_version = '7.2.1'
+        kotlin_version = "1.6.21"
+        google_services_version = "4.3.10"
+        hilt_version = "2.40.5"
+        core_version = "1.8.0"
+        appcompat_version = "1.4.2"
+        live_data_version = "2.4.1"
+        material_version = "1.6.1"
+        compose_version = "1.2.0-rc01"
+        hilt_navigation_compose_version = "1.0.0"
+        firebase_bom_version = "30.1.0"
+        play_services_version = "1.6.2"
+        play_services_auth_version = "20.2.0"
+        accompanist_version = "0.24.10-beta"
+        coil_compose_version = "2.1.0"
+    }
+    dependencies {
+        classpath "com.google.gms:google-services:$google_services_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+    }
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version "${gradle_version}" apply false
+    id 'com.android.library' version "${gradle_version}" apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
