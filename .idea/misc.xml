@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_fhir_survey.xml" value="0.15081521739130435" />
+        <entry key="app/src/main/res/layout/fhir_survey.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/questionnaire_layout.xml" value="0.1524822695035461" />
         <entry key="app/src/main/res/layout/survey_layout.xml" value="0.2717391304347826" />
       </map>

@@ -1,5 +1,6 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,8 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.presentation.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.components.TaskItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +34,8 @@ fun TasksScreen() {
             )
         },
         content = { contentPadding ->
+            val mContext = LocalContext.current
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -37,9 +43,14 @@ fun TasksScreen() {
                 verticalArrangement = Arrangement.SpaceAround,
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                TaskItem()
+                Button(
+                    modifier = Modifier.padding(20.dp),
+                    onClick = {
+                        mContext.startActivity(Intent(mContext, SurveyActivity::class.java))
+                }){
+                    Text("Open FHIR Survey")
+                }
             }
         }
     )
-
 }
