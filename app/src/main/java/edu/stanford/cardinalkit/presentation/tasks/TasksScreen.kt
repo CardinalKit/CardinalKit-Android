@@ -1,5 +1,6 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
+import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,7 @@ fun TasksScreen() {
             )
         },
         content = { contentPadding ->
-            val mContext = LocalContext.current
+            val context = LocalContext.current
 
             Column(
                 modifier = Modifier
@@ -46,11 +47,18 @@ fun TasksScreen() {
                 Button(
                     modifier = Modifier.padding(20.dp),
                     onClick = {
-                        mContext.startActivity(Intent(mContext, SurveyActivity::class.java))
+                        openSurvey("", context)
                 }){
                     Text("Open FHIR Survey")
                 }
             }
         }
     )
+}
+
+fun openSurvey(name: String, context: Context) {
+    val intent = Intent(context, SurveyActivity::class.java).apply {
+        putExtra("edu.stanford.cardinalkit.SURVEY_NAME", name)
+    }
+    context.startActivity(intent)
 }

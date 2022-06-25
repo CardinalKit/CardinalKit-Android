@@ -13,19 +13,26 @@ class SurveyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fhir_survey)
 
-        val questionnaireJsonString =
-            application.assets.open("screener-questionnaire.json")
-                .bufferedReader().use { it.readText() }
+        val surveyName = intent.getStringExtra("edu.stanford.cardinalkit.SURVEY_NAME")
 
-        val arguments = bundleOf(
-            QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to questionnaireJsonString
-        )
+        if (surveyName != null) {
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<QuestionnaireFragment>(R.id.fragment_container_view, args = arguments)
+            val questionnaireJsonString =
+                application.assets.open(surveyName)
+                    .bufferedReader().use { it.readText() }
+
+            val arguments = bundleOf(
+                QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to questionnaireJsonString
+            )
+
+            if (savedInstanceState == null) {
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    add<QuestionnaireFragment>(R.id.fragment_container_view, args = arguments)
+                }
             }
+        } else {
+            super.onBackPressed()
         }
     }
 }
