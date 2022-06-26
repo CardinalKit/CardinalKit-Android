@@ -16,8 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import edu.stanford.cardinalkit.R
-import edu.stanford.cardinalkit.presentation.SurveyActivity
-import edu.stanford.cardinalkit.presentation.tasks.components.TaskItem
+import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,15 +40,15 @@ fun TasksScreen() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding),
-                verticalArrangement = Arrangement.SpaceAround,
+                verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Button(
                     modifier = Modifier.padding(20.dp),
                     onClick = {
-                        openSurvey("", context)
+                        openSurvey("single_choice_questionnaire.json", context)
                 }){
-                    Text("Open FHIR Survey")
+                    Text("Take A Survey")
                 }
             }
         }
