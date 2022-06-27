@@ -6,6 +6,14 @@ object Constants {
 
     const val FIRESTORE_USERS_COLLECTION = "/studies/edu.stanford.cardinalkit/users"
 
+    // Screens
+    const val MAIN_SCREEN = "Main"
+    const val HOME_SCREEN = "Home"
+    const val TASKS_SCREEN = "Tasks"
+    const val PROFILE_SCREEN = "Profile"
+    const val CONTACTS_SCREEN = "Contacts"
+    const val LOGIN_SCREEN = "Login"
+
     // Named dependencies to be injected
     const val USERS_REF = "usersRef"
     const val SURVEYS_REF = "surveysRef"

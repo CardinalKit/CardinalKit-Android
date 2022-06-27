@@ -22,7 +22,7 @@ import javax.inject.Singleton
 class AuthRepositoryImpl  @Inject constructor(
     private val auth: FirebaseAuth,
     private var oneTapClient: SignInClient,
-    @Named("signInRequest")
+    @Named(Constants.SIGN_IN_REQUEST)
     private var signInRequest: BeginSignInRequest,
     private var signInClient: GoogleSignInClient,
     @Named(Constants.USERS_REF)
