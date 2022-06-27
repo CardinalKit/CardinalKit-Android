@@ -22,7 +22,7 @@ import androidx.compose.foundation.lazy.items
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksScreen(
-    viewModel: TasksViewModel = hiltViewModel()
+    //viewModel: TasksViewModel = hiltViewModel()
 ) {
     Scaffold(
         topBar = {
