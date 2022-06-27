@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
@@ -17,7 +16,6 @@ import com.google.android.fhir.datacapture.QuestionnaireFragment
 import dagger.hilt.android.AndroidEntryPoint
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
-import edu.stanford.cardinalkit.domain.models.Survey
 
 @AndroidEntryPoint
 class SurveyActivity : AppCompatActivity() {
@@ -90,5 +88,4 @@ class SurveyActivity : AppCompatActivity() {
 
         finish()
     }
-
 }

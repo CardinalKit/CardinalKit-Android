@@ -1,6 +1,5 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
-import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -58,10 +57,7 @@ fun TasksScreen(
                         val intent = Intent(context, SurveyActivity::class.java).apply {
                             putExtra(Constants.SURVEY_NAME, "single_choice_questionnaire.json")
                         }
-
-                        launcher.launch(intent)
-                        //context.startActivity(intent)
-
+                        context.startActivity(intent)
                 }){
                     Text("Take A Survey")
                 }
