@@ -66,7 +66,9 @@ class SurveyActivity : AppCompatActivity() {
         if (item.itemId == R.id.submit) {
             submitSurvey()
             finish()
-            return true
+        }
+        if (item.itemId == R.id.cancel) {
+            finish()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -86,7 +88,6 @@ class SurveyActivity : AppCompatActivity() {
             jsonParser.encodeResourceToString(questionnaireResponse)
 
         // Upload results to the database
-        print(surveyName)
         val surveyNameWithoutExtension = this.surveyName?.replace("\\.\\w+$".toRegex(), "")
         viewModel.uploadSurvey(surveyNameWithoutExtension ?: "unknown", questionnaireResponseString)
 
