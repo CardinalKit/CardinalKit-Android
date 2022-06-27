@@ -9,7 +9,7 @@ import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.stanford.cardinalkit.domain.models.CKResult
+import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,14 +22,14 @@ class LoginViewModel @Inject constructor(
 ): ViewModel() {
     val isAuthenticated get() = repository.isAuthenticated()
 
-    private val _oneTapSignInState = mutableStateOf<CKResult<BeginSignInResult>>(CKResult.Success(null))
-    val oneTapSignInState: State<CKResult<BeginSignInResult>> = _oneTapSignInState
+    private val _oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Response.Success(null))
+    val oneTapSignInState: State<Response<BeginSignInResult>> = _oneTapSignInState
 
-    private val _signInState = mutableStateOf<CKResult<Boolean>>(CKResult.Success(null))
-    val signInState: State<CKResult<Boolean>> = _signInState
+    private val _signInState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+    val signInState: State<Response<Boolean>> = _signInState
 
-    private val _saveUserState = mutableStateOf<CKResult<Boolean>>(CKResult.Success(null))
-    val saveUserState: State<CKResult<Boolean>> = _saveUserState
+    private val _saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+    val saveUserState: State<Response<Boolean>> = _saveUserState
 
     fun oneTapSignIn() {
         viewModelScope.launch {

@@ -1,8 +1,8 @@
 package edu.stanford.cardinalkit.data.repositories
 
 import com.google.firebase.firestore.CollectionReference
-import edu.stanford.cardinalkit.domain.models.CKResult
-import edu.stanford.cardinalkit.domain.models.Survey
+import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.domain.models.SurveyResult
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -18,18 +18,18 @@ class SurveyRepositoryImpl @Inject constructor(
     override suspend fun uploadSurvey(name: String, data: String) = flow {
         surveysRef?.let {
             try {
-                emit(CKResult.Loading)
+                emit(Response.Loading)
                 val surveyId = surveysRef.document().id
-                val survey = Survey(
+                val survey = SurveyResult(
                     id = surveyId,
                     name = name,
                     data = data,
                     timestamp = LocalDateTime.now()
                 )
                 val upload = surveysRef.document(surveyId).set(survey).await()
-                emit(CKResult.Success(upload))
+                emit(Response.Success(upload))
             } catch (e: Exception) {
-                emit(CKResult.Error(e))
+                emit(Response.Error(e))
             }
         }
     }

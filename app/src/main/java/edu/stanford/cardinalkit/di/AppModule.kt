@@ -1,4 +1,4 @@
-package edu.stanford.cardinalkit
+package edu.stanford.cardinalkit.di
 
 import android.app.Application
 import android.content.Context
@@ -18,6 +18,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
 import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
