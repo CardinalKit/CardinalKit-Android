@@ -5,6 +5,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,6 +28,8 @@ import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.presentation.Onboarding.OnBoardingPage
+import edu.stanford.cardinalkit.presentation.Onboarding.PagerScreen
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
@@ -52,6 +56,16 @@ fun LoginScreen(
                     fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.Center
                 )
+                Button(
+                    onClick = { navController.navigate(Screens.MainScreen.route) },
+                    modifier = Modifier.padding(bottom = 100.dp),
+                ) {
+                    Text(
+                        text = "Sign in",
+                        modifier = Modifier.padding(10.dp),
+                        fontSize = 22.sp
+                    )
+                }
                 Button(
                     onClick = { viewModel.oneTapSignIn() },
                     modifier = Modifier.padding(bottom = 60.dp),
@@ -140,4 +154,7 @@ fun LoginScreen(
             }
         }
     }
+
 }
+
+

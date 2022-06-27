@@ -3,6 +3,9 @@ package edu.stanford.cardinalkit.presentation.navigation
 import edu.stanford.cardinalkit.common.Constants
 
 sealed class Screens(val route: String) {
+    object OnboardingScreen: Screens(Constants.ONBOARDING_SCREEN)
+    object WelcomeScreen: Screens(Constants.WELCOME_SCREEN)
+    object Review: Screens(Constants.REVIEW_SCREEN)
     object MainScreen: Screens(Constants.MAIN_SCREEN)
     object HomeScreen: Screens(Constants.HOME_SCREEN)
     object TasksScreen: Screens(Constants.TASKS_SCREEN)

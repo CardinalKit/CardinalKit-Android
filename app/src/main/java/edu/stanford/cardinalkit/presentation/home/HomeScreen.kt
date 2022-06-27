@@ -8,8 +8,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import edu.stanford.cardinalkit.R
-
+@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
@@ -20,7 +21,7 @@ fun HomeScreen() {
                     Text(
                         text = stringResource(R.string.home_screen_title),
                         style = MaterialTheme.typography.headlineSmall,
-                        color = Color.White
+                        color = Color.LightGray
                     )
                 }
             )
