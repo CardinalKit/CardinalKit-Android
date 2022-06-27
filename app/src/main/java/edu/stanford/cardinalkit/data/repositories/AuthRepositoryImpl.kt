@@ -7,6 +7,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue.serverTimestamp
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import edu.stanford.cardinalkit.domain.models.Response
 import kotlinx.coroutines.channels.awaitClose
@@ -24,7 +25,7 @@ class AuthRepositoryImpl  @Inject constructor(
     @Named("signInRequest")
     private var signInRequest: BeginSignInRequest,
     private var signInClient: GoogleSignInClient,
-    @Named("usersRef")
+    @Named(Constants.USERS_REF)
     private val usersRef: CollectionReference
 ) : AuthRepository {
     override fun isAuthenticated() = auth.currentUser != null

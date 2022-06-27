@@ -1,6 +1,7 @@
 package edu.stanford.cardinalkit.data.repositories
 
 import com.google.firebase.firestore.CollectionReference
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.SurveyResult
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SurveyRepositoryImpl @Inject constructor(
-    @Named("surveysRef") private val surveysRef: CollectionReference?
+    @Named(Constants.SURVEYS_REF) private val surveysRef: CollectionReference?
 ) : SurveyRepository {
     override suspend fun uploadSurvey(name: String, data: String) = flow {
         surveysRef?.let {

@@ -41,11 +41,11 @@ class AppModule {
     fun provideFirebaseFirestore() = Firebase.firestore
 
     @Provides
-    @Named("usersRef")
+    @Named(Constants.USERS_REF)
     fun provideUsersRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_USERS_COLLECTION)
 
     @Provides
-    @Named("surveysRef")
+    @Named(Constants.USERS_REF)
     fun provideSurveysRef(
         db: FirebaseFirestore
     ): CollectionReference? {
@@ -63,7 +63,7 @@ class AppModule {
     fun provideOneTapClient(context: Context) = Identity.getSignInClient(context)
 
     @Provides
-    @Named("signInRequest")
+    @Named(Constants.SIGN_IN_REQUEST)
     fun provideSignInRequest(
         app: Application
     ) = BeginSignInRequest.builder()
@@ -77,7 +77,7 @@ class AppModule {
         .build()
 
     @Provides
-    @Named("signUpRequest")
+    @Named(Constants.SIGN_UP_REQUEST)
     fun provideSignUpRequest(
         app: Application
     ) = BeginSignInRequest.builder()
@@ -108,10 +108,10 @@ class AppModule {
     fun provideAuthRepository(
         auth: FirebaseAuth,
         oneTapClient: SignInClient,
-        @Named("signInRequest")
+        @Named(Constants.SIGN_IN_REQUEST)
         signInRequest: BeginSignInRequest,
         signInClient: GoogleSignInClient,
-        @Named("usersRef")
+        @Named(Constants.USERS_REF)
         usersRef: CollectionReference
     ): AuthRepository = AuthRepositoryImpl(
         auth = auth,
@@ -122,16 +122,16 @@ class AppModule {
     )
 
     @Provides
-    @Named("surveyRepository")
+    @Named(Constants.SURVEY_REPOSITORY)
     fun provideSurveyRepository(
-        @Named("surveysRef")
+        @Named(Constants.SURVEYS_REF)
         surveysRef: CollectionReference?
     ): SurveyRepository = SurveyRepositoryImpl(surveysRef)
 
     @Provides
-    @Named("useCases")
+    @Named(Constants.USE_CASES)
     fun provideUseCases(
-        @Named("surveyRepository")
+        @Named(Constants.SURVEY_REPOSITORY)
         repository: SurveyRepository
     ) = UseCases(
         uploadSurvey = UploadSurvey(repository)

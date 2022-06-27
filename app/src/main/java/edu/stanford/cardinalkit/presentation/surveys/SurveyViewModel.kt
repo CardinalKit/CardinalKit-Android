@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.use_cases.UseCases
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import javax.inject.Named
 
 @HiltViewModel
 class SurveyViewModel @Inject constructor(
-    @Named("useCases") private val useCases: UseCases
+    @Named(Constants.USE_CASES) private val useCases: UseCases
 ): ViewModel() {
 
     private val _surveyUploadedState = mutableStateOf<Response<Void?>>(Response.Success(null))
