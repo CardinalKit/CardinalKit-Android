@@ -6,6 +6,7 @@ import edu.stanford.cardinalkit.domain.models.Survey
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
@@ -22,7 +23,8 @@ class SurveyRepositoryImpl @Inject constructor(
                 val survey = Survey(
                     id = surveyId,
                     name = name,
-                    data = data
+                    data = data,
+                    timestamp = LocalDateTime.now()
                 )
                 val upload = surveysRef.document(surveyId).set(survey).await()
                 emit(CKResult.Success(upload))
