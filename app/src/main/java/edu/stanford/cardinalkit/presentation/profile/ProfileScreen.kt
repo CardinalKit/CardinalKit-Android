@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import edu.stanford.cardinalkit.domain.models.CKResult
+import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.profile.components.UserCard
@@ -64,8 +64,8 @@ fun ProfileScreen(
     )
 
     when(val signOutResponse = viewModel.signOutState.value) {
-        is CKResult.Loading -> ProgressIndicator()
-        is CKResult.Success -> {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Success -> {
             val signedOut = signOutResponse.data
             signedOut?.let {
                 if (signedOut) {
@@ -73,7 +73,7 @@ fun ProfileScreen(
                 }
             }
         }
-        is CKResult.Error -> signOutResponse.e?.let {
+        is Response.Error -> signOutResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }

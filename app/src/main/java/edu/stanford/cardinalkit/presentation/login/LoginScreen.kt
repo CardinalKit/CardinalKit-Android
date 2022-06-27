@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -30,9 +28,9 @@ import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import edu.stanford.cardinalkit.R
-import edu.stanford.cardinalkit.domain.models.CKResult
 import edu.stanford.cardinalkit.presentation.Onboarding.OnBoardingPage
 import edu.stanford.cardinalkit.presentation.Onboarding.PagerScreen
+import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
@@ -101,15 +99,15 @@ fun LoginScreen(
     }
 
     when(val oneTapSignInResponse = viewModel.oneTapSignInState.value) {
-        is CKResult.Loading -> ProgressIndicator()
-        is CKResult.Success -> {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Success -> {
             oneTapSignInResponse.data?.let {
                 LaunchedEffect(it) {
                     launch(it)
                 }
             }
         }
-        is CKResult.Error -> {
+        is Response.Error -> {
             oneTapSignInResponse.e?.let {
                 LaunchedEffect(Unit) {
                     print(it)
@@ -122,8 +120,8 @@ fun LoginScreen(
     }
 
     when(val signInResponse = viewModel.signInState.value) {
-        is CKResult.Loading -> ProgressIndicator()
-        is CKResult.Success -> {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Success -> {
             signInResponse.data?.let { isNewUser ->
                 if (isNewUser) {
                     LaunchedEffect(isNewUser) {
@@ -134,7 +132,7 @@ fun LoginScreen(
                 }
             }
         }
-        is CKResult.Error -> signInResponse.e?.let {
+        is Response.Error -> signInResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }
@@ -142,15 +140,15 @@ fun LoginScreen(
     }
 
     when(val saveUserResponse = viewModel.saveUserState.value) {
-        is CKResult.Loading -> ProgressIndicator()
-        is CKResult.Success -> {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Success -> {
             saveUserResponse.data?.let { isUserCreated ->
                 if (isUserCreated) {
                     navController.navigate(Screens.HomeScreen.route)
                 }
             }
         }
-        is CKResult.Error -> saveUserResponse.e?.let {
+        is Response.Error -> saveUserResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }

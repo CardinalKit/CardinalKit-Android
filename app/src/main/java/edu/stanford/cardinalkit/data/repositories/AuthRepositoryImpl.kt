@@ -7,8 +7,9 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue.serverTimestamp
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
-import edu.stanford.cardinalkit.domain.models.CKResult
+import edu.stanford.cardinalkit.domain.models.Response
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
@@ -21,31 +22,32 @@ import javax.inject.Singleton
 class AuthRepositoryImpl  @Inject constructor(
     private val auth: FirebaseAuth,
     private var oneTapClient: SignInClient,
-    @Named("signInRequest")
+    @Named(Constants.SIGN_IN_REQUEST)
     private var signInRequest: BeginSignInRequest,
     private var signInClient: GoogleSignInClient,
+    @Named(Constants.USERS_REF)
     private val usersRef: CollectionReference
 ) : AuthRepository {
     override fun isAuthenticated() = auth.currentUser != null
 
     override suspend fun oneTapSignInWithGoogle() = flow {
         try {
-            emit(CKResult.Loading)
+            emit(Response.Loading)
             val result = oneTapClient.beginSignIn(signInRequest).await()
-            emit(CKResult.Success(result))
+            emit(Response.Success(result))
         } catch (e: Exception) {
-            emit(CKResult.Error(e))
+            emit(Response.Error(e))
         }
     }
 
     override suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential) = flow {
         try {
-            emit(CKResult.Loading)
+            emit(Response.Loading)
             val authResult = auth.signInWithCredential(googleCredential).await()
             val isNewUser = authResult.additionalUserInfo?.isNewUser
-            emit(CKResult.Success(isNewUser))
+            emit(Response.Success(isNewUser))
         } catch (e: Exception) {
-            emit(CKResult.Error(e))
+            emit(Response.Error(e))
         }
     }
 
@@ -61,17 +63,17 @@ class AuthRepositoryImpl  @Inject constructor(
 
     override suspend fun saveUser() = flow {
         try {
-            emit(CKResult.Loading)
+            emit(Response.Loading)
             auth.currentUser?.apply {
                 usersRef.document(uid).set(mapOf(
                     "name" to displayName,
                     "email" to email,
                     "createdDate" to serverTimestamp()
                 )).await()
-                emit(CKResult.Success(true))
+                emit(Response.Success(true))
             }
         } catch (e: Exception) {
-            emit(CKResult.Error(e))
+            emit(Response.Error(e))
         }
     }
 
@@ -79,12 +81,12 @@ class AuthRepositoryImpl  @Inject constructor(
 
     override suspend fun signOut() = flow {
         try {
-            emit(CKResult.Loading)
+            emit(Response.Loading)
             auth.signOut()
             oneTapClient.signOut().await()
-            emit(CKResult.Success(true))
+            emit(Response.Success(true))
         } catch (e: Exception) {
-            emit(CKResult.Error(e))
+            emit(Response.Error(e))
         }
     }
 

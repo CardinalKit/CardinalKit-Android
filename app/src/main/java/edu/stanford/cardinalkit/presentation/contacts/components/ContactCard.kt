@@ -38,6 +38,10 @@ fun ContactCard(
                 fontSize = 18.sp
             )
             Text(
+                text = title,
+                fontSize = 18.sp
+            )
+            Text(
                 text = phone,
                 fontSize = 18.sp
             )
