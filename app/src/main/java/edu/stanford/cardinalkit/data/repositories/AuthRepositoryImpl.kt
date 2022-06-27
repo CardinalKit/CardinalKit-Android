@@ -24,6 +24,7 @@ class AuthRepositoryImpl  @Inject constructor(
     @Named("signInRequest")
     private var signInRequest: BeginSignInRequest,
     private var signInClient: GoogleSignInClient,
+    @Named("usersRef")
     private val usersRef: CollectionReference
 ) : AuthRepository {
     override fun isAuthenticated() = auth.currentUser != null

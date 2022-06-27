@@ -2,6 +2,8 @@ package edu.stanford.cardinalkit.presentation.tasks
 
 import android.content.Context
 import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,12 +17,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TasksScreen() {
+fun TasksScreen(
+    viewModel: TasksViewModel = hiltViewModel()
+) {
+    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
+        print(result)
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,18 +55,17 @@ fun TasksScreen() {
                 Button(
                     modifier = Modifier.padding(20.dp),
                     onClick = {
-                        openSurvey("single_choice_questionnaire.json", context)
+                        val intent = Intent(context, SurveyActivity::class.java).apply {
+                            putExtra(Constants.SURVEY_NAME, "single_choice_questionnaire.json")
+                        }
+
+                        launcher.launch(intent)
+                        //context.startActivity(intent)
+
                 }){
                     Text("Take A Survey")
                 }
             }
         }
     )
-}
-
-fun openSurvey(name: String, context: Context) {
-    val intent = Intent(context, SurveyActivity::class.java).apply {
-        putExtra("edu.stanford.cardinalkit.SURVEY_NAME", name)
-    }
-    context.startActivity(intent)
 }
