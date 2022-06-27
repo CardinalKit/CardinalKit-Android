@@ -52,8 +52,7 @@ class AppModule {
         val user = Firebase.auth.currentUser
         user?.let {
             return db.collection(
-                Constants.FIRESTORE_USERS_COLLECTION +
-                        "/" + user.uid + "/surveys"
+                "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_USERS_COLLECTION}/${user.uid}/${Constants.FIRESTORE_SURVEYS_COLLECTION}"
             )
         }
         return null

@@ -2,9 +2,13 @@ package edu.stanford.cardinalkit.common
 
 object Constants {
 
-    const val SURVEY_NAME = "edu.stanford.cardinalkit.SURVEY_NAME"
+    // General
+    const val APP_PACKAGE_NAME = "edu.stanford.cardinalkit"
 
-    const val FIRESTORE_USERS_COLLECTION = "/studies/edu.stanford.cardinalkit/users"
+    // Firebase paths
+    const val FIRESTORE_BASE_DOCUMENT = "/studies/${APP_PACKAGE_NAME}"
+    const val FIRESTORE_USERS_COLLECTION = "users"
+    const val FIRESTORE_SURVEYS_COLLECTION = "surveys"
 
     // Screens
     const val MAIN_SCREEN = "Main"
@@ -21,5 +25,8 @@ object Constants {
     const val SIGN_UP_REQUEST = "signUpRequest"
     const val SURVEY_REPOSITORY = "surveyRepository"
     const val USE_CASES = "useCases"
+
+    // Intents
+    const val SURVEY_NAME = "edu.stanford.cardinalkit.SURVEY_NAME"
 
 }
