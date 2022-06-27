@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.datacapture.QuestionnaireFragment
@@ -19,27 +20,30 @@ import edu.stanford.cardinalkit.common.Constants
 
 @AndroidEntryPoint
 class SurveyActivity : AppCompatActivity() {
+
+    private var surveyName: String? = null // filename of the survey
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fhir_survey)
 
+        // Adds a listener to the submit button
         val submitButton: Button = findViewById(R.id.button_submit)
         submitButton.setOnClickListener {
             submitSurvey()
         }
 
-        val surveyName = intent.getStringExtra(Constants.SURVEY_NAME)
+        // Gets the filename of the FHIR survey JSON that was passed in
+        // and creates the survey views
+        surveyName = intent.getStringExtra(Constants.SURVEY_NAME)
 
         if (surveyName != null) {
-
             val questionnaireJsonString =
-                application.assets.open(surveyName)
+                application.assets.open(surveyName!!)
                     .bufferedReader().use { it.readText() }
-
             val arguments = bundleOf(
                 QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to questionnaireJsonString
             )
-
             if (savedInstanceState == null) {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
@@ -52,18 +56,16 @@ class SurveyActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Adds the submit button to the menu
         menuInflater.inflate(R.menu.submit_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Reacts to selecting submit from the menu
         if (item.itemId == R.id.submit) {
-            // save the survey data
             submitSurvey()
-
-            // Go back to other activity
             finish()
-
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -72,20 +74,23 @@ class SurveyActivity : AppCompatActivity() {
     fun submitSurvey() {
         val viewModel by viewModels<SurveyViewModel>()
 
-        // Get a questionnaire response
+        // Get the survey results from QuestionnaireFragment
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
                 as QuestionnaireFragment
         val questionnaireResponse = fragment.getQuestionnaireResponse()
+        val surveyName = intent.getStringExtra(Constants.SURVEY_NAME)
 
-        // Print the response to the log
+        // Serialize the results to JSON
         val jsonParser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
         val questionnaireResponseString =
             jsonParser.encodeResourceToString(questionnaireResponse)
-        Log.d("response", questionnaireResponseString)
 
-        // Sends the response to the server
-        viewModel.uploadSurvey("name", questionnaireResponseString)
+        // Upload results to the database
+        print(surveyName)
+        val surveyNameWithoutExtension = this.surveyName?.replace("\\.\\w+$".toRegex(), "")
+        viewModel.uploadSurvey(surveyNameWithoutExtension ?: "unknown", questionnaireResponseString)
 
+        // Return to main activity
         finish()
     }
 }

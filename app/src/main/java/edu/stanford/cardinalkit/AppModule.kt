@@ -18,6 +18,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
 import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
@@ -40,11 +41,22 @@ class AppModule {
 
     @Provides
     @Named("usersRef")
-    fun provideUsersRef(db: FirebaseFirestore) = db.collection("users")
+    fun provideUsersRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_USERS_COLLECTION)
 
     @Provides
     @Named("surveysRef")
-    fun provideSurveysRef(db: FirebaseFirestore) = db.collection("surveys")
+    fun provideSurveysRef(
+        db: FirebaseFirestore
+    ): CollectionReference? {
+        val user = Firebase.auth.currentUser
+        user?.let {
+            return db.collection(
+                Constants.FIRESTORE_USERS_COLLECTION +
+                        "/" + user.uid + "/surveys"
+            )
+        }
+        return null
+    }
 
     @Provides
     fun provideOneTapClient(context: Context) = Identity.getSignInClient(context)
@@ -112,7 +124,7 @@ class AppModule {
     @Named("surveyRepository")
     fun provideSurveyRepository(
         @Named("surveysRef")
-        surveysRef: CollectionReference
+        surveysRef: CollectionReference?
     ): SurveyRepository = SurveyRepositoryImpl(surveysRef)
 
     @Provides

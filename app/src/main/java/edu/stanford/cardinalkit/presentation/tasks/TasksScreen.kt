@@ -55,7 +55,7 @@ fun TasksScreen(
                     modifier = Modifier.padding(20.dp),
                     onClick = {
                         val intent = Intent(context, SurveyActivity::class.java).apply {
-                            putExtra(Constants.SURVEY_NAME, "single_choice_questionnaire.json")
+                            putExtra(Constants.SURVEY_NAME, "paginated_layout_questionnaire.json")
                         }
                         context.startActivity(intent)
                 }){
