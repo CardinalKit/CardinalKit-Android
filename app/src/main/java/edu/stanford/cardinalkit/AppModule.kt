@@ -18,8 +18,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
+import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
+import edu.stanford.cardinalkit.domain.use_cases.UploadSurvey
+import edu.stanford.cardinalkit.domain.use_cases.UseCases
 import javax.inject.Named
 
 @Module
@@ -35,7 +40,23 @@ class AppModule {
     fun provideFirebaseFirestore() = Firebase.firestore
 
     @Provides
-    fun provideUsersRef(db: FirebaseFirestore) = db.collection("users")
+    @Named("usersRef")
+    fun provideUsersRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_USERS_COLLECTION)
+
+    @Provides
+    @Named("surveysRef")
+    fun provideSurveysRef(
+        db: FirebaseFirestore
+    ): CollectionReference? {
+        val user = Firebase.auth.currentUser
+        user?.let {
+            return db.collection(
+                Constants.FIRESTORE_USERS_COLLECTION +
+                        "/" + user.uid + "/surveys"
+            )
+        }
+        return null
+    }
 
     @Provides
     fun provideOneTapClient(context: Context) = Identity.getSignInClient(context)
@@ -89,6 +110,7 @@ class AppModule {
         @Named("signInRequest")
         signInRequest: BeginSignInRequest,
         signInClient: GoogleSignInClient,
+        @Named("usersRef")
         usersRef: CollectionReference
     ): AuthRepository = AuthRepositoryImpl(
         auth = auth,
@@ -96,5 +118,21 @@ class AppModule {
         signInRequest = signInRequest,
         signInClient = signInClient,
         usersRef = usersRef
+    )
+
+    @Provides
+    @Named("surveyRepository")
+    fun provideSurveyRepository(
+        @Named("surveysRef")
+        surveysRef: CollectionReference?
+    ): SurveyRepository = SurveyRepositoryImpl(surveysRef)
+
+    @Provides
+    @Named("useCases")
+    fun provideUseCases(
+        @Named("surveyRepository")
+        repository: SurveyRepository
+    ) = UseCases(
+        uploadSurvey = UploadSurvey(repository)
     )
 }

@@ -2,25 +2,28 @@ package edu.stanford.cardinalkit.presentation.tasks
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
+import edu.stanford.cardinalkit.presentation.tasks.components.SurveyTaskCard
+import androidx.compose.foundation.lazy.items
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TasksScreen() {
+fun TasksScreen(
+    viewModel: TasksViewModel = hiltViewModel()
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -36,28 +39,37 @@ fun TasksScreen() {
         content = { contentPadding ->
             val context = LocalContext.current
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Button(
-                    modifier = Modifier.padding(20.dp),
-                    onClick = {
-                        openSurvey("single_choice_questionnaire.json", context)
-                }){
-                    Text("Take A Survey")
+            // TODO: Replace hardcoded data with surveys from DB
+            val surveys = arrayOf<String>(
+                "paginated_layout_questionnaire.json",
+                "single_choice_questionnaire.json",
+                "slider_questionnaire.json"
+            )
+
+            LazyColumn (
+                modifier = Modifier.fillMaxSize().padding(contentPadding)
+                    ){
+                items(surveys) { survey ->
+                   SurveyTaskCard(
+                       surveyName = survey,
+                       context = context,
+                       launchSurvey = { surveyName, context ->
+                           // Launches the SurveyActivity and passes the survey name to display
+                           val intent = Intent(context, SurveyActivity::class.java).apply {
+                               putExtra(Constants.SURVEY_NAME, surveyName)
+                           }
+                           context.startActivity(intent)
+                       }
+                   )
                 }
             }
         }
     )
+    fun launchSurvey(surveyName: String, context: Context){
+        val intent = Intent(context, SurveyActivity::class.java).apply {
+            putExtra(Constants.SURVEY_NAME, surveyName)
+        }
+        context.startActivity(intent)
+    }
 }
 
-fun openSurvey(name: String, context: Context) {
-    val intent = Intent(context, SurveyActivity::class.java).apply {
-        putExtra("edu.stanford.cardinalkit.SURVEY_NAME", name)
-    }
-    context.startActivity(intent)
-}
