@@ -8,7 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController){
@@ -30,8 +32,10 @@ fun BottomNavigationBar(navController: NavHostController){
                 },
 
                 icon = {
-                    Icon(imageVector = navItem.image,
-                        contentDescription = navItem.title)
+                    Icon(
+                        imageVector = navItem.image,
+                        contentDescription = navItem.title
+                    )
                 },
                 label = {
                     Text(text = navItem.title)
