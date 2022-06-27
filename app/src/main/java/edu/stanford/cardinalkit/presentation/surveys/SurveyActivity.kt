@@ -14,16 +14,16 @@ import androidx.fragment.app.commit
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.datacapture.QuestionnaireFragment
+import dagger.hilt.android.AndroidEntryPoint
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Survey
 
+@AndroidEntryPoint
 class SurveyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fhir_survey)
-
-        val viewModel by viewModels<SurveyViewModel>()
 
         val submitButton: Button = findViewById(R.id.button_submit)
         submitButton.setOnClickListener {
