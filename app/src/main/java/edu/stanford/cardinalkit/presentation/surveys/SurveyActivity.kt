@@ -80,7 +80,6 @@ class SurveyActivity : AppCompatActivity() {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
                 as QuestionnaireFragment
         val questionnaireResponse = fragment.getQuestionnaireResponse()
-        val surveyName = intent.getStringExtra(Constants.SURVEY_NAME)
 
         // Serialize the results to JSON
         val jsonParser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
