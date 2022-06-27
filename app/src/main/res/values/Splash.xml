@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Splash Screen components -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Edit Splash Screen Color -->
+        <item name="windowSplashScreenBackground">#601410</item>
+        <!-- Add Icon drawable; import vector asset into drawable -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_cardinalkit_logo</item>
+        <!--Redirects Splash Screen to Main Activity -->
+        <item name="postSplashScreenTheme">@style/Theme.CardinalKit</item>
+        <!--Adds branding at bottom of page (in process)-->
+        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="s">@drawable/ic_byers_branding</item>
+    </style>
+</resources>
