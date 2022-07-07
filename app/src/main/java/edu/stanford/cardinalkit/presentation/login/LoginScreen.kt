@@ -4,10 +4,12 @@ import android.app.Activity.RESULT_OK
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -16,6 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,40 +45,95 @@ fun LoginScreen(
     navController: NavHostController
 ) {
     Scaffold(
+        containerColor = Color(0xFFFFFFFF),
         content = { contentPadding ->
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding),
-                contentAlignment = Alignment.BottomCenter
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(stringResource(R.string.app_name),
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 50.dp),
-                    fontSize = 50.sp,
-                    fontWeight = FontWeight.Medium,
-                    textAlign = TextAlign.Center
-                )
-                Button(
-                    onClick = { navController.navigate(Screens.MainScreen.route) },
-                    modifier = Modifier.padding(bottom = 100.dp),
-                ) {
-                    Text(
-                        text = "Sign in",
-                        modifier = Modifier.padding(10.dp),
-                        fontSize = 22.sp
-                    )
+                Image(modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth(0.6f)
+                    .fillMaxHeight(0.2f),
+                    painter = painterResource(R.drawable.branding_light),
+                    contentDescription = "branding" )
+                Image(modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .fillMaxHeight(0.38f),
+                    painter = painterResource(R.drawable.login),
+                    contentDescription = "branding" )
+                Text(
+                    text = "CardinalKit Study",
+                    fontSize = 26.sp,
+                    color= Color(0xFF790224),
+                    fontWeight=FontWeight.SemiBold,
+                    textAlign = TextAlign.Center)
+                Text(
+                    text = "Stanford Department of Medicine",
+                    modifier = Modifier.padding(bottom = 30.dp),
+                    fontSize = 13.sp,
+                    textAlign = TextAlign.Center)
+
+
+                Row(
+                    Modifier.padding(top=25.dp),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center,
+                )  {
+                    androidx.compose.material.Button(
+                        onClick = {navController.navigate(Screens.MainScreen.route)},
+                        shape= RoundedCornerShape(50),
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = Color.LightGray,
+                            backgroundColor = Color.DarkGray
+                        )
+                    ) {
+                        androidx.compose.material.Text(
+                            text = "Sign in With Account",
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
+                    }
                 }
-                Button(
-                    onClick = { viewModel.oneTapSignIn() },
-                    modifier = Modifier.padding(bottom = 60.dp),
-                ) {
-                    Text(
-                        text = stringResource(R.string.sign_in_with_google_button),
-                        modifier = Modifier.padding(10.dp),
-                        fontSize = 22.sp
-                    )
+                Row(
+                    Modifier.padding(top=15.dp),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center,
+                )  {
+                    androidx.compose.material.Button(
+                        onClick = {viewModel.oneTapSignIn()},
+                        shape= RoundedCornerShape(50),
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = Color.Gray,
+                            backgroundColor = Color.LightGray
+                        )
+                    ) {
+                        androidx.compose.material.Text(
+                            text = stringResource(R.string.sign_in_with_google_button),
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
+                    }
+                }
+                Row(
+                    Modifier.padding(top=15.dp),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center
+
+                ){
+                    TextButton(onClick = {},
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = Color.Black,
+                            backgroundColor = Color.White
+                        )
+                    ) {
+                        Text(
+                            text="Make an Account",
+                            fontSize = 13.sp
+                        )
+
+                    }
+
                 }
             }
         }

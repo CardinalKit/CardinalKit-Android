@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -23,6 +24,7 @@ fun SurveyTaskCard(
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier.padding(8.dp).fillMaxWidth(),
+        colors = CardDefaults.cardColors(Color.White),
         onClick = {
             launchSurvey(surveyName, context)
         },
@@ -38,7 +40,7 @@ fun SurveyTaskCard(
                 ) {
                     Text(
                         text = surveyName,
-                        fontSize = 20.sp
+                        fontSize = 18.sp
                     )
                 }
                 IconButton(

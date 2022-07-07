@@ -2,6 +2,7 @@ package edu.stanford.cardinalkit.presentation.tasks
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,11 +19,16 @@ import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.components.SurveyTaskCard
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksScreen(
-    //viewModel: TasksViewModel = hiltViewModel()
+    viewModel: TasksViewModel = hiltViewModel()
 ) {
     Scaffold(
         topBar = {
@@ -30,12 +36,16 @@ fun TasksScreen(
                 title = {
                     Text(
                         text = stringResource(R.string.tasks_screen_title),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = Color.White
+                        modifier = Modifier.padding(10.dp),
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Light
                     )
-                }
-            )
+                },
+                backgroundColor = Color(0xFFF1F1F1),
+                contentColor = Color.Black)
+
         },
+        containerColor =  Color(0xFFF5F5F5),
         content = { contentPadding ->
             val context = LocalContext.current
 
@@ -46,21 +56,23 @@ fun TasksScreen(
                 "slider_questionnaire.json"
             )
 
-            LazyColumn (
-                modifier = Modifier.fillMaxSize().padding(contentPadding)
-                    ){
-                items(surveys) { survey ->
-                   SurveyTaskCard(
-                       surveyName = survey,
-                       context = context,
-                       launchSurvey = { surveyName, context ->
-                           // Launches the SurveyActivity and passes the survey name to display
-                           val intent = Intent(context, SurveyActivity::class.java).apply {
-                               putExtra(Constants.SURVEY_NAME, surveyName)
-                           }
-                           context.startActivity(intent)
-                       }
-                   )
+            Column(modifier = Modifier.padding(horizontal = 10.dp).padding(top=20.dp)){
+                LazyColumn (
+                    modifier = Modifier.fillMaxSize().padding(contentPadding)
+                ){
+                    items(surveys) { survey ->
+                        SurveyTaskCard(
+                            surveyName = survey,
+                            context = context,
+                            launchSurvey = { surveyName, context ->
+                                // Launches the SurveyActivity and passes the survey name to display
+                                val intent = Intent(context, SurveyActivity::class.java).apply {
+                                    putExtra(Constants.SURVEY_NAME, surveyName)
+                                }
+                                context.startActivity(intent)
+                            }
+                        )
+                    }
                 }
             }
         }

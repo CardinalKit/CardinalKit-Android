@@ -29,7 +29,11 @@
         <entry key="../../../../layout/compose-model-1656119121166.xml" value="1.0" />
         <entry key="../../../../layout/compose-model-1656119356371.xml" value="0.25" />
         <entry key="../../../../layout/compose-model-1656120080415.xml" value="0.125" />
-        <entry key="../../../../layout/compose-model-1656370857959.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1656546472327.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1656559275298.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1656559818490.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1656621347720.xml" value="0.12407407407407407" />
+        <entry key="../../../../layout/compose-model-1656626717649.xml" value="0.12037037037037036" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.227" />
         <entry key="app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_branding.xml" value="0.165" />
@@ -41,9 +45,6 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2667572463768116" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.2667572463768116" />
         <entry key="app/src/main/res/layout/questionnaire_layout.xml" value="0.1524822695035461" />
-        <entry key="app/src/main/res/layout/submit_menu.xml" value="0.2578125" />
-        <entry key="app/src/main/res/layout/submit_menu_button.xml" value="0.2578125" />
-        <entry key="app/src/main/res/layout/survey_fragment_layout.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/survey_layout.xml" value="0.2717391304347826" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.193" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.193" />

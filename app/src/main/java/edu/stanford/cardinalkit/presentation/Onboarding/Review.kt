@@ -55,7 +55,8 @@ fun Review(
                     }
                 },
                 backgroundColor = Color.White,
-                contentColor = Color.Black
+                contentColor = Color.Black,
+                elevation = 0.dp
             )
         },
         content = {
