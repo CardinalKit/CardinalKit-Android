@@ -35,21 +35,23 @@ fun SurveyTaskCard(
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(0.8f)
-                ) {
-                    Text(
-                        text = surveyName,
-                        fontSize = 18.sp
-                    )
-                }
                 IconButton(
                     onClick = {
                         launchSurvey(surveyName, context)
                     }
                 ){
-                    Icon(imageVector = Icons.Filled.Assignment, contentDescription = "Complete a survey")
+                    Icon(imageVector = Icons.Filled.Assignment, tint= Color(0xFF484965),contentDescription = "Complete a survey")
                 }
+                Column(
+                    modifier = Modifier.fillMaxWidth(0.9f)
+                ) {
+                    Text(
+                        text = surveyName,
+                        modifier = Modifier.padding(all=7.dp),
+                        fontSize = 15.sp
+                    )
+                }
+
             }
         }
     }
