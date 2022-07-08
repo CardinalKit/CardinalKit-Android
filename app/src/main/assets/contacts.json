@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Oliver Aalami",
+    "title": "Director",
+    "email": "aalami@stanford.edu",
+    "phone": "123-456-7890",
+    "address": "318 Campus Drive, Stanford, CA 94305"
+  },
+  {
+    "name": "Vishnu Ravi",
+    "title": "Lead Architect",
+    "email": "vishnur@stanford.edu",
+    "phone": "123-456-7890",
+    "address": "318 Campus Drive, Stanford, CA 94305"
+  }
+]
