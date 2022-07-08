@@ -40,7 +40,7 @@ fun TasksScreen(
                 title = {
                     Text(
                         text = stringResource(R.string.tasks_screen_title),
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Light
                     )
