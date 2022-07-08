@@ -1,4 +1,5 @@
-<img src="https://raw.githubusercontent.com/CardinalKit/CardinalKit/master/CardinalKit-Web-Assets/header.png" />
+![CardinalKit Logo](https://raw.githubusercontent.com/CardinalKit/.github/main/assets/ck-header-light.png#gh-light-mode-only)
+![CardinalKit Logo](https://raw.githubusercontent.com/CardinalKit/.github/main/assets/ck-header-dark.png#gh-dark-mode-only)
 
 An Android application for the CardinalKit framework, developed with:
 - [Jetpack Compose](https://developer.android.com/jetpack/compose)
@@ -8,4 +9,6 @@ An Android application for the CardinalKit framework, developed with:
 
 ### Note: This project is currently under active development and is not ready for use.
 
-<img src="https://raw.githubusercontent.com/CardinalKit/CardinalKit/master/CardinalKit-Web-Assets/footer.png" />
+![Stanford Byers Center for Biodesign Logo](https://raw.githubusercontent.com/CardinalKit/.github/main/assets/ck-footer-light.png#gh-light-mode-only)
+![Stanford Byers Center for Biodesign Logo](https://raw.githubusercontent.com/CardinalKit/.github/main/assets/ck-footer-dark.png#gh-dark-mode-only)
+

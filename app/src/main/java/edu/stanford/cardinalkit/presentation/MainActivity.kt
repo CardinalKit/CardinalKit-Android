@@ -16,7 +16,7 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @OptIn(ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply{
