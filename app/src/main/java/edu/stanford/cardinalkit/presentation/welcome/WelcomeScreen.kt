@@ -39,7 +39,8 @@ fun WelcomeScreen(
                     }
                 },
                 backgroundColor = Color.White,
-                contentColor = Color.Black
+                contentColor = Color.Black,
+                elevation = 0.dp
             )
         },
         content = {
