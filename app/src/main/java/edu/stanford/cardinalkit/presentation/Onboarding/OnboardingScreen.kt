@@ -58,7 +58,8 @@ fun OnboardingScreen(
                     }
                 },
                 backgroundColor = Color.White,
-                contentColor = Color.Black
+                contentColor = Color.Black,
+                elevation = 0.dp
             )
         },
         content = {
@@ -78,7 +79,7 @@ fun OnboardingScreen(
                     pagerState = pagerState
                 )
                 Box(modifier = Modifier
-                    .fillMaxHeight(0.15f)
+                    .fillMaxHeight(0.13f)
                 ){
                     BottomSection(
                         pagerState=pagerState
