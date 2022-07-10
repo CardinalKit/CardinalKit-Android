@@ -16,7 +16,7 @@ class ContactsRepositoryImpl @Inject constructor(
 
     override fun getContacts(): Response<List<Contact>> {
         lateinit var jsonString: String
-        
+
         // Load contact data from JSON file in assets
         try {
             jsonString = context.assets.open("contacts.json")

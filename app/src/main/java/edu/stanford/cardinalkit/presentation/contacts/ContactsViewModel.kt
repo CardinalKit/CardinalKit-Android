@@ -8,15 +8,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Contact
 import edu.stanford.cardinalkit.domain.models.Response
-import edu.stanford.cardinalkit.domain.use_cases.UseCases
+import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
 
 @HiltViewModel
 class ContactsViewModel @Inject constructor(
-    @Named(Constants.USE_CASES)
-    private val useCases: UseCases
+    @Named(Constants.CONTACTS_USE_CASES)
+    private val useCases: ContactsUseCases
 ) : ViewModel() {
 
     private val _contactsState = mutableStateOf<Response<List<Contact>>>(Response.Loading)

@@ -28,7 +28,8 @@ object Constants {
     const val SIGN_UP_REQUEST = "signUpRequest"
     const val SURVEY_REPOSITORY = "surveyRepository"
     const val CONTACTS_REPOSITORY = "contactsRepository"
-    const val USE_CASES = "useCases"
+    const val CONTACTS_USE_CASES = "contactsUseCases"
+    const val SURVEYS_USE_CASES = "surveysUseCases"
 
     // Intents
     const val SURVEY_NAME = "edu.stanford.cardinalkit.SURVEY_NAME"
