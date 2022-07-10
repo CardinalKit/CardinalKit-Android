@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskCard(
     title: String,
     description: String,
-    category: String
+    category: CKTaskCategory
 ) {
     Card(
         shape = MaterialTheme.shapes.small,
@@ -53,7 +54,7 @@ fun TaskCard(
                         fontSize = 12.sp
                     )
                     Text(
-                        text = category,
+                        text = category.name,
                         modifier = Modifier.padding(all=7.dp),
                         fontSize = 10.sp
                     )
