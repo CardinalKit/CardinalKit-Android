@@ -7,8 +7,8 @@ data class CKTask(
     val title: String,
     val description: String,
     val context: String,
-    val createdDate: Date?,
-    val updatedDate: Date?,
+    val createdDate: Date? = null,
+    val updatedDate: Date? = null,
     val isActive: Boolean,
     val schedule: String,
 )

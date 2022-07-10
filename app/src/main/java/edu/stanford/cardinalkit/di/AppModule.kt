@@ -45,6 +45,10 @@ class AppModule {
     fun provideUsersRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_USERS_COLLECTION)
 
     @Provides
+    @Named(Constants.TASKS_REF)
+    fun provideTasksRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_TASKS_COLLECTION)
+
+    @Provides
     @Named(Constants.SURVEYS_REF)
     fun provideSurveysRef(
         db: FirebaseFirestore
