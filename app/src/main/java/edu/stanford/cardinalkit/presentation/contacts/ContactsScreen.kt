@@ -1,5 +1,6 @@
 package edu.stanford.cardinalkit.presentation.contacts
 
+import android.util.Log
 import android.widget.ScrollView
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -52,6 +53,7 @@ fun ContactsScreen(
         containerColor =  Color(0xFFF5F5F5),
         content = {
             when(val contactsResponse = viewModel.contactsState.value) {
+                is Response.Error -> Log.d("ContactsScreen", contactsResponse.e?.message.toString())
                 is Response.Loading -> ProgressIndicator()
                 is Response.Success -> LazyColumn(
                 modifier = Modifier
