@@ -1,6 +1,7 @@
 package edu.stanford.cardinalkit.presentation.tasks.components
 
 import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,17 +12,33 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import edu.stanford.cardinalkit.common.Constants
+import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskContext
+import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskCard(
     title: String,
     description: String,
-    category: CKTaskCategory
+    category: CKTaskCategory,
+    uri: String
 ) {
+
+    val context = LocalContext.current
+
+    fun launchSurvey(surveyName: String){
+        val intent = Intent(context, SurveyActivity::class.java).apply {
+            putExtra(Constants.SURVEY_NAME, surveyName)
+        }
+        context.startActivity(intent)
+    }
+
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier.padding(8.dp).fillMaxWidth(),
@@ -35,7 +52,10 @@ fun TaskCard(
             ) {
                 IconButton(
                     onClick = {
-                        // TODO: Launches an activity depending on type of task
+                        when(category){
+                            CKTaskCategory.SURVEY -> launchSurvey(uri)
+                            CKTaskCategory.MISC -> print("No type specific")
+                        }
                     }
                 ){
                     Icon(imageVector = Icons.Filled.Assignment, tint= Color(0xFF484965),contentDescription = "Complete a survey")

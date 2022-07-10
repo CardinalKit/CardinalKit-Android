@@ -85,7 +85,8 @@ fun TasksScreen(
                                         TaskCard(
                                             title = task.title,
                                             description = task.description,
-                                            category = task.context.category
+                                            category = task.context.category,
+                                            uri = task.context.uri
                                         )
                                     }
                                 }

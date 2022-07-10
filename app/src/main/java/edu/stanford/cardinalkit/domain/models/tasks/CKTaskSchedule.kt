@@ -1,10 +1,10 @@
 package edu.stanford.cardinalkit.domain.models.tasks
 
-import java.time.LocalDate
+import java.util.*
 
 data class CKTaskSchedule(
-    val startDate: LocalDate = LocalDate.now(),
-    val endDate: LocalDate? = null,
+    val startDate: Date = Date(),
+    val endDate: Date? = null,
     val interval: Int = 0,
     val description: String? = null
 )
