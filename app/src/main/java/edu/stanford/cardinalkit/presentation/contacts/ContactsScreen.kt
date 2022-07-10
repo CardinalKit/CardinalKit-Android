@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.TopAppBar
@@ -20,12 +22,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.contacts.components.ContactCard
+
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContactsScreen() {
+fun ContactsScreen(
+    viewModel: ContactsViewModel = hiltViewModel()
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -43,31 +51,29 @@ fun ContactsScreen() {
         },
         containerColor =  Color(0xFFF5F5F5),
         content = {
-            Column(
+            when(val contactsResponse = viewModel.contactsState.value) {
+                is Response.Loading -> ProgressIndicator()
+                is Response.Success -> LazyColumn(
                 modifier = Modifier
                     .padding(top = 60.dp)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                ContactCard(
-                    name = "Dr. Oliver Aalami",
-                    title = "Director",
-                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-                    email = "aalami@stanford.edu",
-                    phone = "123-456-7890",
-                    addressLineOne="318 Campus Drive",
-                    addressLineTwo="Stanford CA 94305"
-                )
-                ContactCard(
-                    name = "Dr. Vishnu Ravi",
-                    title = "Architect",
-                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-                    email = "vishnur@stanford.edu",
-                    phone = "123-456-7890",
-                    addressLineOne="318 Campus Drive",
-                    addressLineTwo="Stanford CA 94305",
-                )
-                Spacer(modifier = Modifier.padding(50.dp))
+            ) { if(contactsResponse.data != null) {
+                    items(
+                        items = contactsResponse.data
+                    ) { contact ->
+                        ContactCard(
+                            name = contact.name,
+                            title = contact.title,
+                            description = contact.description,
+                            email = contact.email,
+                            phone = contact.phone,
+                            addressLineOne = contact.addressLineOne,
+                            addressLineTwo = contact.addressLineTwo
+                        )
+                    }
+                }
             }
+            }
+                Spacer(modifier = Modifier.padding(50.dp))
         }
     )
 }
