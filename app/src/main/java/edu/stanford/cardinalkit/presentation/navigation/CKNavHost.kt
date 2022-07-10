@@ -6,7 +6,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.presentation.login.LoginScreen
-import edu.stanford.cardinalkit.presentation.Onboarding.ReviewScreen
 import edu.stanford.cardinalkit.presentation.home.HomeScreen
 import edu.stanford.cardinalkit.presentation.tasks.TasksScreen
 import edu.stanford.cardinalkit.presentation.profile.ProfileScreen

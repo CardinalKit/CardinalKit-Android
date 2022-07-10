@@ -10,11 +10,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
-import edu.stanford.cardinalkit.presentation.login.LoginScreen
 import edu.stanford.cardinalkit.presentation.login.LoginViewModel
 import edu.stanford.cardinalkit.presentation.main.MainScreen
 import edu.stanford.cardinalkit.presentation.navigation.CKNavHost
 import edu.stanford.cardinalkit.presentation.navigation.Screens
+import edu.stanford.cardinalkit.presentation.Onboarding.OnboardingScreen
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             if(userState.isAuthenticated) {
                 MainScreen()
             } else {
-                LoginScreen(navController = navController)
+                OnboardingScreen()
             }
 
         }
