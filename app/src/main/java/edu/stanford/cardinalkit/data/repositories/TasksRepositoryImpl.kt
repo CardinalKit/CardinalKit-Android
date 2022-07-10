@@ -15,7 +15,7 @@ class TasksRepositoryImpl @Inject constructor(
 ) : TasksRepository {
     override fun getTasks() = callbackFlow {
         tasksRef?.let {
-            val snapshotListener = tasksRef.addSnapshotListener { snapshot, e ->
+            val snapshotListener = tasksRef.whereEqualTo("isActive", true).addSnapshotListener { snapshot, e ->
                 val response = if (snapshot != null) {
                     val tasks = snapshot.toObjects(CKTask::class.java)
                     Response.Success(tasks)
