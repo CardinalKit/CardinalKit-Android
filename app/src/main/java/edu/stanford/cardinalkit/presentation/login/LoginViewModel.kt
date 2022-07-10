@@ -33,31 +33,31 @@ class LoginViewModel @Inject constructor(
 
     fun oneTapSignIn() {
         viewModelScope.launch {
-            repository.oneTapSignInWithGoogle().collect { CKResult ->
-                _oneTapSignInState.value = CKResult
+            repository.oneTapSignInWithGoogle().collect { response ->
+                _oneTapSignInState.value = response
             }
         }
     }
 
     fun signInWithGoogle(googleCredential: AuthCredential) {
         viewModelScope.launch {
-            repository.firebaseSignInWithGoogle(googleCredential).collect { CKResult ->
-                _signInState.value = CKResult
+            repository.firebaseSignInWithGoogle(googleCredential).collect { response ->
+                _signInState.value = response
             }
         }
     }
 
     fun saveUser() {
         viewModelScope.launch {
-            repository.saveUser().collect { CKResult ->
-                _saveUserState.value = CKResult
+            repository.saveUser().collect { response ->
+                _saveUserState.value = response
             }
         }
     }
 
     fun getAuthStatus() = liveData(Dispatchers.IO) {
-        repository.getAuthStatus().collect { CKResult ->
-            emit(CKResult)
+        repository.getAuthStatus().collect { response ->
+            emit(response)
         }
     }
 }

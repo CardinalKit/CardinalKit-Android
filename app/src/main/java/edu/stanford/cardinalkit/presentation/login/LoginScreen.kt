@@ -83,7 +83,7 @@ fun LoginScreen(
                     horizontalArrangement = Arrangement.Center,
                 )  {
                     androidx.compose.material.Button(
-                        onClick = {navController.navigate(Screens.MainScreen.route)},
+                        onClick = {/* navController.navigate(Screens.MainScreen.route) */},
                         shape= RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.LightGray,
