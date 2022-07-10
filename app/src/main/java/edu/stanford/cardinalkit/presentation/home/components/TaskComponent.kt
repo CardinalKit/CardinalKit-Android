@@ -1,6 +1,5 @@
 package edu.stanford.cardinalkit.presentation.home.components
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,7 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
-import edu.stanford.cardinalkit.presentation.tasks.components.SurveyTaskCard
+import edu.stanford.cardinalkit.presentation.home.components.SurveyTaskCard
 
 @Preview
 @Composable
@@ -31,7 +30,6 @@ fun TaskComponent(
     ){
         items(surveys) { survey ->
             SurveyTaskCard(
-                title = survey,
                 surveyName = survey,
                 context = context,
                 launchSurvey = { surveyName, context ->

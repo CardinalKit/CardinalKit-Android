@@ -3,10 +3,8 @@ package edu.stanford.cardinalkit.presentation.tasks
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.TextView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.TopAppBar
@@ -14,22 +12,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
-import edu.stanford.cardinalkit.presentation.tasks.components.SurveyTaskCard
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.type.Date
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
+import edu.stanford.cardinalkit.presentation.tasks.components.TaskCard
 import java.text.SimpleDateFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,14 +50,6 @@ fun TasksScreen(
         },
         containerColor =  Color(0xFFF5F5F5),
         content = { contentPadding ->
-            val context = LocalContext.current
-
-            // TODO: Replace hardcoded data with surveys from DB
-            val surveys = arrayOf<String>(
-                "paginated_layout_questionnaire.json",
-                "single_choice_questionnaire.json",
-                "slider_questionnaire.json"
-            )
             val simpleDateFormat= SimpleDateFormat("MMMM dd, yyyy")
             val currentDateAndTime: String = simpleDateFormat.format(java.util.Date())
 
@@ -96,21 +84,9 @@ fun TasksScreen(
                                     items(
                                         items = tasksResponse.data
                                     ) { task ->
-                                        SurveyTaskCard(
+                                        TaskCard(
                                             title = task.title,
-                                            surveyName = task.context,
-                                            context = context,
-                                            launchSurvey = { surveyName, context ->
-                                                // Launches the SurveyActivity and passes the survey name to display
-                                                val intent =
-                                                    Intent(
-                                                        context,
-                                                        SurveyActivity::class.java
-                                                    ).apply {
-                                                        putExtra(Constants.SURVEY_NAME, surveyName)
-                                                    }
-                                                context.startActivity(intent)
-                                            }
+                                            description = task.description
                                         )
                                     }
                                 }

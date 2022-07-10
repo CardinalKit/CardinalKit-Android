@@ -1,4 +1,4 @@
-package edu.stanford.cardinalkit.presentation.tasks.components
+package edu.stanford.cardinalkit.presentation.home.components
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SurveyTaskCard(
-    title: String,
     surveyName: String,
     context: Context,
     launchSurvey: (surveyName: String, context: Context) -> Unit
@@ -47,7 +46,7 @@ fun SurveyTaskCard(
                     modifier = Modifier.fillMaxWidth(0.9f)
                 ) {
                     Text(
-                        text = title,
+                        text = surveyName,
                         modifier = Modifier.padding(all=7.dp),
                         fontSize = 15.sp
                     )
