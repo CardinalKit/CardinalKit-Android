@@ -1,6 +1,6 @@
 package edu.stanford.cardinalkit.domain.models.tasks
 
-import java.util.*
+import java.time.LocalDate
 
 data class CKTask(
     val id: String = "",
@@ -8,7 +8,7 @@ data class CKTask(
     val description: String = "",
     val context: CKTaskContext = CKTaskContext(),
     val schedule: CKTaskSchedule? = null,
-    var createdDate: Date? = null,
-    var updatedDate: Date? = null,
+    var createdDate: LocalDate? = null,
+    var updatedDate: LocalDate? = null,
     val isActive: Boolean = true
 )
