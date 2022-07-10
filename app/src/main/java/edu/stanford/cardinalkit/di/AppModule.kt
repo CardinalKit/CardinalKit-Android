@@ -22,10 +22,14 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
 import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.TasksRepositoryImpl
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
+import edu.stanford.cardinalkit.domain.repositories.TasksRepository
 import edu.stanford.cardinalkit.domain.use_cases.UploadSurvey
 import edu.stanford.cardinalkit.domain.use_cases.UseCases
+import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
+import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import javax.inject.Named
 
 @Module
@@ -46,7 +50,13 @@ class AppModule {
 
     @Provides
     @Named(Constants.TASKS_REF)
-    fun provideTasksRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_TASKS_COLLECTION)
+    fun provideTasksRef(
+        db: FirebaseFirestore
+    ): CollectionReference? {
+        return db.collection(
+            "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_TASKS_COLLECTION}"
+        )
+    }
 
     @Provides
     @Named(Constants.SURVEYS_REF)
@@ -132,11 +142,28 @@ class AppModule {
     ): SurveyRepository = SurveyRepositoryImpl(surveysRef)
 
     @Provides
+    @Named(Constants.TASKS_REPOSITORY)
+    fun provideTasksRepository(
+        @Named(Constants.TASKS_REF)
+        tasksRef: CollectionReference?
+    ): TasksRepository = TasksRepositoryImpl(tasksRef)
+
+
+    @Provides
     @Named(Constants.USE_CASES)
     fun provideUseCases(
         @Named(Constants.SURVEY_REPOSITORY)
         repository: SurveyRepository
     ) = UseCases(
         uploadSurvey = UploadSurvey(repository)
+    )
+
+    @Provides
+    @Named(Constants.TASKS_USE_CASES)
+    fun provideTasksUseCases(
+        @Named(Constants.TASKS_REPOSITORY)
+        repository: TasksRepository
+    ) = TasksUseCases(
+        getTasks = GetTasks(repository)
     )
 }

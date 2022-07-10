@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SurveyTaskCard(
+    title: String,
     surveyName: String,
     context: Context,
     launchSurvey: (surveyName: String, context: Context) -> Unit
@@ -46,7 +47,7 @@ fun SurveyTaskCard(
                     modifier = Modifier.fillMaxWidth(0.9f)
                 ) {
                     Text(
-                        text = surveyName,
+                        text = title,
                         modifier = Modifier.padding(all=7.dp),
                         fontSize = 15.sp
                     )

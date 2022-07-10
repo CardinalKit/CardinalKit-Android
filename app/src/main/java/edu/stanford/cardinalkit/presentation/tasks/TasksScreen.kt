@@ -2,6 +2,7 @@ package edu.stanford.cardinalkit.presentation.tasks
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.TextView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.type.Date
+import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import java.text.SimpleDateFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,37 +65,56 @@ fun TasksScreen(
             val simpleDateFormat= SimpleDateFormat("MMMM dd, yyyy")
             val currentDateAndTime: String = simpleDateFormat.format(java.util.Date())
 
-            Column(modifier = Modifier.padding(horizontal = 20.dp).padding(top=70.dp)){
-                Box(modifier=Modifier.padding(horizontal=5.dp).padding(bottom = 10.dp)){
+            Column(modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .padding(top = 70.dp)){
+                Box(modifier= Modifier
+                    .padding(horizontal = 5.dp)
+                    .padding(bottom = 10.dp)){
                     Text(
                         text= "Today, $currentDateAndTime",
                         fontSize = 15.sp
-
                     )
                 }
-                Box(modifier=Modifier.padding(horizontal=7.dp).padding(bottom = 10.dp)){
+                Box(modifier= Modifier
+                    .padding(horizontal = 7.dp)
+                    .padding(bottom = 10.dp)){
                     Text(
                         text= "To Do",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                Box(){
-                    LazyColumn (
-                    ){
-                        items(surveys) { survey ->
-                            SurveyTaskCard(
-                                surveyName = survey,
-                                context = context,
-                                launchSurvey = { surveyName, context ->
-                                    // Launches the SurveyActivity and passes the survey name to display
-                                    val intent = Intent(context, SurveyActivity::class.java).apply {
-                                        putExtra(Constants.SURVEY_NAME, surveyName)
+                Box {
+                    when(val tasksResponse = viewModel.tasksState.value) {
+                        is Response.Error -> Log.d("Tasks", tasksResponse.e?.message.toString())
+                        is Response.Loading -> ProgressIndicator()
+                        is Response.Success ->
+                            LazyColumn(
+                            ) {
+                                if (tasksResponse.data != null) {
+                                    items(
+                                        items = tasksResponse.data
+                                    ) { task ->
+                                        SurveyTaskCard(
+                                            title = task.title,
+                                            surveyName = task.context,
+                                            context = context,
+                                            launchSurvey = { surveyName, context ->
+                                                // Launches the SurveyActivity and passes the survey name to display
+                                                val intent =
+                                                    Intent(
+                                                        context,
+                                                        SurveyActivity::class.java
+                                                    ).apply {
+                                                        putExtra(Constants.SURVEY_NAME, surveyName)
+                                                    }
+                                                context.startActivity(intent)
+                                            }
+                                        )
                                     }
-                                    context.startActivity(intent)
                                 }
-                            )
-                        }
+                            }
                     }
                 }
 

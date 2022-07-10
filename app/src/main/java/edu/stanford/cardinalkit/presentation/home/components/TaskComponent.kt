@@ -31,6 +31,7 @@ fun TaskComponent(
     ){
         items(surveys) { survey ->
             SurveyTaskCard(
+                title = survey,
                 surveyName = survey,
                 context = context,
                 launchSurvey = { surveyName, context ->
