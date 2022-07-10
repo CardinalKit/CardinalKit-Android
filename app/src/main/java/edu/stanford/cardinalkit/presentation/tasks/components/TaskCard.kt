@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun TaskCard(
     title: String,
-    description: String
+    description: String,
+    category: String
 ) {
     Card(
         shape = MaterialTheme.shapes.small,
@@ -50,6 +51,11 @@ fun TaskCard(
                         text = description,
                         modifier = Modifier.padding(all=7.dp),
                         fontSize = 12.sp
+                    )
+                    Text(
+                        text = category,
+                        modifier = Modifier.padding(all=7.dp),
+                        fontSize = 10.sp
                     )
                 }
             }

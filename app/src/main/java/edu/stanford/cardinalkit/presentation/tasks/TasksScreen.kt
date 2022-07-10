@@ -18,8 +18,6 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -86,7 +84,8 @@ fun TasksScreen(
                                     ) { task ->
                                         TaskCard(
                                             title = task.title,
-                                            description = task.description
+                                            description = task.description,
+                                            category = task.context.category
                                         )
                                     }
                                 }
