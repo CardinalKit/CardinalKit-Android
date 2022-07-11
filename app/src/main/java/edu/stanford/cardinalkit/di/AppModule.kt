@@ -23,9 +23,13 @@ import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
 import edu.stanford.cardinalkit.data.repositories.ContactsRepositoryImpl
 import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.TasksRepositoryImpl
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import edu.stanford.cardinalkit.domain.repositories.ContactsRepository
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
+import edu.stanford.cardinalkit.domain.repositories.TasksRepository
+import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
+import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
 import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
@@ -51,6 +55,16 @@ class AppModule {
     ): CollectionReference {
         return db.collection(
             "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_USERS_COLLECTION}"
+        )
+    }
+
+    @Provides
+    @Named(Constants.TASKS_REF)
+    fun provideTasksRef(
+        db: FirebaseFirestore
+    ): CollectionReference? {
+        return db.collection(
+            "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_TASKS_COLLECTION}"
         )
     }
 
@@ -138,8 +152,18 @@ class AppModule {
     ): SurveyRepository = SurveyRepositoryImpl(surveysRef)
 
     @Provides
+    @Named(Constants.TASKS_REPOSITORY)
+    fun provideTasksRepository(
+        @Named(Constants.TASKS_REF)
+        tasksRef: CollectionReference?
+    ): TasksRepository = TasksRepositoryImpl(tasksRef)
+
+
+    @Provides
     @Named(Constants.CONTACTS_REPOSITORY)
-    fun provideContactsRepository(context: Context): ContactsRepository = ContactsRepositoryImpl(context)
+    fun provideContactsRepository(
+        context: Context
+    ): ContactsRepository = ContactsRepositoryImpl(context)
 
     @Provides
     @Named(Constants.SURVEYS_USE_CASES)
@@ -157,5 +181,14 @@ class AppModule {
         contactsRepository: ContactsRepository
     ) = ContactsUseCases(
         getContacts = GetContacts(contactsRepository)
+    )
+
+    @Provides
+    @Named(Constants.TASKS_USE_CASES)
+    fun provideTasksUseCases(
+        @Named(Constants.TASKS_REPOSITORY)
+        repository: TasksRepository
+    ) = TasksUseCases(
+        getTasks = GetTasks(repository)
     )
 }

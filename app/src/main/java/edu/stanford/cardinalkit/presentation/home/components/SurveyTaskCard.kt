@@ -1,4 +1,4 @@
-package edu.stanford.cardinalkit.presentation.tasks.components
+package edu.stanford.cardinalkit.presentation.home.components
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
