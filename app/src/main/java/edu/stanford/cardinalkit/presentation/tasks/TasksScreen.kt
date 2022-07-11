@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
+import edu.stanford.cardinalkit.presentation.home.components.TaskComponent
 import edu.stanford.cardinalkit.presentation.tasks.components.TaskCard
 import java.text.SimpleDateFormat
 
@@ -72,36 +73,10 @@ fun TasksScreen(
                     )
                 }
                 Box {
-                    when(val tasksResponse = viewModel.tasksState.value) {
-                        is Response.Error -> Log.d("Tasks", tasksResponse.e?.message.toString())
-                        is Response.Loading -> ProgressIndicator()
-                        is Response.Success ->
-                            LazyColumn(
-                            ) {
-                                if (tasksResponse.data != null) {
-                                    items(
-                                        items = tasksResponse.data
-                                    ) { task ->
-                                        TaskCard(
-                                            title = task.title,
-                                            description = task.description,
-                                            category = task.context.category,
-                                            uri = task.context.uri
-                                        )
-                                    }
-                                }
-                            }
-                    }
+                    TaskComponent()
                 }
-
             }
         }
     )
-    fun launchSurvey(surveyName: String, context: Context){
-        val intent = Intent(context, SurveyActivity::class.java).apply {
-            putExtra(Constants.SURVEY_NAME, surveyName)
-        }
-        context.startActivity(intent)
-    }
 }
 
