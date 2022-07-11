@@ -21,15 +21,19 @@ import dagger.hilt.components.SingletonComponent
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.ContactsRepositoryImpl
 import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
 import edu.stanford.cardinalkit.data.repositories.TasksRepositoryImpl
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
+import edu.stanford.cardinalkit.domain.repositories.ContactsRepository
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
 import edu.stanford.cardinalkit.domain.repositories.TasksRepository
-import edu.stanford.cardinalkit.domain.use_cases.UploadSurvey
-import edu.stanford.cardinalkit.domain.use_cases.UseCases
 import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
+import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
+import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
+import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
+import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurvey
 import javax.inject.Named
 
 @Module
@@ -46,7 +50,13 @@ class AppModule {
 
     @Provides
     @Named(Constants.USERS_REF)
-    fun provideUsersRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_USERS_COLLECTION)
+    fun provideUsersRef(
+        db: FirebaseFirestore
+    ): CollectionReference {
+        return db.collection(
+            "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_USERS_COLLECTION}"
+        )
+    }
 
     @Provides
     @Named(Constants.TASKS_REF)
@@ -150,12 +160,27 @@ class AppModule {
 
 
     @Provides
-    @Named(Constants.USE_CASES)
-    fun provideUseCases(
+    @Named(Constants.CONTACTS_REPOSITORY)
+    fun provideContactsRepository(
+        context: Context
+    ): ContactsRepository = ContactsRepositoryImpl(context)
+
+    @Provides
+    @Named(Constants.SURVEYS_USE_CASES)
+    fun provideSurveysUseCases(
         @Named(Constants.SURVEY_REPOSITORY)
-        repository: SurveyRepository
-    ) = UseCases(
-        uploadSurvey = UploadSurvey(repository)
+        surveyRepository: SurveyRepository,
+    ) = SurveysUseCases(
+        uploadSurvey = UploadSurvey(surveyRepository)
+    )
+
+    @Provides
+    @Named(Constants.CONTACTS_USE_CASES)
+    fun provideContactsUseCases(
+        @Named(Constants.CONTACTS_REPOSITORY)
+        contactsRepository: ContactsRepository
+    ) = ContactsUseCases(
+        getContacts = GetContacts(contactsRepository)
     )
 
     @Provides

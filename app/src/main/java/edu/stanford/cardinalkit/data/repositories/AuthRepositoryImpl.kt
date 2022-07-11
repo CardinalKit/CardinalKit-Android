@@ -7,6 +7,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue.serverTimestamp
+import com.google.firebase.firestore.SetOptions
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import edu.stanford.cardinalkit.domain.models.Response
@@ -66,10 +67,12 @@ class AuthRepositoryImpl  @Inject constructor(
             emit(Response.Loading)
             auth.currentUser?.apply {
                 usersRef.document(uid).set(mapOf(
+                    "userID" to uid,
                     "name" to displayName,
                     "email" to email,
+                    "lastActive" to serverTimestamp(),
                     "createdDate" to serverTimestamp()
-                )).await()
+                ), SetOptions.merge()).await()
                 emit(Response.Success(true))
             }
         } catch (e: Exception) {
