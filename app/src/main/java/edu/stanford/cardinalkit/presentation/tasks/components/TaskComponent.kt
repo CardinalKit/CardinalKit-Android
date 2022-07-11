@@ -10,11 +10,13 @@ import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.presentation.tasks.components.TaskCard
+import java.util.*
 
 @Preview
 @Composable
 fun TaskComponent(
-    viewModel: TasksViewModel = hiltViewModel()
+    viewModel: TasksViewModel = hiltViewModel(),
+    date: Date = Date()
 )
 {
     when(val tasksResponse = viewModel.tasksState.value) {
@@ -27,12 +29,14 @@ fun TaskComponent(
                     items(
                         items = tasksResponse.data
                     ) { task ->
-                        TaskCard(
-                            title = task.title,
-                            description = task.description,
-                            category = task.context.category,
-                            uri = task.context.uri
-                        )
+                        if (task.schedule.isScheduledOn(date)) {
+                            TaskCard(
+                                title = task.title,
+                                description = task.description,
+                                category = task.context.category,
+                                uri = task.context.uri
+                            )
+                        }
                     }
                 }
             }

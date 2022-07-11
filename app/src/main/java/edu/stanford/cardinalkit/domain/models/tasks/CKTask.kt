@@ -7,7 +7,7 @@ data class CKTask(
     val title: String = "",
     val description: String = "",
     val context: CKTaskContext = CKTaskContext(),
-    val schedule: CKTaskSchedule? = null,
+    val schedule: CKTaskSchedule = CKTaskSchedule(),
     var createdDate: Date? = null,
     var updatedDate: Date? = null,
     val isActive: Boolean = true
