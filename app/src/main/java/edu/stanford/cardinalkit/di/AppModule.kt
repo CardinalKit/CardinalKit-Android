@@ -42,7 +42,13 @@ class AppModule {
 
     @Provides
     @Named(Constants.USERS_REF)
-    fun provideUsersRef(db: FirebaseFirestore) = db.collection(Constants.FIRESTORE_USERS_COLLECTION)
+    fun provideUsersRef(
+        db: FirebaseFirestore
+    ): CollectionReference? {
+        return db.collection(
+            "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_USERS_COLLECTION}"
+        )
+    }
 
     @Provides
     @Named(Constants.SURVEYS_REF)
