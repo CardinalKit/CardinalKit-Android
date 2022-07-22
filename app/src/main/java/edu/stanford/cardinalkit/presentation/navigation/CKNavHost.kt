@@ -16,6 +16,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import edu.stanford.cardinalkit.presentation.Onboarding.OnboardingScreen
 import edu.stanford.cardinalkit.presentation.Onboarding.Review
 import edu.stanford.cardinalkit.presentation.Onboarding.WelcomeScreen
+import edu.stanford.cardinalkit.presentation.RegisterScreen
 import edu.stanford.cardinalkit.presentation.main.MainScreen
 import edu.stanford.cardinalkit.presentation.contacts.ContactsScreen
 
@@ -39,6 +40,9 @@ fun CKNavHost(navController: NavHostController, startDestination: String) {
         }
         composable(Screens.LoginScreen.route) {
             LoginScreen(navController = navController)
+        }
+        composable(Screens.RegisterScreen.route) {
+            RegisterScreen(navController = navController)
         }
         composable(Screens.MainScreen.route) {
             MainScreen()

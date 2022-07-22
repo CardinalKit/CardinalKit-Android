@@ -12,4 +12,5 @@ sealed class Screens(val route: String) {
     object LoginScreen: Screens(Constants.LOGIN_SCREEN)
     object ProfileScreen: Screens(Constants.PROFILE_SCREEN)
     object ContactsScreen: Screens(Constants.CONTACTS_SCREEN)
+    object RegisterScreen: Screens(Constants.REGISTER_SCREEN)
 }

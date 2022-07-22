@@ -19,6 +19,8 @@ fun BottomNavigationBar(
     navController: NavHostController,
     modifier:Modifier){
     BottomNavigation {
+        val COLOR_NORMAL = Color.Gray
+        val COLOR_SELECTED = Color(0xFF484965)
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backStackEntry?.destination?.route
         Row(modifier = modifier.background(Color.White)){
@@ -39,12 +41,13 @@ fun BottomNavigationBar(
                         Icon(
                             imageVector = navItem.image,
                             contentDescription = navItem.title,
-                            tint = Color.Gray
                         )
                     },
                     label = {
                         Text(text = navItem.title, color =Color.Gray)
                     },
+                    selectedContentColor = COLOR_SELECTED,
+                    unselectedContentColor = COLOR_NORMAL
                 )
             }
 

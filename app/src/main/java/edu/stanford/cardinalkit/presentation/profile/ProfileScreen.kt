@@ -139,14 +139,6 @@ fun ScreenContent(){
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Change Password")
-        }
-        Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Help")
-        }
-        Spacer(modifier = Modifier.height(15.dp))
-        Row(Modifier.background(Color.White)){
             ProfileCard(title = "Report a Problem")
         }
         Spacer(modifier = Modifier.height(3.dp))
