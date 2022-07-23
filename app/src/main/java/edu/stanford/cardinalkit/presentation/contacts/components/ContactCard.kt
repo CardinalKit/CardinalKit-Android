@@ -22,18 +22,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
+import edu.stanford.cardinalkit.domain.models.Contact
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactCard(
-    name: String,
-    title: String,
-    description: String,
-    phone: String,
-    email: String,
-    addressLineOne: String,
-    addressLineTwo: String,
+    contact: Contact
 ) {
     Card(
         modifier = Modifier
@@ -54,26 +49,27 @@ fun ContactCard(
                     .width(45.dp), contentDescription = "profile", tint = Color(0xFF484965))
                 Column() {
                     Text(
-                        text = name,
+                        text = contact.name,
                         fontSize = 22.sp
                     )
                     Text(
-                        text = title,
+                        text = contact.title,
                         fontSize = 15.sp
                     )
-
                 }
-
             }
             Text(
-                text=description,
+                text = contact.description,
                 modifier = Modifier
                     .padding(vertical = 20.dp)
                     .padding(horizontal = 10.dp)
             )
             Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                ContactSection()
-
+                ContactSection(
+                    phoneNumber = contact.phoneNumber,
+                    textNumber = contact.textNumber,
+                    email = contact.email
+                )
             }
             val context = LocalContext.current
             OutlinedCard(
@@ -92,26 +88,27 @@ fun ContactCard(
                         fontSize = 18.sp
                     )
                     Text(
-                        text = addressLineOne,
+                        text = contact.addressLineOne,
                         fontSize = 15.sp
                     )
                     Text(
-                        text = addressLineTwo,
+                        text = contact.addressLineTwo,
                         fontSize = 15.sp
                     )
-
                 }
-
             }
         }
     }
 }
 
 @Composable
-fun ContactSection(){
+fun ContactSection(
+    phoneNumber: String,
+    textNumber: String,
+    email: String
+){
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
         val context = LocalContext.current
-        val phoneNumber="4081234567"
         OutlinedButton(
             onClick = { makeACall(context = context, phoneNumber = phoneNumber) },
             modifier= Modifier.padding(5.dp)
@@ -124,11 +121,10 @@ fun ContactSection(){
                     .padding(horizontal = 15.dp)
                     .padding(vertical = 5.dp)
             )
-
         }
         OutlinedButton(
             onClick = {
-                sendAText(context = context, phoneNumber = phoneNumber)
+                sendAText(context = context, phoneNumber = textNumber)
             },
             modifier= Modifier.padding(5.dp)
         ) {
@@ -140,9 +136,8 @@ fun ContactSection(){
                     .padding(horizontal = 13.dp)
                     .padding(vertical = 5.dp)
             )
-
         }
-        OutlinedButton(onClick = { sendEmail(context=context, recipientMail ="email@gmail.com") },
+        OutlinedButton(onClick = { sendEmail(context = context, recipientMail = email) },
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
@@ -153,14 +148,11 @@ fun ContactSection(){
                     .padding(horizontal = 8.dp)
                     .padding(vertical = 5.dp)
             )
-
         }
-
     }
 }
 
 fun makeACall(context: Context, phoneNumber: String) {
-
     if (ContextCompat.checkSelfPermission(context,android.Manifest.permission.CALL_PHONE ) ==
         PackageManager.PERMISSION_GRANTED
     ) {
@@ -172,11 +164,9 @@ fun makeACall(context: Context, phoneNumber: String) {
             context as Activity, arrayOf(android.Manifest.permission.CALL_PHONE), 777
         )
     }
-
 }
 
 fun sendAText(context: Context, phoneNumber: String) {
-
     if (ContextCompat.checkSelfPermission(context,android.Manifest.permission.SEND_SMS ) ==
         PackageManager.PERMISSION_GRANTED
     ) {
@@ -188,7 +178,6 @@ fun sendAText(context: Context, phoneNumber: String) {
             context as Activity, arrayOf(android.Manifest.permission.SEND_SMS), 777
         )
     }
-
 }
 
 fun sendEmail(context: Context, recipientMail:String){
@@ -197,7 +186,6 @@ fun sendEmail(context: Context, recipientMail:String){
     emailIntent.type = "text/plain"
     emailIntent.putExtra(Intent.EXTRA_EMAIL, recipientMail)
     startActivity(context,emailIntent, bundleOf())
-
 }
 
 fun openMaps(context: Context){

@@ -4,7 +4,8 @@
       "title": "Director",
       "email": "aalami@stanford.edu",
       "description": "Lorem ipsum",
-      "phone": "123-456-7890",
+      "phoneNumber": "123-456-7890",
+      "textNumber": "123-456-7890",
       "addressLineOne": "318 Campus Drive, Stanford, CA 94305",
       "addressLineTwo": "Stanford CA 94305"
     },
@@ -13,7 +14,8 @@
       "title": "Lead Architect",
       "email": "vishnur@stanford.edu",
       "description": "Lorem ipsum",
-      "phone": "123-456-7890",
+      "phoneNumber": "123-456-7890",
+      "textNumber": "123-456-7890",
       "addressLineOne": "318 Campus Drive, Stanford, CA 94305",
       "addressLineTwo": "Stanford CA 94305"
     }

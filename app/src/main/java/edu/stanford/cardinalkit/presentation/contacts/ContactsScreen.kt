@@ -62,17 +62,7 @@ fun ContactsScreen(
                    ) { if(contactsResponse.data != null) {
                        items(
                            items = contactsResponse.data
-                       ) { contact ->
-                           ContactCard(
-                               name = contact.name,
-                               title = contact.title,
-                               description = contact.description,
-                               email = contact.email,
-                               phone = contact.phone,
-                               addressLineOne = contact.addressLineOne,
-                               addressLineTwo = contact.addressLineTwo
-                           )
-                       }
+                       ) { contact -> ContactCard(contact) }
                    }
                    }
                }
