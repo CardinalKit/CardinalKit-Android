@@ -62,12 +62,13 @@ fun ContactsScreen(
                    ) { if(contactsResponse.data != null) {
                        items(
                            items = contactsResponse.data
-                       ) { contact -> ContactCard(contact) }
+                       ) { contact ->
+                           ContactCard(contact)
+                       }
                    }
                    }
                }
            }
-
         }
     )
 }

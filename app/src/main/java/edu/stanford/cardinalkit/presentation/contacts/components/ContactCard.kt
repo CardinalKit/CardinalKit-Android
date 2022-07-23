@@ -115,10 +115,10 @@ fun ContactSection(
         ) {
             Text(
                 text="Call",
-                fontSize = 15.sp,
+                fontSize = 14.sp,
                 color = Color(0xFF484965),
                 modifier = Modifier
-                    .padding(horizontal = 15.dp)
+                    .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
             )
         }
@@ -130,10 +130,10 @@ fun ContactSection(
         ) {
             Text(
                 text="Text",
-                fontSize = 15.sp,
+                fontSize = 14.sp,
                 color = Color(0xFF484965),
                 modifier = Modifier
-                    .padding(horizontal = 13.dp)
+                    .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
             )
         }
@@ -142,7 +142,7 @@ fun ContactSection(
         ) {
             Text(
                 text="Email",
-                fontSize = 15.sp,
+                fontSize = 14.sp,
                 color = Color(0xFF484965),
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
