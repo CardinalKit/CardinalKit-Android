@@ -1,5 +1,6 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -21,13 +23,20 @@ class TasksViewModel @Inject constructor(
     private val _tasksState = mutableStateOf<Response<List<CKTask>>>(Response.Loading)
     val tasksState: State<Response<List<CKTask>>> = _tasksState
 
+    private val _currentDate = mutableStateOf<LocalDate>(LocalDate.now())
+    val currentDate: State<LocalDate> = _currentDate
+
     init {
         getTasks()
     }
 
-    private fun getTasks() = viewModelScope.launch {
+    fun getTasks() = viewModelScope.launch {
         useCases.getTasks().collect { response ->
             _tasksState.value = response
         }
+    }
+
+    fun setDate(date: LocalDate) {
+        _currentDate.value = date
     }
 }

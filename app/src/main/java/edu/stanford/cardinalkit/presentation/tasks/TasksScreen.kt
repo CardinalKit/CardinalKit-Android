@@ -53,20 +53,14 @@ fun TasksScreen(
         },
         containerColor =  Color(0xFFF5F5F5),
         content = {
-
-
-            val simpleDateFormat= SimpleDateFormat("MMMM dd, yyyy")
-            val currentDateAndTime: String = simpleDateFormat.format(java.util.Date())
-
-            Column(modifier = Modifier
-                .padding(top = 55.dp)){
+            Column(modifier = Modifier.padding(top = 55.dp)){
                 DatePickerTimeline(
                     modifier = Modifier,
                     onDateSelected = {selectedDate: LocalDate->
-                        //do something with selected date
+                        viewModel.setDate(selectedDate)
                     },
                     selectedBackgroundColor = Color.LightGray,
-                    todayLabel ={
+                    todayLabel = {
                         Text(
                             modifier = Modifier.padding(10.dp),
                             text = "Today",
