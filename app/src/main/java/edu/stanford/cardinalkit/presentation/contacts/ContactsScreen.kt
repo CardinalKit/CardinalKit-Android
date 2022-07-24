@@ -52,30 +52,23 @@ fun ContactsScreen(
         },
         containerColor =  Color(0xFFF5F5F5),
         content = {
-            when(val contactsResponse = viewModel.contactsState.value) {
-                is Response.Error -> Log.d("ContactsScreen", contactsResponse.e?.message.toString())
-                is Response.Loading -> ProgressIndicator()
-                is Response.Success -> LazyColumn(
-                modifier = Modifier
-                    .padding(top = 60.dp)
-            ) { if(contactsResponse.data != null) {
-                    items(
-                        items = contactsResponse.data
-                    ) { contact ->
-                        ContactCard(
-                            name = contact.name,
-                            title = contact.title,
-                            description = contact.description,
-                            email = contact.email,
-                            phone = contact.phone,
-                            addressLineOne = contact.addressLineOne,
-                            addressLineTwo = contact.addressLineTwo
-                        )
-                    }
-                }
-            }
-            }
-                Spacer(modifier = Modifier.padding(50.dp))
+           Column(modifier=Modifier.padding(bottom=70.dp)){
+               when(val contactsResponse = viewModel.contactsState.value) {
+                   is Response.Error -> Log.d("ContactsScreen", contactsResponse.e?.message.toString())
+                   is Response.Loading -> ProgressIndicator()
+                   is Response.Success -> LazyColumn(
+                       modifier = Modifier
+                           .padding(top = 60.dp)
+                   ) { if(contactsResponse.data != null) {
+                       items(
+                           items = contactsResponse.data
+                       ) { contact ->
+                           ContactCard(contact)
+                       }
+                   }
+                   }
+               }
+           }
         }
     )
 }

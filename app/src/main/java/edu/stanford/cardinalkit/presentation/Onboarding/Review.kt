@@ -63,7 +63,7 @@ fun Review(
             Column(modifier= Modifier
                 .fillMaxSize()
                 .padding(horizontal = 20.dp)
-                .padding(top = 20.dp)
+                .padding(top = 10.dp)
             ){
                 Text(
                     text="Review",

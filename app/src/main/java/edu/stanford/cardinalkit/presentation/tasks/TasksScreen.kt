@@ -18,17 +18,20 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.home.components.TaskComponent
+import edu.stanford.cardinalkit.presentation.tasks.components.DatePickerTimeline
 import edu.stanford.cardinalkit.presentation.tasks.components.TaskCard
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun TasksScreen(
     viewModel: TasksViewModel = hiltViewModel()
@@ -49,31 +52,38 @@ fun TasksScreen(
 
         },
         containerColor =  Color(0xFFF5F5F5),
-        content = { contentPadding ->
-            val simpleDateFormat= SimpleDateFormat("MMMM dd, yyyy")
-            val currentDateAndTime: String = simpleDateFormat.format(java.util.Date())
-
-            Column(modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .padding(top = 70.dp)){
+        content = {
+            Column(modifier = Modifier.padding(top = 55.dp)){
+                DatePickerTimeline(
+                    modifier = Modifier,
+                    onDateSelected = {selectedDate: LocalDate->
+                        viewModel.setDate(selectedDate)
+                    },
+                    selectedBackgroundColor = Color.LightGray,
+                    todayLabel = {
+                        Text(
+                            modifier = Modifier.padding(10.dp),
+                            text = "Today",
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 15.sp,
+                            color = Color(0xFF484965)
+                        )
+                    },
+                )
                 Box(modifier= Modifier
-                    .padding(horizontal = 5.dp)
-                    .padding(bottom = 10.dp)){
-                    Text(
-                        text= "Today, $currentDateAndTime",
-                        fontSize = 15.sp
-                    )
-                }
-                Box(modifier= Modifier
-                    .padding(horizontal = 7.dp)
-                    .padding(bottom = 10.dp)){
+                    .padding(horizontal = 20.dp)
+                    .padding(bottom = 10.dp)
+                    .padding(top=15.dp)){
                     Text(
                         text= "To Do",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                Box {
+
+                Box(modifier= Modifier
+                    .padding(horizontal = 20.dp)
+                    .padding(top=10.dp)) {
                     TaskComponent()
                 }
             }

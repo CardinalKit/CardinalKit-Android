@@ -27,8 +27,8 @@ fun CalendarCard(){
     val currentMonth: String = month.format(java.util.Date())
     Card(
         modifier = Modifier
-            .width(166.dp)
-            .height(166.dp)
+            .width(165.dp)
+            .height(165.dp)
             .clickable { },
         backgroundColor = Color.LightGray,
         shape= RoundedCornerShape(18),

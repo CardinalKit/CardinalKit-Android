@@ -21,6 +21,7 @@ object Constants {
     const val ONBOARDING_SCREEN = "Onboarding"
     const val WELCOME_SCREEN = "Welcome"
     const val REVIEW_SCREEN = "Review"
+    const val REGISTER_SCREEN = "Register"
 
     // Named dependencies to be injected
     const val USERS_REF = "usersRef"

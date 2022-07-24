@@ -29,8 +29,8 @@ import java.text.SimpleDateFormat
 fun CKSurveyCard(){
     Card(
         modifier = Modifier
-            .width(166.dp)
-            .height(166.dp)
+            .width(165.dp)
+            .height(165.dp)
             .clickable { },
         backgroundColor = Color.White,
         shape= RoundedCornerShape(18),
