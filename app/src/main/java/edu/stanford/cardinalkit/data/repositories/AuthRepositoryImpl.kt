@@ -1,5 +1,7 @@
 package edu.stanford.cardinalkit.data.repositories
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -47,6 +49,24 @@ class AuthRepositoryImpl  @Inject constructor(
             val authResult = auth.signInWithCredential(googleCredential).await()
             val isNewUser = authResult.additionalUserInfo?.isNewUser
             emit(Response.Success(isNewUser))
+        } catch (e: Exception) {
+            emit(Response.Error(e))
+        }
+    }
+
+    override suspend fun signIn(email: String, password: String) = flow {
+        try {
+            auth.signInWithEmailAndPassword(email, password).await()
+            emit(Response.Success(true))
+        } catch (e: Exception) {
+            emit(Response.Error(e))
+        }
+    }
+
+    fun signUp(email: String, password: String) = flow {
+        try {
+            auth.createUserWithEmailAndPassword(email, password).await()
+            emit(Response.Success(true))
         } catch (e: Exception) {
             emit(Response.Error(e))
         }
