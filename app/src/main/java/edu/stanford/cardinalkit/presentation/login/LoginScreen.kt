@@ -82,7 +82,7 @@ fun LoginScreen(
 
                 OutlinedTextField(
                     value = email,
-                    onValueChange ={ newText ->
+                    onValueChange = { newText ->
                         email = newText
                     },
                     label={Text(text="Email")},
@@ -97,7 +97,7 @@ fun LoginScreen(
 
                 OutlinedTextField(
                     value = password,
-                    onValueChange ={ newText ->
+                    onValueChange = { newText ->
                         password = newText
                     },
                     label={Text(text = "Password")},
@@ -124,18 +124,18 @@ fun LoginScreen(
                         Text(
                             text = "Forgot Password?",
                             fontSize = 13.sp,
-                            color=Color.DarkGray
+                            color= Color.DarkGray
                         )
 
                     }
                     TextButton(
                         onClick = {
                             if(email.isEmpty() and password.isNotEmpty()){
-                                Toast.makeText(context, "Please enter a valid email address.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.email_empty, Toast.LENGTH_SHORT).show()
                             } else if(password.isEmpty() and email.isNotEmpty()){
-                                Toast.makeText(context, "Please enter a password.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.password_empty, Toast.LENGTH_SHORT).show()
                             } else if(email.isEmpty() and password.isEmpty()){
-                                Toast.makeText(context, "Please enter an email address and password.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.email_and_password_empty, Toast.LENGTH_SHORT).show()
                             } else {
                                 viewModel.signIn(email, password)
                             }
@@ -261,7 +261,7 @@ fun LoginScreen(
         is Response.Success -> {
             saveUserResponse.data?.let { isUserCreated ->
                 if (isUserCreated) {
-                    navController.navigate(Screens.HomeScreen.route)
+                    navController.navigate(Screens.MainScreen.route)
                 }
             }
         }
