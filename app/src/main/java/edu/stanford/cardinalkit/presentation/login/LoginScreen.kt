@@ -232,6 +232,7 @@ fun LoginScreen(
                         viewModel.oneTapSignIn()
                     }
                 }
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -250,9 +251,7 @@ fun LoginScreen(
             }
         }
         is Response.Error -> signInResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -266,9 +265,7 @@ fun LoginScreen(
             }
         }
         is Response.Error -> saveUserResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 
