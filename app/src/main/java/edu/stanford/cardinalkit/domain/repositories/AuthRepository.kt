@@ -12,6 +12,7 @@ interface AuthRepository {
     suspend fun oneTapSignInWithGoogle(): Flow<Response<BeginSignInResult>>
     suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential): Flow<Response<Boolean>>
     suspend fun signIn(email: String, password: String): Flow<Response<Boolean>>
+    suspend fun signUp(email: String, password: String): Flow<Response<Boolean>>
     suspend fun signOut(): Flow<Response<Boolean>>
     suspend fun saveUser(): Flow<Response<Boolean>>
 }

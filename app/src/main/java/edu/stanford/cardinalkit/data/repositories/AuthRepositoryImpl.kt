@@ -63,7 +63,7 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
-    fun signUp(email: String, password: String) = flow {
+    override suspend fun signUp(email: String, password: String) = flow {
         try {
             auth.createUserWithEmailAndPassword(email, password).await()
             emit(Response.Success(true))

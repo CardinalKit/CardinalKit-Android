@@ -1,6 +1,6 @@
 package edu.stanford.cardinalkit.presentation
 
-import android.widget.EditText
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -8,25 +8,26 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.android.material.textfield.TextInputEditText
 import edu.stanford.cardinalkit.presentation.navigation.Screens
+import edu.stanford.cardinalkit.presentation.register.RegisterViewModel
 
 
 @Composable
 fun RegisterScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -56,52 +57,81 @@ fun RegisterScreen(
                     fontWeight= FontWeight.SemiBold,
                     textAlign = TextAlign.Center)
                 Text(
-                    text = "Stanford Department of Medicine",
+                    text = "Stanford Byers Center for Biodesign",
                     modifier = Modifier.padding(bottom = 30.dp),
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center)
-                var text by remember{
+
+                var firstName by remember {
                     mutableStateOf("")
                 }
 
                 OutlinedTextField(
-                    value = text,
-                    onValueChange ={ newText->
-                        text = newText
+                    value = firstName,
+                    onValueChange = { newText->
+                        firstName = newText
                     },
                     label={Text(text="First Name")},
                     singleLine = true
                 )
+
+                var lastName by remember {
+                    mutableStateOf("")
+                }
+
                 OutlinedTextField(
-                    value = text,
-                    onValueChange ={ newText->
-                        text = newText
+                    value = lastName,
+                    onValueChange = { newText->
+                        lastName = newText
                     },
-                    label={Text(text="Last Name")},
+                    label = {
+                        Text(text="Last Name")
+                    },
                     singleLine = true
                 )
+
+                var email by remember {
+                    mutableStateOf("")
+                }
+
                 OutlinedTextField(
-                    value = text,
-                    onValueChange ={ newText->
-                        text = newText
+                    value = email,
+                    onValueChange ={ newText ->
+                        email = newText
                     },
-                    label={Text(text="Email")},
+                    label = {
+                        Text(text="Email")
+                    },
                     singleLine = true
                 )
+
+                var password by remember {
+                    mutableStateOf("")
+                }
+
                 OutlinedTextField(
-                    value = text,
-                    onValueChange ={ newText->
-                        text = newText
+                    value = password,
+                    onValueChange ={ newText ->
+                        password = newText
                     },
-                    label={Text(text="Password")},
+                    label = {
+                        Text(text="Password")
+                    },
                     singleLine = true
                 )
+
+                var confirmPassword by remember {
+                    mutableStateOf("")
+                }
+
                 OutlinedTextField(
-                    value = text,
-                    onValueChange ={ newText->
-                        text = newText
+                    value = confirmPassword,
+                    onValueChange ={ newText ->
+                        confirmPassword = newText
                     },
-                    label={Text(text="Confirm Password")},
+                    label = {
+                        Text(text="Confirm Password")
+                    },
                     singleLine = true
                 )
 
@@ -111,7 +141,15 @@ fun RegisterScreen(
                     horizontalArrangement = Arrangement.Center,
                 )  {
                     Button(
-                        onClick = {},
+                        onClick = {
+                            if(email.isEmpty() or password.isEmpty() or confirmPassword.isEmpty()){
+                                Toast.makeText(context, "All fields must be completed.", Toast.LENGTH_SHORT).show()
+                            } else if(password != confirmPassword) {
+                                Toast.makeText(context, "Passwords must match.", Toast.LENGTH_SHORT).show()
+                            } else {
+                                viewModel.signUp(email, password)
+                            }
+                        },
                         shape= RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.LightGray,
@@ -125,7 +163,5 @@ fun RegisterScreen(
                     }
                 }
             }
-
-
         })
 }
