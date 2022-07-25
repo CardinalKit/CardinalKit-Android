@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.register.RegisterViewModel
 
@@ -143,9 +146,9 @@ fun RegisterScreen(
                     Button(
                         onClick = {
                             if(email.isEmpty() or password.isEmpty() or confirmPassword.isEmpty()){
-                                Toast.makeText(context, "All fields must be completed.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.required_field_empty, Toast.LENGTH_SHORT).show()
                             } else if(password != confirmPassword) {
-                                Toast.makeText(context, "Passwords must match.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.passwords_unmatched, Toast.LENGTH_SHORT).show()
                             } else {
                                 viewModel.signUp(email, password)
                             }
@@ -164,4 +167,12 @@ fun RegisterScreen(
                 }
             }
         })
+
+    when(val signUpResponse = viewModel.signUpState.value) {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Success -> navController.navigate(Screens.MainScreen.route)
+        is Response.Error -> signUpResponse.e?.let {
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 }
