@@ -1,6 +1,7 @@
 package edu.stanford.cardinalkit.presentation.login
 
 import android.app.Activity.RESULT_OK
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -8,7 +9,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -16,10 +16,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.FilterQuality.Companion.Medium
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,6 +39,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
+    val context = LocalContext.current
     Scaffold(
         containerColor = Color(0xFFFFFFFF),
         content = { contentPadding ->
@@ -62,36 +61,42 @@ fun LoginScreen(
                     painter = painterResource(R.drawable.login),
                     contentDescription = "branding" )
                 Text(
-                    text = "CardinalKit Study",
+                    text = "CardinalKit",
                     fontSize = 26.sp,
                     color= Color(0xFF790224),
                     fontWeight=FontWeight.SemiBold,
                     textAlign = TextAlign.Center)
                 Text(
-                    text = "Stanford Department of Medicine",
+                    text = "Stanford Byers Center for Biodesign",
                     modifier = Modifier.padding(bottom = 20.dp),
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center)
 
-                var text by remember{
+                var email by remember {
                     mutableStateOf("")
                 }
+
                 OutlinedTextField(
-                    value = text,
-                    onValueChange ={ newText->
-                        text = newText
+                    value = email,
+                    onValueChange = { newText ->
+                        email = newText
                     },
                     label={Text(text="Email")},
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray)
                 )
+
+                var password by remember {
+                    mutableStateOf("")
+                }
+
                 OutlinedTextField(
-                    value = text,
-                    onValueChange ={ newText->
-                        text = newText
+                    value = password,
+                    onValueChange = { newText ->
+                        password = newText
                     },
-                    label={Text(text="Password")},
+                    label={Text(text = "Password")},
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -103,7 +108,6 @@ fun LoginScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 65.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
-
                 ){
                     TextButton(
                         onClick = {navController.navigate(Screens.RegisterScreen.route)},
@@ -114,36 +118,41 @@ fun LoginScreen(
 
                     ) {
                         Text(
-                            text="Forgot Password?",
+                            text = "Forgot Password?",
                             fontSize = 13.sp,
-                            color=Color.DarkGray
+                            color= Color.DarkGray
                         )
 
                     }
                     TextButton(
-                        onClick = {navController.navigate(Screens.MainScreen.route)},
+                        onClick = {
+                            if(email.isEmpty() and password.isNotEmpty()){
+                                Toast.makeText(context, R.string.email_empty, Toast.LENGTH_SHORT).show()
+                            } else if(password.isEmpty() and email.isNotEmpty()){
+                                Toast.makeText(context, R.string.password_empty, Toast.LENGTH_SHORT).show()
+                            } else if(email.isEmpty() and password.isEmpty()){
+                                Toast.makeText(context, R.string.email_and_password_empty, Toast.LENGTH_SHORT).show()
+                            } else {
+                                viewModel.signIn(email, password)
+                            }
+                        },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.Gray,
                             backgroundColor = Color.LightGray,
                         )
                     ) {
                         Text(
-                            text = "Sign in ",
+                            text = "Sign in",
                             fontSize = 15.sp,
                             modifier = Modifier.padding(horizontal = 5.dp),
                             color=Color.Gray
                         )
                     }
-
-
                 }
-
-
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.padding(top = 7.dp)
                 )  {
-
                     OutlinedButton(
                         onClick = {viewModel.oneTapSignIn()},
                         colors = ButtonDefaults.buttonColors(
@@ -151,8 +160,6 @@ fun LoginScreen(
                         ),
                         modifier = Modifier.padding(horizontal = 7.dp),
                         shape = RoundedCornerShape(50.dp)
-
-
                     ) {
                         Image(
                             modifier= Modifier
@@ -176,15 +183,12 @@ fun LoginScreen(
                         contentColor = Color.Black,
                         backgroundColor = Color.White
                     ),
-
                     ) {
                     Text(
                         text="Make an Account",
                         fontSize = 13.sp
                     )
-
                 }
-
             }
         }
     )
@@ -224,6 +228,7 @@ fun LoginScreen(
                         viewModel.oneTapSignIn()
                     }
                 }
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -242,9 +247,7 @@ fun LoginScreen(
             }
         }
         is Response.Error -> signInResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -253,14 +256,12 @@ fun LoginScreen(
         is Response.Success -> {
             saveUserResponse.data?.let { isUserCreated ->
                 if (isUserCreated) {
-                    navController.navigate(Screens.HomeScreen.route)
+                    navController.navigate(Screens.MainScreen.route)
                 }
             }
         }
         is Response.Error -> saveUserResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 

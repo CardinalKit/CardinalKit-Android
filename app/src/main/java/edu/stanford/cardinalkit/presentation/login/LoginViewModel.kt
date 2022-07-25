@@ -31,33 +31,41 @@ class LoginViewModel @Inject constructor(
     private val _saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
     val saveUserState: State<Response<Boolean>> = _saveUserState
 
+    fun signIn(email: String, password: String) {
+        viewModelScope.launch {
+            repository.signIn(email, password).collect { result ->
+                _signInState.value = result
+            }
+        }
+    }
+
     fun oneTapSignIn() {
         viewModelScope.launch {
-            repository.oneTapSignInWithGoogle().collect { CKResult ->
-                _oneTapSignInState.value = CKResult
+            repository.oneTapSignInWithGoogle().collect { result ->
+                _oneTapSignInState.value = result
             }
         }
     }
 
     fun signInWithGoogle(googleCredential: AuthCredential) {
         viewModelScope.launch {
-            repository.firebaseSignInWithGoogle(googleCredential).collect { CKResult ->
-                _signInState.value = CKResult
+            repository.firebaseSignInWithGoogle(googleCredential).collect { result ->
+                _signInState.value = result
             }
         }
     }
 
     fun saveUser() {
         viewModelScope.launch {
-            repository.saveUser().collect { CKResult ->
-                _saveUserState.value = CKResult
+            repository.saveUser().collect { result ->
+                _saveUserState.value = result
             }
         }
     }
 
     fun getAuthStatus() = liveData(Dispatchers.IO) {
-        repository.getAuthStatus().collect { CKResult ->
-            emit(CKResult)
+        repository.getAuthStatus().collect { result ->
+            emit(result)
         }
     }
 }
