@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -61,13 +62,13 @@ fun RegisterScreen(
                 .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally){
                 Text(
-                    text = "CardinalKit Study",
+                    text = stringResource(R.string.app_name),
                     fontSize = 26.sp,
                     color= Color(0xFF790224),
                     fontWeight= FontWeight.SemiBold,
                     textAlign = TextAlign.Center)
                 Text(
-                    text = "Stanford Byers Center for Biodesign",
+                    text = stringResource(R.string.biodesign),
                     modifier = Modifier.padding(bottom = 30.dp),
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center)
@@ -93,7 +94,9 @@ fun RegisterScreen(
                     onValueChange ={ newText->
                         firstName = newText
                     },
-                    label={Text(text="First Name")},
+                    label = {
+                        Text(text = stringResource(R.string.first_name))
+                    },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -104,7 +107,9 @@ fun RegisterScreen(
                     onValueChange ={ newText->
                         lastName = newText
                     },
-                    label={Text(text="Last Name")},
+                    label = {
+                        Text(text = stringResource(R.string.last_name))
+                    },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -115,7 +120,9 @@ fun RegisterScreen(
                     onValueChange ={ newText->
                         email = newText
                     },
-                    label={Text(text="Email")},
+                    label = {
+                        Text(text = stringResource(R.string.email))
+                    },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -126,7 +133,9 @@ fun RegisterScreen(
                     onValueChange ={ newText->
                         password = newText
                     },
-                    label={Text(text="Password")},
+                    label = {
+                        Text(text = stringResource(R.string.password))
+                    },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -150,7 +159,9 @@ fun RegisterScreen(
                     onValueChange ={ newText->
                         confirm = newText
                     },
-                    label={Text(text="Confirm Password")},
+                    label = {
+                        Text(text = stringResource(R.string.confirm_password))
+                    },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -192,7 +203,7 @@ fun RegisterScreen(
                         )
                     ) {
                         androidx.compose.material.Text(
-                            text = "Register",
+                            text = stringResource(R.string.register_button),
                             fontSize = 16.sp,
                             modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
                     }

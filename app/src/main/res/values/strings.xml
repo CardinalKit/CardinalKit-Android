@@ -7,13 +7,41 @@
     <string name="home_screen_title">Home</string>
     <string name="profile_screen_title">Profile</string>
     <string name="contacts_screen_title">Contacts</string>
+    <string name="login_screen_title">Sign In to CardinalKit</string>
+    <string name="review_screen_title">Review</string>
 
     <!-- Buttons -->
+    <string name="sign_in_button">Sign In</string>
     <string name="sign_out_button">Sign Out</string>
+    <string name="new_user_button">I am a New User</string>
+    <string name="existing_user_button">I am an Existing User</string>
     <string name="sign_in_with_google_button">Sign In With Google</string>
+    <string name="create_account_button">Create an Account</string>
+    <string name="continue_to_sign_in_button">Continue to Sign In</string>
+    <string name="register_button">Register</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="submit">Submit</string>
+    <string name="forgot_password_button">Forgot Password?</string>
+    <string name="upload_health_data_button">Upload Health Data</string>
+    <string name="report_issue_button">Report an Issue</string>
+    <string name="support_button">Support</string>
+    <string name="view_consent_button">View Consent Form</string>
+
+    <!-- Labels -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="profile_name">Profile Name</string>
+    <string name="biodesign">Stanford Byers Center for Biodesign</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="today">Today</string>
+    <string name="todo">To Do</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_message">We are glad to see you!</string>
+    <string name="task_summary">Task Summary</string>
+
 
     <!-- Form validation -->
     <string name="email_empty">Please enter a valid email address.</string>

@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -89,7 +90,7 @@ fun LoginScreen(
                     contentDescription = "branding"
                 )
                 Text(
-                    text = "Sign In to CardinalKit",
+                    text = stringResource(R.string.login_screen_title),
                     fontSize = 26.sp,
                     color = Color(0xFF790224),
                     fontWeight = FontWeight.SemiBold,
@@ -115,7 +116,7 @@ fun LoginScreen(
                     onValueChange = { newText ->
                         emailAuthCredential = newText
                     },
-                    label = { Text(text = "Email") },
+                    label = { Text(text = stringResource(R.string.email)) },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -128,7 +129,7 @@ fun LoginScreen(
                     onValueChange = { newText ->
                         password = newText
                     },
-                    label = { Text(text = "Password") },
+                    label = { Text(text = stringResource(R.string.password)) },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.Gray,
@@ -165,7 +166,7 @@ fun LoginScreen(
 
                         ) {
                         Text(
-                            text = "Forgot Password?",
+                            text = stringResource(R.string.forgot_password_button),
                             fontSize = 13.sp,
                             color = Color.DarkGray
                         )
@@ -179,7 +180,7 @@ fun LoginScreen(
                         )
                     ) {
                         Text(
-                            text = "Sign in ",
+                            text = stringResource(R.string.sign_in_button),
                             fontSize = 15.sp,
                             modifier = Modifier.padding(horizontal = 5.dp),
                             color = Color.Gray
@@ -194,7 +195,7 @@ fun LoginScreen(
                     ),
                     ) {
                     Text(
-                        text = "Make an Account",
+                        text = stringResource(R.string.create_account_button),
                         fontSize = 13.sp
                     )
                 }

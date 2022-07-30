@@ -76,14 +76,13 @@ fun ProfileScreen(
                     )
                     Text(
                         modifier = Modifier.padding(top = 20.dp),
-                        text="Profile Name",
+                        text = stringResource(R.string.profile_name),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                     UserCard(
                         fullName = viewModel.fullName
                     )
-
                 }
             }
                 ScreenContent(navController = navController)
@@ -104,7 +103,7 @@ fun ProfileScreen(
                         )
                     ) {
                         androidx.compose.material.Text(
-                            text = "Withdraw from study",
+                            text = stringResource(R.string.sign_out_button),
                             fontSize = 16.sp,
                             modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
                     }
@@ -131,29 +130,27 @@ fun ProfileScreen(
         }
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun ScreenContent(
     navController: NavHostController,
 ){
     Column() {
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Update Health Records")
+            ProfileCard(title = stringResource(R.string.upload_health_data_button))
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Report a Problem")
+            ProfileCard(title = stringResource(R.string.report_issue_button))
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Support")
+            ProfileCard(title = stringResource(R.string.support_button))
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)
             .clickable{navController.navigate(Screens.ReviewConsent.route)}){
-            ProfileCard(title = "View Consent Form")
+            ProfileCard(title = stringResource(R.string.view_consent_button))
         }
-
-
     }
 }

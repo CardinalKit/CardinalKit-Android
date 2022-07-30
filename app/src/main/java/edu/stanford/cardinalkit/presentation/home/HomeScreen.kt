@@ -1,17 +1,13 @@
 package edu.stanford.cardinalkit.presentation.home
 
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -22,13 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.home.components.*
-import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,13 +53,13 @@ fun HomeScreen(
                 .padding(all = 27.dp)
                 .verticalScroll(rememberScrollState())){
                 Text(
-                    text= "Welcome",
+                    text = stringResource(R.string.welcome),
                     fontSize = 22.sp,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(bottom=3.dp)
                 )
                 Text(
-                    text= "We are glad to see you",
+                    text = stringResource(R.string.welcome_message),
                     fontSize = 15.sp,
                     modifier=Modifier.padding(bottom=10.dp)
                 )
@@ -75,7 +69,7 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text="Upcoming Task",
+                        text = stringResource(R.string.task_summary),
                         fontWeight= FontWeight.SemiBold,
                         fontSize = 18.sp
                     )
@@ -97,14 +91,8 @@ fun HomeScreen(
                         CalendarCard()
                     }
                     Spacer(modifier = Modifier.height(70.dp))
-
                 }
-
-
-
             }
-            
-
         }
     )
 

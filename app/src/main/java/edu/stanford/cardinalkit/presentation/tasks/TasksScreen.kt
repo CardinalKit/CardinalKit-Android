@@ -52,7 +52,7 @@ fun TasksScreen(
                     todayLabel = {
                         Text(
                             modifier = Modifier.padding(10.dp),
-                            text = "Today",
+                            text = stringResource(R.string.today),
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 15.sp,
                             color = PrimaryTheme
@@ -64,7 +64,7 @@ fun TasksScreen(
                     .padding(bottom = 10.dp)
                     .padding(top=15.dp)){
                     Text(
-                        text= "To Do",
+                        text= stringResource(R.string.todo),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )

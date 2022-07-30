@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,14 +50,14 @@ fun JoinStudyScreen(
                 }
                 Spacer(modifier = Modifier.height(30.dp))
                 androidx.compose.material3.Text(
-                    text = "CardinalKit Study",
+                    text = stringResource(R.string.app_name),
                     fontSize = 26.sp,
                     color = White,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
                 androidx.compose.material3.Text(
-                    text = "Stanford Department of Medicine",
+                    text = stringResource(R.string.biodesign),
                     modifier = Modifier.padding(bottom = 20.dp),
                     fontSize = 13.sp,
                     color = White,
@@ -71,11 +72,7 @@ fun JoinStudyScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {navController.navigate(Screens.SignInMethod.route)})
             }
-
-
-
     })
-
 }
 
 @Composable
@@ -98,12 +95,11 @@ fun JoinStudyButton(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Join Study",
+                text = stringResource(R.string.new_user_button),
                 fontSize = 16.sp,
                 modifier = Modifier.padding(vertical=8.dp))
         }
     }
-
 }
 
 @Composable
@@ -126,10 +122,9 @@ fun ReturningUser(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "I Am a Returning User",
+                text = stringResource(R.string.existing_user_button),
                 fontSize = 16.sp,
                 modifier = Modifier.padding(vertical=8.dp))
         }
     }
-
 }

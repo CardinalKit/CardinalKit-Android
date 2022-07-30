@@ -16,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 @Composable
@@ -28,7 +30,6 @@ fun Review(
     navController: NavHostController,
 )
 {
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -54,13 +55,11 @@ fun Review(
                     .padding(top = 10.dp)
                 ){
                     Text(
-                        text="Review",
+                        text = stringResource(R.string.review_screen_title),
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Light
                     )
-                        DisplayList(
-                            items = data)
-
+                    DisplayList(items = data)
                 }
                 Column(
                     modifier=Modifier.padding(top=6.dp),
@@ -71,7 +70,6 @@ fun Review(
                         navController.navigate(Screens.SignInMethod.route)
                     }
                 }
-
             }
         }
     )
@@ -100,8 +98,8 @@ fun ReviewScreen(onBoardingPage: OnBoardingPage) {
             textAlign = TextAlign.Left
         )
     }
-
 }
+
 @Composable
 fun GetStartedButton(
     modifier: Modifier,
@@ -124,17 +122,16 @@ fun GetStartedButton(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Continue to Sign In",
+                    text = stringResource(R.string.continue_to_sign_in_button),
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 30.dp)
                 )
 
         }
     }
-
 }
 
-val data= listOf(
+val data = listOf(
     OnBoardingPage.Content,
     OnBoardingPage.First,
     OnBoardingPage.Second,
@@ -144,18 +141,13 @@ val data= listOf(
 @Composable
 fun DisplayList(items: List<OnBoardingPage>) {
     val listState = rememberLazyListState()
-
     LazyColumn(
         modifier = Modifier,
         state = listState) {
         items(items){
             item -> ReviewScreen(onBoardingPage = item)
         }
-
-
     }
-
-
 }
 
 

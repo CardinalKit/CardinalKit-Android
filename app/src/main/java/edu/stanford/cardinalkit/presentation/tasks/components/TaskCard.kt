@@ -1,6 +1,5 @@
 package edu.stanford.cardinalkit.presentation.tasks.components
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,9 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.stanford.cardinalkit.common.Constants
-import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
-import edu.stanford.cardinalkit.domain.models.tasks.CKTaskContext
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
@@ -30,7 +27,6 @@ fun TaskCard(
     category: CKTaskCategory,
     uri: String
 ) {
-
     val context = LocalContext.current
 
     fun launchSurvey(surveyName: String){
@@ -59,7 +55,7 @@ fun TaskCard(
                         }
                     }
                 ){
-                    Icon(imageVector = Icons.Filled.Assignment, tint= PrimaryTheme,contentDescription = "Complete a survey")
+                    Icon(imageVector = Icons.Filled.Assignment, tint= PrimaryTheme, contentDescription = "Complete a survey")
                 }
                 Column(
                     modifier = Modifier.fillMaxWidth(0.9f)
