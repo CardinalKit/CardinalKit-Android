@@ -53,12 +53,17 @@
         <entry key="../../../../layout/compose-model-1658164066398.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1658358292153.xml" value="0.32599118942731276" />
         <entry key="../../../../layout/compose-model-1658358305398.xml" value="0.3238512035010941" />
+        <entry key="../../../../layout/compose-model-1658794681061.xml" value="0.13703703703703704" />
+        <entry key="../../../../layout/compose-model-1658895246922.xml" value="0.2609797297297297" />
+        <entry key="../../../../layout/compose-model-1659047850819.xml" value="0.25" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.227" />
         <entry key="app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_branding.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/ic_cardinalkit_logo.xml" value="0.165" />
+        <entry key="app/src/main/res/drawable/ic_circle.xml" value="0.1795" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.22093353271484378" />
+        <entry key="app/src/main/res/drawable/ic_tick_circle.xml" value="0.1795" />
         <entry key="app/src/main/res/layout/content_fhir_survey.xml" value="0.2667572463768116" />
         <entry key="app/src/main/res/layout/fhir_survey.xml" value="0.2667572463768116" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2667572463768116" />

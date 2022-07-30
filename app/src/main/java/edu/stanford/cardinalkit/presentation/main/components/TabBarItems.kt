@@ -17,14 +17,15 @@ object TabBarItems {
             route = Screens.TasksScreen.route
         ),
         TabBarItem(
-            title = "Profile",
-            image = Icons.Filled.Person,
-            route = Screens.ProfileScreen.route
-        ),
-        TabBarItem(
             title = "Contacts",
             image = Icons.Filled.Contacts,
             route = Screens.ContactsScreen.route
+
+        ),
+        TabBarItem(
+            title = "Profile",
+            image = Icons.Filled.Person,
+            route = Screens.ProfileScreen.route
         )
     )
 }

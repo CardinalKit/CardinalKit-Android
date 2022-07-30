@@ -33,9 +33,11 @@ fun WelcomeScreen(
             TopAppBar(
                 title = {
                 },
-                navigationIcon={
-                    IconButton(onClick={
-                    }){
+                navigationIcon = {
+                    IconButton(onClick = {
+                        navController.navigate(Screens.JoinStudyScreen.route)
+                    }) {
+                        Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
                 backgroundColor = Color.White,
@@ -47,7 +49,7 @@ fun WelcomeScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top=20.dp),
+                            .padding(top=50.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Top
                     ) {

@@ -60,32 +60,31 @@ fun Review(
             )
         },
         content = {
-            Column(modifier= Modifier
-                .fillMaxSize()
-                .padding(horizontal = 20.dp)
-                .padding(top = 10.dp)
-            ){
-                Text(
-                    text="Review",
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Light
-                )
+            Column() {
                 Column(modifier= Modifier
-                    .fillMaxSize()){
-                    DisplayList(
-                        items = data)
-                    Box(modifier= Modifier
-                        .fillMaxSize()
-                        .fillMaxHeight(0.67f)){
-                        GetStartedButton(
-                            modifier = Modifier.align(Alignment.Center),
-                        ) {
-                            navController.navigate(Screens.LoginScreen.route)
-                        }
-                    }
-
+                    .fillMaxHeight(0.88f)
+                    .padding(horizontal = 20.dp)
+                    .padding(top = 10.dp)
+                ){
+                    Text(
+                        text="Review",
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Light
+                    )
+                        DisplayList(
+                            items = data)
 
                 }
+                Column(
+                    modifier=Modifier.padding(top=6.dp),
+                    verticalArrangement=Arrangement.Bottom){
+                    GetStartedButton(
+                        modifier = Modifier,
+                    ) {
+                        navController.navigate(Screens.SignInMethod.route)
+                    }
+                }
+
             }
         }
     )
@@ -122,8 +121,10 @@ fun GetStartedButton(
     onClick: () -> Unit
 ){
     Row(
-        modifier = modifier.padding(horizontal = 50.dp),
-        verticalAlignment = Alignment.Top,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
+        verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.Center,
     ) {
             Button(
@@ -132,7 +133,8 @@ fun GetStartedButton(
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Color.Gray,
                     backgroundColor = Color.LightGray
-                )
+                ),
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = "Continue to Sign In",
@@ -145,7 +147,8 @@ fun GetStartedButton(
 
 }
 
-private val data= listOf(
+val data= listOf(
+    OnBoardingPage.Content,
     OnBoardingPage.First,
     OnBoardingPage.Second,
     OnBoardingPage.Third,
@@ -167,3 +170,5 @@ fun DisplayList(items: List<OnBoardingPage>) {
 
 
 }
+
+

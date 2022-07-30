@@ -25,17 +25,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
-import edu.stanford.cardinalkit.presentation.home.components.CKSurveyCard
-import edu.stanford.cardinalkit.presentation.home.components.CalendarCard
-import edu.stanford.cardinalkit.presentation.home.components.LearnMoreCard
-import edu.stanford.cardinalkit.presentation.home.components.TaskComponent
+import edu.stanford.cardinalkit.presentation.home.components.*
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
-@Preview
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavHostController
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -56,7 +56,8 @@ fun HomeScreen() {
 
             Column(modifier= Modifier
                 .padding(top = 50.dp)
-                .padding(all = 27.dp)){
+                .padding(all = 27.dp)
+                .verticalScroll(rememberScrollState())){
                 Text(
                     text= "Welcome",
                     fontSize = 22.sp,
@@ -83,9 +84,9 @@ fun HomeScreen() {
                         Icon(Icons.Filled.ArrowForward, "forward Icon")
                     }
                 }
-                TaskComponent()
+                TaskCardUI()
                 Spacer(modifier = Modifier.height(20.dp))
-                Column(modifier = Modifier.verticalScroll(rememberScrollState())){
+                Column(){
                     LearnMoreCard()
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(

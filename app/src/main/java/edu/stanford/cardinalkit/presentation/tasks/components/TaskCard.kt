@@ -20,6 +20,7 @@ import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskContext
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +59,7 @@ fun TaskCard(
                         }
                     }
                 ){
-                    Icon(imageVector = Icons.Filled.Assignment, tint= Color(0xFF484965),contentDescription = "Complete a survey")
+                    Icon(imageVector = Icons.Filled.Assignment, tint= PrimaryTheme,contentDescription = "Complete a survey")
                 }
                 Column(
                     modifier = Modifier.fillMaxWidth(0.9f)

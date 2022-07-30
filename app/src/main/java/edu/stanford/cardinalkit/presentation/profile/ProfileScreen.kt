@@ -31,6 +31,7 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.profile.components.UserCard
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.profile.components.ProfileCard
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,7 +72,7 @@ fun ProfileScreen(
                             .height(100.dp)
                             .width(100.dp)
                             .align(Alignment.CenterHorizontally),
-                        colorFilter = ColorFilter.tint(Color(0xFF484965))
+                        colorFilter = ColorFilter.tint(PrimaryTheme)
                     )
                     Text(
                         modifier = Modifier.padding(top = 20.dp),
@@ -85,7 +86,7 @@ fun ProfileScreen(
 
                 }
             }
-                ScreenContent()
+                ScreenContent(navController = navController)
                 Spacer(modifier = Modifier.height(25.dp))
                 Row(
                     Modifier
@@ -132,7 +133,9 @@ fun ProfileScreen(
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenContent(){
+fun ScreenContent(
+    navController: NavHostController,
+){
     Column() {
         Row(Modifier.background(Color.White)){
             ProfileCard(title = "Update Health Records")
@@ -146,7 +149,8 @@ fun ScreenContent(){
             ProfileCard(title = "Support")
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(Color.White)){
+        Row(Modifier.background(Color.White)
+            .clickable{navController.navigate(Screens.ReviewConsent.route)}){
             ProfileCard(title = "View Consent Form")
         }
 

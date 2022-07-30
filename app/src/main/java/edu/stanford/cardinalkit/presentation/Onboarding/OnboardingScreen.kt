@@ -110,13 +110,15 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Image(
-            modifier = Modifier
-                .fillMaxWidth(0.4f)
-                .fillMaxHeight(0.67f),
-            painter = painterResource(id = onBoardingPage.image),
-            contentDescription = "Pager Image"
-        )
+        onBoardingPage.image?.let { painterResource(id = it) }?.let {
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth(0.4f)
+                    .fillMaxHeight(0.67f),
+                painter = it,
+                contentDescription = "Pager Image"
+            )
+        }
         Text(
             modifier = Modifier
                 .fillMaxWidth(),

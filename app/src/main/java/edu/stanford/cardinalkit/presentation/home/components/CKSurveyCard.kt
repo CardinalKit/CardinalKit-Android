@@ -44,14 +44,15 @@ fun CKSurveyCard(){
         ) {
             Row(){
                 Text(
-                    text= "Take a Survey",
+                    text= "Edit Card",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold
                 )
 
             }
+            Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text= "How are you liking CardinalKit?",
+                text= "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 fontSize = 13.sp
             )
             Spacer(modifier = Modifier.height(10.dp))

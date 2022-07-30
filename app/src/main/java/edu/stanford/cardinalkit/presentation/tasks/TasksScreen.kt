@@ -27,6 +27,7 @@ import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.home.components.TaskComponent
 import edu.stanford.cardinalkit.presentation.tasks.components.DatePickerTimeline
 import edu.stanford.cardinalkit.presentation.tasks.components.TaskCard
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
@@ -66,7 +67,7 @@ fun TasksScreen(
                             text = "Today",
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 15.sp,
-                            color = Color(0xFF484965)
+                            color = PrimaryTheme
                         )
                     },
                 )

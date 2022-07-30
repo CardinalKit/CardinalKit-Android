@@ -13,11 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileCard(
-    title:String
+    title:String,
+
 ){
     Card(
         modifier = Modifier
@@ -32,7 +34,7 @@ fun ProfileCard(
             Text(
                 text = title,
                 fontSize = 15.sp,
-                color= Color(0xFF484965)
+                color= PrimaryTheme
             )
         }
     }
