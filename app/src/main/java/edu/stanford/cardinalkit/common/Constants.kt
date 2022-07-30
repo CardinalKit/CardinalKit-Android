@@ -27,6 +27,7 @@ object Constants {
     const val SIGN_IN_METHOD = "Sign In"
     const val JOIN_STUDY_SCREEN="Join Study"
 
+
     // Named dependencies to be injected
     const val USERS_REF = "usersRef"
     const val SURVEYS_REF = "surveysRef"

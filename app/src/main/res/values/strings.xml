@@ -14,4 +14,11 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="submit">Submit</string>
+
+    <!-- Form validation -->
+    <string name="email_empty">Please enter a valid email address.</string>
+    <string name="password_empty">Please enter a password.</string>
+    <string name="email_and_password_empty">Please enter an email address and password.</string>
+    <string name="required_field_empty">All required fields must be completed.</string>
+    <string name="passwords_unmatched">Passwords must match.</string>
 </resources>

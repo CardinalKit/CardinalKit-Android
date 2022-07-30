@@ -25,7 +25,6 @@ import androidx.core.os.bundleOf
 import edu.stanford.cardinalkit.domain.models.Contact
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactCard(

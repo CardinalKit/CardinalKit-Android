@@ -37,7 +37,6 @@ fun BottomNavigationBar(
                             restoreState = true
                         }
                     },
-
                     icon = {
                         Icon(
                             imageVector = navItem.image,
@@ -51,9 +50,6 @@ fun BottomNavigationBar(
                     unselectedContentColor = COLOR_NORMAL
                 )
             }
-
         }
-
-
     }
 }

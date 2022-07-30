@@ -116,9 +116,6 @@ fun WelcomeScreen(
                         }
 
                     }
-
-
-
         }
     )
 

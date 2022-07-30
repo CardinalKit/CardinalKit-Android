@@ -1,6 +1,6 @@
 package edu.stanford.cardinalkit.presentation
 
-import android.widget.EditText
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,24 +15,29 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.android.material.textfield.TextInputEditText
+import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
+import edu.stanford.cardinalkit.presentation.register.RegisterViewModel
 
 
 @Composable
 fun RegisterScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: RegisterViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -62,7 +67,7 @@ fun RegisterScreen(
                     fontWeight= FontWeight.SemiBold,
                     textAlign = TextAlign.Center)
                 Text(
-                    text = "Stanford Department of Medicine",
+                    text = "Stanford Byers Center for Biodesign",
                     modifier = Modifier.padding(bottom = 30.dp),
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center)
@@ -171,7 +176,15 @@ fun RegisterScreen(
                     horizontalArrangement = Arrangement.Center,
                 )  {
                     Button(
-                        onClick = {},
+                        onClick = {
+                            if(email.isEmpty() or password.isEmpty() or confirm.isEmpty()){
+                                Toast.makeText(context, R.string.required_field_empty, Toast.LENGTH_SHORT).show()
+                            } else if(password != confirm) {
+                                Toast.makeText(context, R.string.passwords_unmatched, Toast.LENGTH_SHORT).show()
+                            } else {
+                                viewModel.signUp(email, password)
+                            }
+                        },
                         shape= RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.LightGray,
@@ -185,7 +198,13 @@ fun RegisterScreen(
                     }
                 }
             }
-
-
         })
+
+    when(val signUpResponse = viewModel.signUpState.value) {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Success -> navController.navigate(Screens.MainScreen.route)
+        is Response.Error -> signUpResponse.e?.let {
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 }
