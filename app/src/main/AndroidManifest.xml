@@ -26,7 +26,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.surveys.SurveyActivity">
+            android:name=".presentation.surveys.SurveyActivity"
+            android:theme="@style/Theme.Material3.Light">
         </activity>
     </application>
 
