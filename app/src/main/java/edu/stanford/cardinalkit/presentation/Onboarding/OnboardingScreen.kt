@@ -6,26 +6,21 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.ButtonDefaults.elevation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.*
-import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import kotlinx.coroutines.launch
 
@@ -36,7 +31,7 @@ import kotlinx.coroutines.launch
 fun OnboardingScreen(
     navController: NavHostController,
 ) {
-    val pages= listOf(
+    val pages = listOf(
         OnBoardingPage.First,
         OnBoardingPage.Second,
         OnBoardingPage.Third,
@@ -50,8 +45,8 @@ fun OnboardingScreen(
             TopAppBar(
                 title = {
                 },
-                navigationIcon={
-                    IconButton(onClick={
+                navigationIcon = {
+                    IconButton(onClick = {
                         navController.navigate(Screens.WelcomeScreen.route)
                     }){
                         Icon(Icons.Filled.ArrowBack, "back Icon")
@@ -63,7 +58,7 @@ fun OnboardingScreen(
             )
         },
         content = {
-            Column(modifier= Modifier.fillMaxSize()) {
+            Column(modifier = Modifier.fillMaxSize()) {
                 HorizontalPager(
                     modifier = Modifier.weight(9f),
                     count = 4,
@@ -82,7 +77,7 @@ fun OnboardingScreen(
                     .fillMaxHeight(0.13f)
                 ){
                     BottomSection(
-                        pagerState=pagerState
+                        pagerState = pagerState
                     )
                     ReviewButton(
                         modifier = Modifier,
@@ -92,13 +87,8 @@ fun OnboardingScreen(
                     }
                 }
             }
-
-
         }
     )
-
-
-
 }
 
 
@@ -110,13 +100,15 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Image(
-            modifier = Modifier
-                .fillMaxWidth(0.4f)
-                .fillMaxHeight(0.67f),
-            painter = painterResource(id = onBoardingPage.image),
-            contentDescription = "Pager Image"
-        )
+        onBoardingPage.image?.let { painterResource(id = it) }?.let {
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth(0.4f)
+                    .fillMaxHeight(0.67f),
+                painter = it,
+                contentDescription = "Pager Image"
+            )
+        }
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -135,7 +127,6 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
             textAlign = TextAlign.Center
         )
     }
-
 }
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
@@ -172,9 +163,6 @@ fun BottomSection(
 
         }
     }
-
-
-
 }
 
 
@@ -231,12 +219,6 @@ fun NextButton(
         }
     }
 }
-
-
-
-
-
-
 
 @ExperimentalAnimationApi
 @ExperimentalPagerApi

@@ -3,16 +3,24 @@ package edu.stanford.cardinalkit.presentation
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,7 +46,7 @@ fun RegisterScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate(Screens.LoginScreen.route)
+                        navController.navigate(Screens.SignInMethod.route)
                     }) {
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
@@ -54,88 +62,123 @@ fun RegisterScreen(
                 .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally){
                 Text(
-                    text = "CardinalKit Study",
+                    text = stringResource(R.string.app_name),
                     fontSize = 26.sp,
                     color= Color(0xFF790224),
                     fontWeight= FontWeight.SemiBold,
                     textAlign = TextAlign.Center)
                 Text(
-                    text = "Stanford Byers Center for Biodesign",
+                    text = stringResource(R.string.biodesign),
                     modifier = Modifier.padding(bottom = 30.dp),
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center)
-
-                var firstName by remember {
+                var firstName by remember{
                     mutableStateOf("")
                 }
+                var lastName by remember{
+                    mutableStateOf("")
+                }
+                var email by remember{
+                    mutableStateOf("")
+                }
+                var password by remember{
+                    mutableStateOf("")
+                }
+                var confirm by remember{
+                    mutableStateOf("")
+                }
+                var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
                 OutlinedTextField(
                     value = firstName,
-                    onValueChange = { newText->
+                    onValueChange ={ newText->
                         firstName = newText
                     },
-                    label={Text(text="First Name")},
-                    singleLine = true
+                    label = {
+                        Text(text = stringResource(R.string.first_name))
+                    },
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Gray,
+                        cursorColor = Color.LightGray),
                 )
-
-                var lastName by remember {
-                    mutableStateOf("")
-                }
-
                 OutlinedTextField(
                     value = lastName,
-                    onValueChange = { newText->
+                    onValueChange ={ newText->
                         lastName = newText
                     },
                     label = {
-                        Text(text="Last Name")
+                        Text(text = stringResource(R.string.last_name))
                     },
-                    singleLine = true
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Gray,
+                        cursorColor = Color.LightGray),
                 )
-
-                var email by remember {
-                    mutableStateOf("")
-                }
-
                 OutlinedTextField(
                     value = email,
-                    onValueChange ={ newText ->
+                    onValueChange ={ newText->
                         email = newText
                     },
                     label = {
-                        Text(text="Email")
+                        Text(text = stringResource(R.string.email))
                     },
-                    singleLine = true
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Gray,
+                        cursorColor = Color.LightGray),
                 )
-
-                var password by remember {
-                    mutableStateOf("")
-                }
-
                 OutlinedTextField(
                     value = password,
-                    onValueChange ={ newText ->
+                    onValueChange ={ newText->
                         password = newText
                     },
                     label = {
-                        Text(text="Password")
+                        Text(text = stringResource(R.string.password))
                     },
-                    singleLine = true
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Gray,
+                        cursorColor = Color.LightGray),
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    trailingIcon = {
+                        val image = if (passwordVisible)
+                            Icons.Filled.Visibility
+                        else Icons.Filled.VisibilityOff
+
+                        val description = if (passwordVisible) "Hide password" else "Show password"
+
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(imageVector = image, description)
+                        }
+                    }
                 )
-
-                var confirmPassword by remember {
-                    mutableStateOf("")
-                }
-
                 OutlinedTextField(
-                    value = confirmPassword,
-                    onValueChange ={ newText ->
-                        confirmPassword = newText
+                    value = confirm,
+                    onValueChange ={ newText->
+                        confirm = newText
                     },
                     label = {
-                        Text(text="Confirm Password")
+                        Text(text = stringResource(R.string.confirm_password))
                     },
-                    singleLine = true
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Gray,
+                        cursorColor = Color.LightGray),
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    trailingIcon = {
+                        val image = if (passwordVisible)
+                            Icons.Filled.Visibility
+                        else Icons.Filled.VisibilityOff
+
+                        val description = if (passwordVisible) "Hide password" else "Show password"
+
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(imageVector = image, description)
+                        }
+                    }
                 )
 
                 Row(
@@ -145,9 +188,9 @@ fun RegisterScreen(
                 )  {
                     Button(
                         onClick = {
-                            if(email.isEmpty() or password.isEmpty() or confirmPassword.isEmpty()){
+                            if(email.isEmpty() or password.isEmpty() or confirm.isEmpty()){
                                 Toast.makeText(context, R.string.required_field_empty, Toast.LENGTH_SHORT).show()
-                            } else if(password != confirmPassword) {
+                            } else if(password != confirm) {
                                 Toast.makeText(context, R.string.passwords_unmatched, Toast.LENGTH_SHORT).show()
                             } else {
                                 viewModel.signUp(email, password)
@@ -160,7 +203,7 @@ fun RegisterScreen(
                         )
                     ) {
                         androidx.compose.material.Text(
-                            text = "Register",
+                            text = stringResource(R.string.register_button),
                             fontSize = 16.sp,
                             modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
                     }

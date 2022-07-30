@@ -2,6 +2,7 @@ package edu.stanford.cardinalkit.common
 
 object Constants {
 
+
     // General
     const val APP_PACKAGE_NAME = "edu.stanford.cardinalkit"
 
@@ -22,6 +23,10 @@ object Constants {
     const val WELCOME_SCREEN = "Welcome"
     const val REVIEW_SCREEN = "Review"
     const val REGISTER_SCREEN = "Register"
+    const val REVIEW_CONSENT="Review Consent"
+    const val SIGN_IN_METHOD = "Sign In"
+    const val JOIN_STUDY_SCREEN="Join Study"
+
 
     // Named dependencies to be injected
     const val USERS_REF = "usersRef"

@@ -23,7 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
 import edu.stanford.cardinalkit.domain.models.Contact
-
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +46,7 @@ fun ContactCard(
                 Icon(imageVector = Icons.Filled.AccountCircle , modifier = Modifier
                     .padding(end = 10.dp)
                     .height(50.dp)
-                    .width(45.dp), contentDescription = "profile", tint = Color(0xFF484965))
+                    .width(45.dp), contentDescription = "profile", tint = PrimaryTheme)
                 Column() {
                     Text(
                         text = contact.name,
@@ -116,7 +116,7 @@ fun ContactSection(
             Text(
                 text="Call",
                 fontSize = 14.sp,
-                color = Color(0xFF484965),
+                color = PrimaryTheme,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
@@ -131,7 +131,7 @@ fun ContactSection(
             Text(
                 text="Text",
                 fontSize = 14.sp,
-                color = Color(0xFF484965),
+                color = PrimaryTheme,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
@@ -143,7 +143,7 @@ fun ContactSection(
             Text(
                 text="Email",
                 fontSize = 14.sp,
-                color = Color(0xFF484965),
+                color = PrimaryTheme,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .padding(vertical = 5.dp)

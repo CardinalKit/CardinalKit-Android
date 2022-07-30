@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,12 +23,13 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen().apply{
         }
 
+
         setContent {
             val navController = rememberAnimatedNavController()
 
             CKNavHost(
                 navController = navController,
-                startDestination = Screens.WelcomeScreen.route
+                startDestination = Screens.JoinStudyScreen.route
             )
 
             // Check if user is authenticated, if so, redirect them

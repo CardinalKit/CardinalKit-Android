@@ -31,6 +31,7 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.profile.components.UserCard
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.profile.components.ProfileCard
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,21 +72,20 @@ fun ProfileScreen(
                             .height(100.dp)
                             .width(100.dp)
                             .align(Alignment.CenterHorizontally),
-                        colorFilter = ColorFilter.tint(Color(0xFF484965))
+                        colorFilter = ColorFilter.tint(PrimaryTheme)
                     )
                     Text(
                         modifier = Modifier.padding(top = 20.dp),
-                        text="Profile Name",
+                        text = stringResource(R.string.profile_name),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                     UserCard(
                         fullName = viewModel.fullName
                     )
-
                 }
             }
-                ScreenContent()
+                ScreenContent(navController = navController)
                 Spacer(modifier = Modifier.height(25.dp))
                 Row(
                     Modifier
@@ -103,7 +103,7 @@ fun ProfileScreen(
                         )
                     ) {
                         androidx.compose.material.Text(
-                            text = "Withdraw from study",
+                            text = stringResource(R.string.sign_out_button),
                             fontSize = 16.sp,
                             modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
                     }
@@ -130,26 +130,27 @@ fun ProfileScreen(
         }
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun ScreenContent(){
+fun ScreenContent(
+    navController: NavHostController,
+){
     Column() {
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Update Health Records")
+            ProfileCard(title = stringResource(R.string.upload_health_data_button))
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Report a Problem")
+            ProfileCard(title = stringResource(R.string.report_issue_button))
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = "Support")
+            ProfileCard(title = stringResource(R.string.support_button))
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(Color.White)){
-            ProfileCard(title = "View Consent Form")
+        Row(Modifier.background(Color.White)
+            .clickable{navController.navigate(Screens.ReviewConsent.route)}){
+            ProfileCard(title = stringResource(R.string.view_consent_button))
         }
-
-
     }
 }

@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @Preview
 @Composable
@@ -21,7 +22,7 @@ fun LearnMoreCard(){
         modifier = Modifier
             .fillMaxWidth()
             .clickable { },
-        backgroundColor = Color(0xFF484965),
+        backgroundColor = PrimaryTheme,
         shape= RoundedCornerShape(18)
     ){
         Column(

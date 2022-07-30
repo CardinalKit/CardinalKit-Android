@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @Composable
 fun BottomNavigationBar(
@@ -20,7 +21,7 @@ fun BottomNavigationBar(
     modifier:Modifier){
     BottomNavigation {
         val COLOR_NORMAL = Color.Gray
-        val COLOR_SELECTED = Color(0xFF484965)
+        val COLOR_SELECTED = PrimaryTheme
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backStackEntry?.destination?.route
         Row(modifier = modifier.background(Color.White)){
@@ -36,7 +37,6 @@ fun BottomNavigationBar(
                             restoreState = true
                         }
                     },
-
                     icon = {
                         Icon(
                             imageVector = navItem.image,
@@ -50,9 +50,6 @@ fun BottomNavigationBar(
                     unselectedContentColor = COLOR_NORMAL
                 )
             }
-
         }
-
-
     }
 }

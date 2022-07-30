@@ -1,14 +1,15 @@
 package edu.stanford.cardinalkit.presentation.login
 
 import android.app.Activity.RESULT_OK
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
@@ -21,9 +22,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality.Companion.Medium
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -40,15 +42,15 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
+import edu.stanford.cardinalkit.presentation.welcome.ReturningUser
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
+fun SignInMethod(
     viewModel: LoginViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -56,7 +58,7 @@ fun LoginScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate(Screens.SignInMethod.route)
+                        navController.navigate(Screens.JoinStudyScreen.route)
                     }) {
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
@@ -67,140 +69,95 @@ fun LoginScreen(
             )
         },
         containerColor = Color(0xFFFFFFFF),
-        content = { contentPadding ->
+        content = {contentPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth(0.5f)
-                        .fillMaxHeight(0.16f),
+                Image(modifier = Modifier
+                    .padding(top = 10.dp)
+                    .fillMaxWidth(0.5f)
+                    .fillMaxHeight(0.16f),
                     painter = painterResource(R.drawable.branding_light),
-                    contentDescription = "branding"
-                )
-                Image(
-                    modifier = Modifier
-                        .fillMaxWidth(0.55f)
-                        .fillMaxHeight(0.3f),
+                    contentDescription = "branding" )
+                Image(modifier = Modifier
+                    .fillMaxWidth(0.55f)
+                    .fillMaxHeight(0.3f),
                     painter = painterResource(R.drawable.login),
-                    contentDescription = "branding"
-                )
+                    contentDescription = "branding" )
                 Text(
-                    text = stringResource(R.string.login_screen_title),
+                    text = "Sign In to CardinalKit",
                     fontSize = 26.sp,
-                    color = Color(0xFF790224),
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Center
-                )
+                    color= Color(0xFF790224),
+                    fontWeight=FontWeight.SemiBold,
+                    textAlign = TextAlign.Center)
                 Text(
-                    text = "Enter your email and password",
+                    text = "Choose your sign in method",
                     modifier = Modifier.padding(bottom = 20.dp),
                     fontSize = 13.sp,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(50.dp))
+                    textAlign = TextAlign.Center)
 
-                var emailAuthCredential by remember {
-                    mutableStateOf("")
-                }
-                var password by remember {
-                    mutableStateOf("")
-                }
-                var passwordVisible by rememberSaveable { mutableStateOf(false) }
-                OutlinedTextField(
-                    value = emailAuthCredential,
-                    onValueChange = { newText ->
-                        emailAuthCredential = newText
-                    },
-                    label = { Text(text = stringResource(R.string.email)) },
-                    singleLine = true,
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray
-                    )
-                )
+                Spacer(modifier = Modifier.height(60.dp))
 
-                OutlinedTextField(
-                    value = password,
-                    onValueChange = { newText ->
-                        password = newText
-                    },
-                    label = { Text(text = stringResource(R.string.password)) },
-                    singleLine = true,
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray
-                    ),
-                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    trailingIcon = {
-                        val image = if (passwordVisible)
-                            Icons.Filled.Visibility
-                        else Icons.Filled.VisibilityOff
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 40.dp)) {
+                    SignIn(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {navController.navigate(Screens.LoginScreen.route)})
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                        val description = if (passwordVisible) "Hide password" else "Show password"
 
-                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                            Icon(imageVector = image, description)
-                        }
-                    }
-                )
-                Row(
-                    Modifier
-                        .padding(top = 5.dp)
-                        .fillMaxWidth()
-                        .padding(horizontal = 65.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(top = 7.dp)
+                    )  {
 
-                ) {
-                    TextButton(
-                        onClick = { navController.navigate(Screens.RegisterScreen.route) },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.DarkGray,
-                            backgroundColor = Color.White
-                        ),
+                        OutlinedButton(
+                            onClick = {viewModel.oneTapSignIn()},
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.White,
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            shape = RoundedCornerShape(50.dp)
+
 
                         ) {
-                        Text(
-                            text = stringResource(R.string.forgot_password_button),
-                            fontSize = 13.sp,
-                            color = Color.DarkGray
-                        )
+                            Image(modifier = Modifier.fillMaxHeight(.2f).fillMaxWidth(.25f),painter = painterResource(R.drawable.btn_google), contentDescription ="google" )
+                            Text(
+                                text = "Sign In with Google",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Gray,
+                                modifier = Modifier.padding(vertical = 8.dp)
+                                    .padding(end = 40.dp)
+                            )
+                        }
+                    }
 
-                    }
-                    TextButton(
-                        onClick = { navController.navigate(Screens.MainScreen.route) },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.Gray,
-                            backgroundColor = Color.LightGray,
-                        )
-                    ) {
-                        Text(
-                            text = stringResource(R.string.sign_in_button),
-                            fontSize = 15.sp,
-                            modifier = Modifier.padding(horizontal = 5.dp),
-                            color = Color.Gray
-                        )
-                    }
                 }
+                Spacer(modifier = Modifier.height(20.dp))
                 TextButton(
                     onClick = {navController.navigate(Screens.RegisterScreen.route)},
                     colors = ButtonDefaults.buttonColors(
                         contentColor = Color.Black,
                         backgroundColor = Color.White
                     ),
+
                     ) {
                     Text(
-                        text = stringResource(R.string.create_account_button),
-                        fontSize = 13.sp
+                        text="or Make an Account",
+                        fontSize = 13.sp,
                     )
+
                 }
+
             }
         }
+
     )
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
@@ -238,7 +195,6 @@ fun LoginScreen(
                         viewModel.oneTapSignIn()
                     }
                 }
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -257,7 +213,9 @@ fun LoginScreen(
             }
         }
         is Response.Error -> signInResponse.e?.let {
-            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+            LaunchedEffect(Unit) {
+                print(it)
+            }
         }
     }
 
@@ -266,12 +224,44 @@ fun LoginScreen(
         is Response.Success -> {
             saveUserResponse.data?.let { isUserCreated ->
                 if (isUserCreated) {
-                    navController.navigate(Screens.MainScreen.route)
+                    navController.navigate(Screens.HomeScreen.route)
                 }
             }
         }
         is Response.Error -> saveUserResponse.e?.let {
-            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+            LaunchedEffect(Unit) {
+                print(it)
+            }
+        }
+    }
+
+}
+
+@Composable
+fun SignIn(
+    modifier: Modifier,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.Center,
+    )  {
+        Button(
+            onClick = onClick,
+            shape= RoundedCornerShape(50),
+            colors = ButtonDefaults.buttonColors(
+                contentColor = Color.Gray,
+                backgroundColor = Color.LightGray
+            ),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            androidx.compose.material.Text(
+                text = "Sign In with Account",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(vertical = 8.dp).padding(horizontal = 20.dp)
+            )
         }
     }
 
