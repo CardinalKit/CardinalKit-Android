@@ -1,0 +1,127 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.google.android.fhir",
+    "module": "common",
+    "version": "0.1.0-alpha03",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.4.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-structures-r4",
+          "version": {
+            "requires": "5.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.6.10"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "common-0.1.0-alpha03.aar",
+          "url": "common-0.1.0-alpha03.aar",
+          "size": 9119,
+          "sha512": "c44aa8436a5d0e106394967a28aaa7b449d8f1a5b580f45eee2e6a522941efa1b838f8a46df44532a1529faa5143dd47f4b4b0cfd183b36cfbe84d4037ee178e",
+          "sha256": "245142adca07b4a7312bea4fec8d2315acbe4255613e2fd00234671072ee480b",
+          "sha1": "d5493c7c13324c8f54a710b4d21f53f0876f8c21",
+          "md5": "31ebf41c000931ed879332e865203044"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-structures-r4",
+          "version": {
+            "requires": "5.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.6.10"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            }
+          ]
+        },
+        {
+          "group": "org.fhir",
+          "module": "ucum",
+          "version": {
+            "requires": "1.0.3"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "common-0.1.0-alpha03.aar",
+          "url": "common-0.1.0-alpha03.aar",
+          "size": 9119,
+          "sha512": "c44aa8436a5d0e106394967a28aaa7b449d8f1a5b580f45eee2e6a522941efa1b838f8a46df44532a1529faa5143dd47f4b4b0cfd183b36cfbe84d4037ee178e",
+          "sha256": "245142adca07b4a7312bea4fec8d2315acbe4255613e2fd00234671072ee480b",
+          "sha1": "d5493c7c13324c8f54a710b4d21f53f0876f8c21",
+          "md5": "31ebf41c000931ed879332e865203044"
+        }
+      ]
+    }
+  ]
+}
