@@ -1,8 +1,6 @@
 package edu.stanford.cardinalkit.presentation.login
 
-import android.util.Log
 import androidx.compose.runtime.State
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -22,8 +20,6 @@ class LoginViewModel @Inject constructor(
     private val repository: AuthRepository,
     val client: SignInClient
 ): ViewModel() {
-    val isAuthenticated get() = repository.isAuthenticated()
-
     private val _oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Response.Success(null))
     val oneTapSignInState: State<Response<BeginSignInResult>> = _oneTapSignInState
 

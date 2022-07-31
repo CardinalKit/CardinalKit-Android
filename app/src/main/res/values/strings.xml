@@ -13,6 +13,7 @@
     <!-- Buttons -->
     <string name="sign_in_button">Sign In</string>
     <string name="sign_out_button">Sign Out</string>
+    <string name="sign_in_with_email">Sign In With Email</string>
     <string name="new_user_button">I am a New User</string>
     <string name="existing_user_button">I am an Existing User</string>
     <string name="sign_in_with_google_button">Sign In With Google</string>
@@ -32,6 +33,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="choose_your_sign_in_method">Choose your sign in method</string>
     <string name="profile_name">Profile Name</string>
     <string name="biodesign">Stanford Byers Center for Biodesign</string>
     <string name="first_name">First Name</string>
