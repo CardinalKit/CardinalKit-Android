@@ -119,7 +119,7 @@ fun ProfileScreen(
             val signedOut = signOutResponse.data
             signedOut?.let {
                 if (signedOut) {
-                    navController.navigate(Screens.LoginScreen.route)
+                    //navController.navigate(Screens.LoginScreen.route)
                 }
             }
         }
