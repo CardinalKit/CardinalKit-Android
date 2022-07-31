@@ -33,14 +33,15 @@ class SurveyRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getSurvey(name: String): Response<String> {
-        return try {
+    override suspend fun getSurvey(name: String) = flow {
+        try {
+            emit(Response.Loading)
             val questionnaireJsonString =
                 context.assets.open(name)
                     .bufferedReader().use { it.readText() }
-            Response.Success(questionnaireJsonString)
+            emit(Response.Success(questionnaireJsonString))
         } catch (e: IOException) {
-            Response.Error(e)
+            emit(Response.Error(e))
         }
     }
 }

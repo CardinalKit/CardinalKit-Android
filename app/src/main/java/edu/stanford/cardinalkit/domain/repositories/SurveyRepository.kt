@@ -5,6 +5,6 @@ import edu.stanford.cardinalkit.domain.models.SurveyResult
 import kotlinx.coroutines.flow.Flow
 
 interface SurveyRepository {
-    fun getSurvey(name: String): Response<String>
+    suspend fun getSurvey(name: String): Flow<Response<String?>>
     suspend fun uploadSurveyResult(result: SurveyResult): Flow<Response<Void?>>
 }

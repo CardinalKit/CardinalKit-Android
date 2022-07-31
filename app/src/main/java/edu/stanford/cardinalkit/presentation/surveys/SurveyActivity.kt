@@ -35,7 +35,6 @@ class SurveyActivity : AppCompatActivity() {
 
         val context = applicationContext
 
-
         // Adds a listener to the submit button
         val submitButton: Button = findViewById(R.id.button_submit)
         submitButton.setOnClickListener {
@@ -45,38 +44,37 @@ class SurveyActivity : AppCompatActivity() {
         // Gets the filename of the FHIR survey JSON that was passed in
         // and creates the survey views
         surveyName = intent.getStringExtra(Constants.SURVEY_NAME)
-
-        when (val response = surveyName?.let { viewModel.getSurvey(name = it) }) {
-            is Response.Success -> {
-                val arguments =
-                    bundleOf(QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to response.data)
-                if (savedInstanceState == null) {
-                    supportFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        add<QuestionnaireFragment>(
-                            R.id.fragment_container_view,
-                            args = arguments
-                        )
-                    }
-                }
-            }
-            is Response.Error -> {
-                Toast.makeText(context, R.string.error_loading_survey_message, Toast.LENGTH_SHORT).show()
-                finish()
-            }
-        }
+        surveyName?.let { viewModel.getSurvey(it) }
 
         // Observes result of survey submission
-        subscribeToObservables()
-    }
-
-    private fun subscribeToObservables() {
-        val context = applicationContext
         viewModel.surveyResultUploadedState.observe(this) {
             when(it){
                 is Response.Success -> finish()
                 is Response.Error -> {
                     Toast.makeText(context, it.e?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        // Observes state of survey download
+        viewModel.surveyDownloadState.observe(this) {
+            when(it){
+                is Response.Success -> {
+                    val arguments =
+                        bundleOf(QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to it.data)
+                    if (savedInstanceState == null) {
+                        supportFragmentManager.commit {
+                            setReorderingAllowed(true)
+                            add<QuestionnaireFragment>(
+                                R.id.fragment_container_view,
+                                args = arguments
+                            )
+                        }
+                    }
+                }
+                is Response.Error -> {
+                    Toast.makeText(context, R.string.error_loading_survey_message, Toast.LENGTH_SHORT).show()
+                    finish()
                 }
             }
         }
@@ -103,8 +101,6 @@ class SurveyActivity : AppCompatActivity() {
     }
 
     private fun submitSurvey() {
-        val viewModel by viewModels<SurveyViewModel>()
-
         // Get the survey results from QuestionnaireFragment and upload to cloud
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
                 as QuestionnaireFragment

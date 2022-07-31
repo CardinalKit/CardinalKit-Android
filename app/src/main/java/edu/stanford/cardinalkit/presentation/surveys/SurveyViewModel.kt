@@ -1,7 +1,5 @@
 package edu.stanford.cardinalkit.presentation.surveys
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,8 +22,8 @@ class SurveyViewModel @Inject constructor(
     @Named(Constants.SURVEYS_USE_CASES) private val useCases: SurveysUseCases
 ): ViewModel() {
 
-//    private val _surveyResultUploadedState = mutableStateOf<Response<Void?>>(Response.Loading)
-//    val surveyResultUploadedState: State<Response<Void?>> = _surveyResultUploadedState
+    private val _surveyDownloadState: MutableLiveData<Response<String?>> = MutableLiveData(Response.Loading)
+    val surveyDownloadState: LiveData<Response<String?>> = _surveyDownloadState
 
     private val _surveyResultUploadedState: MutableLiveData<Response<Void?>> = MutableLiveData(Response.Loading)
     val surveyResultUploadedState: LiveData<Response<Void?>> = _surveyResultUploadedState
@@ -49,7 +47,9 @@ class SurveyViewModel @Inject constructor(
         }
     }
 
-    fun getSurvey(name: String): Response<String> {
-        return useCases.getSurvey(name)
+    fun getSurvey(name: String) = viewModelScope.launch {
+        useCases.getSurvey(name).collect { response ->
+            _surveyDownloadState.value = response
+        }
     }
 }
