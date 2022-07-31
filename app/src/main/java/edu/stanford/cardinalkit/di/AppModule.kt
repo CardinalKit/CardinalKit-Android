@@ -32,8 +32,9 @@ import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
+import edu.stanford.cardinalkit.domain.use_cases.surveys.GetSurvey
 import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
-import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurvey
+import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
 import javax.inject.Named
 
 @Module
@@ -148,8 +149,9 @@ class AppModule {
     @Named(Constants.SURVEY_REPOSITORY)
     fun provideSurveyRepository(
         @Named(Constants.SURVEYS_REF)
-        surveysRef: CollectionReference?
-    ): SurveyRepository = SurveyRepositoryImpl(surveysRef)
+        surveysRef: CollectionReference?,
+        context: Context
+    ): SurveyRepository = SurveyRepositoryImpl(surveysRef, context)
 
     @Provides
     @Named(Constants.TASKS_REPOSITORY)
@@ -171,7 +173,8 @@ class AppModule {
         @Named(Constants.SURVEY_REPOSITORY)
         surveyRepository: SurveyRepository,
     ) = SurveysUseCases(
-        uploadSurvey = UploadSurvey(surveyRepository)
+        uploadSurveyResult = UploadSurveyResult(surveyRepository),
+        getSurvey = GetSurvey(surveyRepository)
     )
 
     @Provides
