@@ -1,5 +1,6 @@
 package edu.stanford.cardinalkit.presentation.profile
 
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +41,8 @@ fun ProfileScreen(
     navController: NavHostController,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -115,18 +119,12 @@ fun ProfileScreen(
 
     when(val signOutResponse = viewModel.signOutState.value) {
         is Response.Loading -> ProgressIndicator()
-        is Response.Success -> {
-            val signedOut = signOutResponse.data
-            signedOut?.let {
-                if (signedOut) {
-                    navController.navigate(Screens.LoginScreen.route)
-                }
-            }
-        }
+        is Response.Success -> return
         is Response.Error -> signOutResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 }

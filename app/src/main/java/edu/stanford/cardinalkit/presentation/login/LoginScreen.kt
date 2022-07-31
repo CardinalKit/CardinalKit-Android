@@ -174,14 +174,15 @@ fun LoginScreen(
                     }
                     TextButton(
                         onClick = {
-                            if(emailAuthCredential.isEmpty() and password.isNotEmpty()){
+                            val email = emailAuthCredential.trim()
+                            if(email.isEmpty() and password.isNotEmpty()){
                                 Toast.makeText(context, R.string.email_empty, Toast.LENGTH_SHORT).show()
-                            } else if(password.isEmpty() and emailAuthCredential.isNotEmpty()){
+                            } else if(password.isEmpty() and email.isNotEmpty()){
                                 Toast.makeText(context, R.string.password_empty, Toast.LENGTH_SHORT).show()
-                            } else if(emailAuthCredential.isEmpty() and password.isEmpty()){
+                            } else if(email.isEmpty() and password.isEmpty()){
                                 Toast.makeText(context, R.string.email_and_password_empty, Toast.LENGTH_SHORT).show()
                             } else {
-                                viewModel.signIn(emailAuthCredential, password)
+                                viewModel.signIn(email, password)
                             }
                         },
                         colors = ButtonDefaults.buttonColors(

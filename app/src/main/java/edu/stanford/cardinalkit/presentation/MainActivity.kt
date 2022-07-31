@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -20,26 +22,30 @@ class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen().apply{
-        }
-
+        installSplashScreen().apply {}
 
         setContent {
             val navController = rememberAnimatedNavController()
+            val isAuthenticated = remember { mutableStateOf(false) }
 
-            CKNavHost(
-                navController = navController,
-                startDestination = Screens.JoinStudyScreen.route
-            )
-
-            // Check if user is authenticated, if so, redirect them
-            // to the home screen.
             val viewModel by viewModels<LoginViewModel>()
-            viewModel.getAuthStatus()
-            if(viewModel.isAuthenticated) {
-                navController.navigate(Screens.MainScreen.route)
+
+            // start auth listener
+            viewModel.getAuthStatus().observe(this) {
+                isAuthenticated.value = it
             }
 
+            if(isAuthenticated.value) {
+                CKNavHost(
+                    navController = navController,
+                    startDestination = Screens.MainScreen.route
+                )
+            } else {
+                CKNavHost(
+                    navController = navController,
+                    startDestination = Screens.JoinStudyScreen.route
+                )
+            }
         }
     }
 }

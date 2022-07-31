@@ -20,8 +20,6 @@ class LoginViewModel @Inject constructor(
     private val repository: AuthRepository,
     val client: SignInClient
 ): ViewModel() {
-    val isAuthenticated get() = repository.isAuthenticated()
-
     private val _oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Response.Success(null))
     val oneTapSignInState: State<Response<BeginSignInResult>> = _oneTapSignInState
 
