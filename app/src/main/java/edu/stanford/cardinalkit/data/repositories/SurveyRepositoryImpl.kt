@@ -1,6 +1,7 @@
 package edu.stanford.cardinalkit.data.repositories
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
@@ -19,18 +20,12 @@ class SurveyRepositoryImpl @Inject constructor(
     @Named(Constants.SURVEYS_REF) private val surveysRef: CollectionReference?,
     private val context: Context
 ) : SurveyRepository {
-    override suspend fun uploadSurvey(name: String, data: String) = flow {
+
+    override suspend fun uploadSurveyResult(result: SurveyResult) = flow {
         surveysRef?.let {
             try {
                 emit(Response.Loading)
-                val surveyId = surveysRef.document().id
-                val survey = SurveyResult(
-                    id = surveyId,
-                    name = name,
-                    data = data,
-                    timestamp = LocalDateTime.now()
-                )
-                val upload = surveysRef.document(surveyId).set(survey).await()
+                val upload = surveysRef.document(result.id).set(result).await()
                 emit(Response.Success(upload))
             } catch (e: Exception) {
                 emit(Response.Error(e))

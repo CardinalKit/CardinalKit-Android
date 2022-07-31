@@ -1,12 +1,12 @@
 package edu.stanford.cardinalkit.domain.use_cases.surveys
 
+import edu.stanford.cardinalkit.domain.models.SurveyResult
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
 
-class UploadSurvey(
+class UploadSurveyResult(
     private val repository: SurveyRepository
 ) {
     suspend operator fun invoke(
-        name: String,
-        data: String
-    ) = repository.uploadSurvey(name, data)
+        result: SurveyResult
+    ) = repository.uploadSurveyResult(result)
 }

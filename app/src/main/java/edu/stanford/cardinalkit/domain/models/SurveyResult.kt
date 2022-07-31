@@ -1,11 +1,10 @@
 package edu.stanford.cardinalkit.domain.models
 
-import java.time.LocalDateTime
 import java.util.*
 
 data class SurveyResult(
-    var id: String? = null,
-    var name: String? = null,
-    var data: String? = null,
-    var timestamp: LocalDateTime
+    var id: String,
+    var name: String,
+    var data: String,
+    var date: Date
 )
