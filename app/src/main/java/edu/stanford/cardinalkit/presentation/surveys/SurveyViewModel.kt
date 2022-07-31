@@ -25,4 +25,8 @@ class SurveyViewModel @Inject constructor(
             _surveyUploadedState.value = response
         }
     }
+
+    fun getSurvey(name: String): Response<String> {
+        return useCases.getSurvey(name)
+    }
 }

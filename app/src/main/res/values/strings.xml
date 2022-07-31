@@ -42,6 +42,8 @@
     <string name="welcome_message">We are glad to see you!</string>
     <string name="task_summary">Task Summary</string>
 
+    <!-- Error messages -->
+    <string name="error_loading_survey_message">Error Loading Survey</string>
 
     <!-- Form validation -->
     <string name="email_empty">Please enter a valid email address.</string>
