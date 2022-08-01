@@ -9,7 +9,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -26,6 +28,9 @@ class TasksViewModel @Inject constructor(
     private val _currentDate = mutableStateOf<LocalDate>(LocalDate.now())
     val currentDate: State<LocalDate> = _currentDate
 
+    private val _uploadTaskLogState = mutableStateOf<Response<Void?>>(Response.Loading)
+    val uploadTaskLogState: State<Response<Void?>> = _uploadTaskLogState
+
     init {
         getTasks()
     }
@@ -38,5 +43,11 @@ class TasksViewModel @Inject constructor(
 
     fun setDate(date: LocalDate) {
         _currentDate.value = date
+    }
+
+    suspend fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
+        useCases.uploadTaskLog(log).collect { response ->
+            _uploadTaskLogState.value = response
+        }
     }
 }

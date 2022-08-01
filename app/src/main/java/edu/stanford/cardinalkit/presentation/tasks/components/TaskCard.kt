@@ -18,6 +18,7 @@ import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
+import kotlinx.coroutines.Job
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +51,10 @@ fun TaskCard(
                 IconButton(
                     onClick = {
                         when(category){
-                            CKTaskCategory.SURVEY -> launchSurvey(uri)
+                            CKTaskCategory.SURVEY -> {
+                                launchSurvey(uri)
+
+                            }
                             CKTaskCategory.MISC -> print("No type specific")
                         }
                     }
