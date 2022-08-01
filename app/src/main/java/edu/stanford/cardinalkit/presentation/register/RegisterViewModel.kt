@@ -5,14 +5,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
+import edu.stanford.cardinalkit.domain.use_cases.auth.AuthUseCases
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val repository: AuthRepository
+    @Named(Constants.AUTH_USE_CASES)
+    private val useCases: AuthUseCases
 ): ViewModel() {
 
     private val _signUpState = mutableStateOf<Response<Boolean>>(Response.Success(null))
@@ -20,7 +24,7 @@ class RegisterViewModel @Inject constructor(
 
     fun signUp(email: String, password: String) {
         viewModelScope.launch {
-            repository.signUp(email, password).collect() { result ->
+            useCases.signUpWithEmail(email, password).collect() { result ->
                 _signUpState.value = result
             }
         }

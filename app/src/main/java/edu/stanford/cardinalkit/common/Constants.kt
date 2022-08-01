@@ -34,14 +34,21 @@ object Constants {
     const val SURVEYS_REF = "surveysRef"
     const val TASKS_REF = "tasksRef"
     const val TASKLOG_REF = "taskLogRef"
+
     const val SIGN_IN_REQUEST = "signInRequest"
     const val SIGN_UP_REQUEST = "signUpRequest"
+
     const val SURVEY_REPOSITORY = "surveyRepository"
+    const val SURVEYS_USE_CASES = "surveysUseCases"
+
     const val TASKS_REPOSITORY = "tasksRepository"
     const val TASKS_USE_CASES = "tasksUseCases"
+
     const val CONTACTS_REPOSITORY = "contactsRepository"
     const val CONTACTS_USE_CASES = "contactsUseCases"
-    const val SURVEYS_USE_CASES = "surveysUseCases"
+
+    const val AUTH_REPOSITORY = "authRepository"
+    const val AUTH_USE_CASES = "authUseCases"
 
     // Intents
     const val SURVEY_NAME = "edu.stanford.cardinalkit.SURVEY_NAME"

@@ -9,15 +9,19 @@ import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
+import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.repositories.AuthRepository
+import edu.stanford.cardinalkit.domain.use_cases.auth.AuthUseCases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: AuthRepository,
+    @Named(Constants.AUTH_USE_CASES)
+    private val useCases: AuthUseCases,
     val client: SignInClient
 ): ViewModel() {
     private val _oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Response.Success(null))
@@ -31,7 +35,7 @@ class LoginViewModel @Inject constructor(
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
-            repository.signIn(email, password).collect { result ->
+            useCases.signInWithEmail(email, password).collect { result ->
                 _signInState.value = result
             }
         }
@@ -39,7 +43,7 @@ class LoginViewModel @Inject constructor(
 
     fun oneTapSignIn() {
         viewModelScope.launch {
-            repository.oneTapSignInWithGoogle().collect { result ->
+            useCases.oneTapSignIn().collect { result ->
                 _oneTapSignInState.value = result
             }
         }
@@ -47,7 +51,7 @@ class LoginViewModel @Inject constructor(
 
     fun signInWithGoogle(googleCredential: AuthCredential) {
         viewModelScope.launch {
-            repository.firebaseSignInWithGoogle(googleCredential).collect { result ->
+            useCases.signInWithGoogle(googleCredential).collect { result ->
                 _signInState.value = result
             }
         }
@@ -55,14 +59,14 @@ class LoginViewModel @Inject constructor(
 
     fun saveUser() {
         viewModelScope.launch {
-            repository.saveUser().collect { result ->
+            useCases.saveUser().collect { result ->
                 _saveUserState.value = result
             }
         }
     }
 
     fun getAuthStatus() = liveData(Dispatchers.IO) {
-        repository.getAuthStatus().collect { result ->
+        useCases.getAuthStatus().collect { result ->
             emit(result)
         }
     }
