@@ -1,11 +1,8 @@
 package edu.stanford.cardinalkit.presentation.tasks.components
 
 import android.content.Intent
-import android.view.Gravity
-import android.view.Gravity.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement.Absolute.Center
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material3.*
@@ -22,7 +19,6 @@ import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
-import kotlinx.coroutines.Job
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
