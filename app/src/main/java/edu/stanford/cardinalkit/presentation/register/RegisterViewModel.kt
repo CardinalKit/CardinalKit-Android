@@ -22,11 +22,20 @@ class RegisterViewModel @Inject constructor(
     private val _signUpState = mutableStateOf<Response<Boolean>>(Response.Success(null))
     val signUpState: State<Response<Boolean>> = _signUpState
 
+    private val _saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+    val saveUserState: State<Response<Boolean>> = _saveUserState
+
     fun signUp(email: String, password: String) {
         viewModelScope.launch {
             useCases.signUpWithEmail(email, password).collect() { result ->
                 _signUpState.value = result
             }
+        }
+    }
+
+    fun saveUser() = viewModelScope.launch {
+        useCases.saveUser().collect { response ->
+            _saveUserState.value = response
         }
     }
 }

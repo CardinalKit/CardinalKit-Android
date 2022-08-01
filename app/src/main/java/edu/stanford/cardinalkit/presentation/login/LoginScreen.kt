@@ -256,17 +256,6 @@ fun LoginScreen(
 
     when(val signInResponse = viewModel.signInState.value) {
         is Response.Loading -> ProgressIndicator()
-        is Response.Success -> {
-            signInResponse.data?.let { isNewUser ->
-                if (isNewUser) {
-                    LaunchedEffect(isNewUser) {
-                        viewModel.saveUser()
-                    }
-                } else {
-                    navController.navigate(Screens.MainScreen.route)
-                }
-            }
-        }
         is Response.Error -> signInResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
@@ -274,13 +263,6 @@ fun LoginScreen(
 
     when(val saveUserResponse = viewModel.saveUserState.value) {
         is Response.Loading -> ProgressIndicator()
-        is Response.Success -> {
-            saveUserResponse.data?.let { isUserCreated ->
-                if (isUserCreated) {
-                    navController.navigate(Screens.MainScreen.route)
-                }
-            }
-        }
         is Response.Error -> saveUserResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }

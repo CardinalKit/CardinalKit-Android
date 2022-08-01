@@ -213,8 +213,14 @@ fun RegisterScreen(
 
     when(val signUpResponse = viewModel.signUpState.value) {
         is Response.Loading -> ProgressIndicator()
-        is Response.Success -> return
         is Response.Error -> signUpResponse.e?.let {
+            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    when(val saveUserResponse = viewModel.saveUserState.value) {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Error -> saveUserResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
     }
