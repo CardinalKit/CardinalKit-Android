@@ -47,6 +47,7 @@
     <!-- Error messages -->
     <string name="error_loading_survey_message">Error Loading Survey</string>
     <string name="error_uploading_survey_results_message">Error Uploading Survey Results</string>
+    <string name="error_loading_tasks">Error loading tasks</string>
 
     <!-- Form validation -->
     <string name="email_empty">Please enter a valid email address.</string>

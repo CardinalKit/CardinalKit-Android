@@ -2,10 +2,7 @@ package edu.stanford.cardinalkit.presentation.tasks.components
 
 import android.content.Intent
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material3.*
@@ -22,7 +19,6 @@ import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
-import kotlinx.coroutines.Job
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +46,14 @@ fun TaskCard(
 
     Card(
         shape = MaterialTheme.shapes.small,
-        modifier = Modifier.padding(8.dp).fillMaxWidth(),
+        modifier = Modifier.padding(8.dp).fillMaxWidth().clickable {
+            when(category){
+                CKTaskCategory.SURVEY -> {
+                    launchSurvey(uri)
+                    uploadTaskLog(id)
+                }
+            }
+        },
         colors = CardDefaults.cardColors(Color.White)
     ){
         Column(
@@ -59,36 +62,28 @@ fun TaskCard(
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                IconButton(
-                    onClick = {
-                        when(category){
-                            CKTaskCategory.SURVEY -> {
-                                launchSurvey(uri)
-                                uploadTaskLog(id)
-                            }
-                            CKTaskCategory.MISC -> print("No type specific")
-                        }
-                    }
+                Column(
+                    verticalArrangement = Arrangement.Center
                 ){
-                    Icon(imageVector = Icons.Filled.Assignment, tint= PrimaryTheme, contentDescription = "Complete a survey")
+                    Icon(
+                        imageVector = Icons.Filled.Assignment,
+                        tint= PrimaryTheme,
+                        contentDescription = "Complete a survey",
+                        modifier = Modifier.padding(15.dp)
+                    )
                 }
                 Column(
                     modifier = Modifier.fillMaxWidth(0.9f)
                 ) {
                     Text(
                         text = title,
-                        modifier = Modifier.padding(all=7.dp),
-                        fontSize = 15.sp
+                        modifier = Modifier.padding(horizontal=7.dp),
+                        fontSize = 20.sp
                     )
                     Text(
                         text = description,
-                        modifier = Modifier.padding(all=7.dp),
-                        fontSize = 12.sp
-                    )
-                    Text(
-                        text = category.name,
-                        modifier = Modifier.padding(all=7.dp),
-                        fontSize = 10.sp
+                        modifier = Modifier.padding(horizontal=7.dp),
+                        fontSize = 14.sp
                     )
                 }
             }
