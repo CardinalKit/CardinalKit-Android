@@ -172,8 +172,10 @@ class AppModule {
     @Named(Constants.TASKS_REPOSITORY)
     fun provideTasksRepository(
         @Named(Constants.TASKS_REF)
-        tasksRef: CollectionReference?
-    ): TasksRepository = TasksRepositoryImpl(tasksRef)
+        tasksRef: CollectionReference?,
+        @Named(Constants.TASKLOG_REF)
+        taskLogRef: CollectionReference?
+    ): TasksRepository = TasksRepositoryImpl(tasksRef, taskLogRef)
 
 
     @Provides

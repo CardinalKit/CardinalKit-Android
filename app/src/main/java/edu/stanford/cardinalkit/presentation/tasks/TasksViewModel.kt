@@ -45,7 +45,7 @@ class TasksViewModel @Inject constructor(
         _currentDate.value = date
     }
 
-    suspend fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
+    fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
         useCases.uploadTaskLog(log).collect { response ->
             _uploadTaskLogState.value = response
         }
