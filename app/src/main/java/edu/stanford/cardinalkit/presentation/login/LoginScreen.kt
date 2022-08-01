@@ -173,7 +173,18 @@ fun LoginScreen(
 
                     }
                     TextButton(
-                        onClick = { navController.navigate(Screens.MainScreen.route) },
+                        onClick = {
+                            val email = emailAuthCredential.trim()
+                            if(email.isEmpty() and password.isNotEmpty()){
+                                Toast.makeText(context, R.string.email_empty, Toast.LENGTH_SHORT).show()
+                            } else if(password.isEmpty() and email.isNotEmpty()){
+                                Toast.makeText(context, R.string.password_empty, Toast.LENGTH_SHORT).show()
+                            } else if(email.isEmpty() and password.isEmpty()){
+                                Toast.makeText(context, R.string.email_and_password_empty, Toast.LENGTH_SHORT).show()
+                            } else {
+                                viewModel.signIn(email, password)
+                            }
+                        },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.Gray,
                             backgroundColor = Color.LightGray,

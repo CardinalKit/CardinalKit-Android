@@ -5,12 +5,14 @@ object Constants {
 
     // General
     const val APP_PACKAGE_NAME = "edu.stanford.cardinalkit"
+    const val TAG = "CardinalKit"
 
     // Firebase paths
     const val FIRESTORE_BASE_DOCUMENT = "/studies/${APP_PACKAGE_NAME}"
     const val FIRESTORE_USERS_COLLECTION = "users"
     const val FIRESTORE_SURVEYS_COLLECTION = "surveys"
     const val FIRESTORE_TASKS_COLLECTION = "tasks"
+    const val FIRESTORE_TASKLOG_COLLECTION = "tasklogs"
 
     // Screens
     const val MAIN_SCREEN = "Main"
@@ -32,6 +34,7 @@ object Constants {
     const val USERS_REF = "usersRef"
     const val SURVEYS_REF = "surveysRef"
     const val TASKS_REF = "tasksRef"
+    const val TASKLOG_REF = "taskLogRef"
     const val SIGN_IN_REQUEST = "signInRequest"
     const val SIGN_UP_REQUEST = "signUpRequest"
     const val SURVEY_REPOSITORY = "surveyRepository"

@@ -213,7 +213,7 @@ fun RegisterScreen(
 
     when(val signUpResponse = viewModel.signUpState.value) {
         is Response.Loading -> ProgressIndicator()
-        is Response.Success -> navController.navigate(Screens.MainScreen.route)
+        is Response.Success -> return
         is Response.Error -> signUpResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }

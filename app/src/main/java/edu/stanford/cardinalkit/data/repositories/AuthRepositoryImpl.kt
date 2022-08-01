@@ -74,7 +74,7 @@ class AuthRepositoryImpl  @Inject constructor(
 
     override fun getAuthStatus() = callbackFlow  {
         val authStateListener = FirebaseAuth.AuthStateListener { auth ->
-            trySend(auth.currentUser == null)
+            trySend(auth.currentUser != null)
         }
         auth.addAuthStateListener(authStateListener)
         awaitClose {

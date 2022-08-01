@@ -88,13 +88,13 @@ fun SignInMethod(
                     painter = painterResource(R.drawable.login),
                     contentDescription = "branding" )
                 Text(
-                    text = "Sign In to CardinalKit",
+                    text = stringResource(R.string.login_screen_title),
                     fontSize = 26.sp,
                     color= Color(0xFF790224),
                     fontWeight=FontWeight.SemiBold,
                     textAlign = TextAlign.Center)
                 Text(
-                    text = "Choose your sign in method",
+                    text = stringResource(R.string.choose_your_sign_in_method),
                     modifier = Modifier.padding(bottom = 20.dp),
                     fontSize = 13.sp,
                     textAlign = TextAlign.Center)
@@ -128,7 +128,7 @@ fun SignInMethod(
                         ) {
                             Image(modifier = Modifier.fillMaxHeight(.2f).fillMaxWidth(.25f),painter = painterResource(R.drawable.btn_google), contentDescription ="google" )
                             Text(
-                                text = "Sign In with Google",
+                                text = stringResource(R.string.sign_in_with_google_button),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
                                 color = Color.Gray,
@@ -257,7 +257,7 @@ fun SignIn(
             modifier = Modifier.fillMaxWidth()
         ) {
             androidx.compose.material.Text(
-                text = "Sign In with Account",
+                text = stringResource(R.string.sign_in_with_email),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(vertical = 8.dp).padding(horizontal = 20.dp)

@@ -1,7 +1,8 @@
 package edu.stanford.cardinalkit.domain.use_cases.surveys
 
-import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurvey
+import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
 
 data class SurveysUseCases(
-    val uploadSurvey: UploadSurvey
+    val uploadSurveyResult: UploadSurveyResult,
+    val getSurvey: GetSurvey
 )

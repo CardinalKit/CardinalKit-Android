@@ -32,8 +32,11 @@ import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
+import edu.stanford.cardinalkit.domain.use_cases.surveys.GetSurvey
 import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
-import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurvey
+import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
+import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTaskLogs
+import edu.stanford.cardinalkit.domain.use_cases.tasks.UploadTaskLog
 import javax.inject.Named
 
 @Module
@@ -66,6 +69,20 @@ class AppModule {
         return db.collection(
             "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_TASKS_COLLECTION}"
         )
+    }
+
+    @Provides
+    @Named(Constants.TASKLOG_REF)
+    fun provideTaskLogRef(
+        db: FirebaseFirestore
+    ): CollectionReference? {
+        val user = Firebase.auth.currentUser
+        user?.let {
+            return db.collection(
+                "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_USERS_COLLECTION}/${user.uid}/${Constants.FIRESTORE_TASKLOG_COLLECTION}"
+            )
+        }
+        return null
     }
 
     @Provides
@@ -148,15 +165,18 @@ class AppModule {
     @Named(Constants.SURVEY_REPOSITORY)
     fun provideSurveyRepository(
         @Named(Constants.SURVEYS_REF)
-        surveysRef: CollectionReference?
-    ): SurveyRepository = SurveyRepositoryImpl(surveysRef)
+        surveysRef: CollectionReference?,
+        context: Context
+    ): SurveyRepository = SurveyRepositoryImpl(surveysRef, context)
 
     @Provides
     @Named(Constants.TASKS_REPOSITORY)
     fun provideTasksRepository(
         @Named(Constants.TASKS_REF)
-        tasksRef: CollectionReference?
-    ): TasksRepository = TasksRepositoryImpl(tasksRef)
+        tasksRef: CollectionReference?,
+        @Named(Constants.TASKLOG_REF)
+        taskLogRef: CollectionReference?
+    ): TasksRepository = TasksRepositoryImpl(tasksRef, taskLogRef)
 
 
     @Provides
@@ -171,7 +191,8 @@ class AppModule {
         @Named(Constants.SURVEY_REPOSITORY)
         surveyRepository: SurveyRepository,
     ) = SurveysUseCases(
-        uploadSurvey = UploadSurvey(surveyRepository)
+        uploadSurveyResult = UploadSurveyResult(surveyRepository),
+        getSurvey = GetSurvey(surveyRepository)
     )
 
     @Provides
@@ -189,6 +210,8 @@ class AppModule {
         @Named(Constants.TASKS_REPOSITORY)
         repository: TasksRepository
     ) = TasksUseCases(
-        getTasks = GetTasks(repository)
+        getTasks = GetTasks(repository),
+        uploadTaskLog = UploadTaskLog(repository),
+        getTaskLogs = GetTaskLogs(repository)
     )
 }
