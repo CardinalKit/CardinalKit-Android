@@ -2,9 +2,9 @@ package edu.stanford.cardinalkit.common
 
 object Constants {
 
-
     // General
     const val APP_PACKAGE_NAME = "edu.stanford.cardinalkit"
+    const val TAG = "CardinalKit"
 
     // Firebase paths
     const val FIRESTORE_BASE_DOCUMENT = "/studies/${APP_PACKAGE_NAME}"
