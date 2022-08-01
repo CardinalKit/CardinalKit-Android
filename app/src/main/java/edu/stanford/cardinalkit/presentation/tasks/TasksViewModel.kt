@@ -25,6 +25,9 @@ class TasksViewModel @Inject constructor(
     private val _tasksState = mutableStateOf<Response<List<CKTask>>>(Response.Loading)
     val tasksState: State<Response<List<CKTask>>> = _tasksState
 
+    private val _taskLogsState = mutableStateOf<Response<List<CKTaskLog>>>(Response.Loading)
+    val taskLogsState: State<Response<List<CKTaskLog>>> = _taskLogsState
+
     private val _currentDate = mutableStateOf<LocalDate>(LocalDate.now())
     val currentDate: State<LocalDate> = _currentDate
 
@@ -33,6 +36,7 @@ class TasksViewModel @Inject constructor(
 
     init {
         getTasks()
+        getTaskLogs()
     }
 
     fun getTasks() = viewModelScope.launch {
@@ -48,6 +52,12 @@ class TasksViewModel @Inject constructor(
     fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
         useCases.uploadTaskLog(log).collect { response ->
             _uploadTaskLogState.value = response
+        }
+    }
+
+    fun getTaskLogs() = viewModelScope.launch {
+        useCases.getTaskLogs().collect { response ->
+            _taskLogsState.value = response
         }
     }
 }

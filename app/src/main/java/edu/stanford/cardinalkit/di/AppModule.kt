@@ -35,6 +35,7 @@ import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
 import edu.stanford.cardinalkit.domain.use_cases.surveys.GetSurvey
 import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
 import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
+import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTaskLogs
 import edu.stanford.cardinalkit.domain.use_cases.tasks.UploadTaskLog
 import javax.inject.Named
 
@@ -210,6 +211,7 @@ class AppModule {
         repository: TasksRepository
     ) = TasksUseCases(
         getTasks = GetTasks(repository),
-        uploadTaskLog = UploadTaskLog(repository)
+        uploadTaskLog = UploadTaskLog(repository),
+        getTaskLogs = GetTaskLogs(repository)
     )
 }

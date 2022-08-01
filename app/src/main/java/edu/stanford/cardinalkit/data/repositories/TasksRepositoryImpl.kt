@@ -20,7 +20,7 @@ class TasksRepositoryImpl @Inject constructor(
     @Named(Constants.TASKS_REF)
     private val tasksRef: CollectionReference?,
     @Named(Constants.TASKLOG_REF)
-    private val tasklogRef: CollectionReference?
+    private val taskLogRef: CollectionReference?
 ) : TasksRepository {
     override fun getTasks() = callbackFlow {
         tasksRef?.let {
@@ -39,11 +39,28 @@ class TasksRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getTaskLogs() = callbackFlow {
+        taskLogRef?.let {
+            val snapshotListener = taskLogRef.addSnapshotListener { snapshot, e ->
+                val response = if (snapshot != null) {
+                    val tasks = snapshot.toObjects(CKTaskLog::class.java)
+                    Response.Success(tasks)
+                } else {
+                    Response.Error(e)
+                }
+                trySend(response).isSuccess
+            }
+            awaitClose {
+                snapshotListener.remove()
+            }
+        }
+    }
+
     override suspend fun uploadTaskLog(log: CKTaskLog) = flow {
-        tasklogRef?.let {
+        taskLogRef?.let {
             try {
                 emit(Response.Loading)
-                val upload = tasklogRef.document().set(log).await()
+                val upload = taskLogRef.document().set(log).await()
                 emit(Response.Success(upload))
             } catch (e: Exception) {
                 emit(Response.Error(e))
