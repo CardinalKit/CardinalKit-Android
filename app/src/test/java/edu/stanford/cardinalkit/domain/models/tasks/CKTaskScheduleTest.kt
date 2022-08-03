@@ -3,6 +3,7 @@ package edu.stanford.cardinalkit.domain.models.tasks
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
+import java.time.LocalDate
 import java.util.*
 
 class CKTaskScheduleTest {
@@ -11,11 +12,13 @@ class CKTaskScheduleTest {
 
     @Before
     fun setUp(){
-        schedule = CKTaskSchedule(startDate = Date(), endDate = null, description = "test schedule")
+        schedule = CKTaskSchedule(startDate = Date(), endDate = null, interval = 3, description = "test schedule")
     }
 
     @Test
     fun isScheduledOnTest() {
-        assertThat(schedule.isScheduledOn(Date())).isTrue()
+        val today = LocalDate.now()
+        assertThat(schedule.isScheduledOn(today.plusDays(3))).isTrue()
+        assertThat(schedule.isScheduledOn(today.plusDays(4))).isFalse()
     }
 }
