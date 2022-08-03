@@ -19,6 +19,7 @@ import edu.stanford.cardinalkit.presentation.Onboarding.WelcomeScreen
 import edu.stanford.cardinalkit.presentation.RegisterScreen
 import edu.stanford.cardinalkit.presentation.main.MainScreen
 import edu.stanford.cardinalkit.presentation.contacts.ContactsScreen
+import edu.stanford.cardinalkit.presentation.login.ForgotPassword
 import edu.stanford.cardinalkit.presentation.login.SignInMethod
 import edu.stanford.cardinalkit.presentation.profile.ReviewConsent
 import edu.stanford.cardinalkit.presentation.welcome.JoinStudyScreen
@@ -70,6 +71,9 @@ fun CKNavHost(navController: NavHostController, startDestination: String) {
         }
         composable(Screens.JoinStudyScreen.route) {
             JoinStudyScreen(navController = navController)
+        }
+        composable(Screens.ForgotPasswordScreen.route) {
+            ForgotPassword(navController = navController)
         }
     }
 }

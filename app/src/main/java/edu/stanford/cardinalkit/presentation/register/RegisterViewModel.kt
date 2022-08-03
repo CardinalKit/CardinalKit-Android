@@ -25,4 +25,14 @@ class RegisterViewModel @Inject constructor(
             }
         }
     }
+
+    fun isValidPassword(password: String): Boolean {
+        if (password.length < 8) return false //minimum of 8 characters
+        if (password.firstOrNull { it.isDigit() } == null) return false //1 number
+        if (password.filter { it.isLetter() }.filter { it.isUpperCase() }.firstOrNull() == null) return false //1 uppercase
+        if (password.filter { it.isLetter() }.filter { it.isLowerCase() }.firstOrNull() == null) return false //1 lowercase
+        if (password.firstOrNull { !it.isLetterOrDigit() } == null) return false // special character
+
+        return true
+    }
 }

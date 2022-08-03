@@ -139,21 +139,6 @@ fun SignInMethod(
                     }
 
                 }
-                Spacer(modifier = Modifier.height(20.dp))
-                TextButton(
-                    onClick = {navController.navigate(Screens.RegisterScreen.route)},
-                    colors = ButtonDefaults.buttonColors(
-                        contentColor = Color.Black,
-                        backgroundColor = Color.White
-                    ),
-
-                    ) {
-                    Text(
-                        text="or Make an Account",
-                        fontSize = 13.sp,
-                    )
-
-                }
 
             }
         }
