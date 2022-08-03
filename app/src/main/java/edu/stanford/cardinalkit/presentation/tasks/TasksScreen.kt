@@ -1,8 +1,6 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -17,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.stanford.cardinalkit.presentation.home.components.TaskComponent
 import edu.stanford.cardinalkit.presentation.tasks.components.DatePickerTimeline
+import edu.stanford.cardinalkit.presentation.tasks.components.rememberDatePickerState
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 import java.time.LocalDate
 
@@ -25,16 +24,30 @@ import java.time.LocalDate
 fun TasksScreen(
     viewModel: TasksViewModel = hiltViewModel()
 ) {
+    val datePickerState = rememberDatePickerState(initialDate = LocalDate.now())
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = stringResource(R.string.tasks_screen_title),
-                        modifier = Modifier.padding(5.dp),
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Light
-                    )
+                    Row {
+                        Text(
+                            text = stringResource(R.string.tasks_screen_title),
+                            modifier = Modifier.padding(5.dp),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Light
+                        )
+                        Spacer(Modifier.weight(1f))
+                        OutlinedButton(
+                            onClick = {
+                                val today = LocalDate.now()
+                                datePickerState.smoothScrollToDate(today)
+                                viewModel.setDate(today)
+                            },
+                        ) {
+                            Text("Today")
+                        }
+                    }
                 },
                 backgroundColor = Color(0xFFF1F1F1),
                 contentColor = Color.Black)
@@ -49,11 +62,12 @@ fun TasksScreen(
                         viewModel.setDate(selectedDate)
                     },
                     selectedBackgroundColor = Color.LightGray,
+                    state = datePickerState
                 )
                 Box(modifier= Modifier
                     .padding(horizontal = 20.dp)
                     .padding(bottom = 10.dp)
-                    .padding(top=15.dp)){
+                    .padding(top = 15.dp)){
                     Text(
                         text= stringResource(R.string.todo),
                         fontSize = 18.sp,
@@ -62,7 +76,7 @@ fun TasksScreen(
                 }
                 Box(modifier= Modifier
                     .padding(horizontal = 20.dp)
-                    .padding(top=10.dp)) {
+                    .padding(top = 10.dp)) {
                     TaskComponent()
                 }
             }
