@@ -1,6 +1,7 @@
 package edu.stanford.cardinalkit.presentation.tasks.components
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -66,11 +67,15 @@ fun TaskCard(
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier.padding(8.dp).fillMaxWidth().clickable {
-            when(category){
-                CKTaskCategory.SURVEY -> {
-                    launchSurvey(uri)
-                    uploadTaskLog(id)
+            if(viewModel.currentDate.value == LocalDate.now()) {
+                when (category) {
+                    CKTaskCategory.SURVEY -> {
+                        launchSurvey(uri)
+                        uploadTaskLog(id)
+                    }
                 }
+            } else {
+                Toast.makeText(context, "This task isn't scheduled today.", Toast.LENGTH_SHORT).show()
             }
         },
         colors = CardDefaults.cardColors(Color.White)
