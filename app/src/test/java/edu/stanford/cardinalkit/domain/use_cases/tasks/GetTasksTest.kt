@@ -77,8 +77,8 @@ class GetTasksTest {
             tasks = response.data as List<CKTask>
         }
 
-        assertThat(tasks[0].id).isEqualTo("1234")
-        assertThat(tasks[1].id).isEqualTo("1235")
+        assertThat(tasks[0].id).isEqualTo("XE7VeC86W2qU9J8Q3C0A")
+        assertThat(tasks[1].id).isEqualTo("sIbsVjdnpkcaC5tjJwjQ")
     }
 
 }
