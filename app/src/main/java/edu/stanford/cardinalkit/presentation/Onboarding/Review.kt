@@ -67,7 +67,7 @@ fun Review(
                     GetStartedButton(
                         modifier = Modifier,
                     ) {
-                        navController.navigate(Screens.SignInMethod.route)
+                        navController.navigate(Screens.RegisterScreen.route)
                     }
                 }
             }
@@ -122,7 +122,7 @@ fun GetStartedButton(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = stringResource(R.string.continue_to_sign_in_button),
+                    text = "Agree and Consent",
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp, horizontal = 30.dp)
                 )

@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
@@ -135,20 +136,27 @@ fun ScreenContent(
 ){
     Column() {
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = stringResource(R.string.upload_health_data_button))
+            ProfileCard(title = stringResource(R.string.upload_health_data_button),
+            onClick={},
+            )
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = stringResource(R.string.report_issue_button))
+            ProfileCard(title = stringResource(R.string.report_issue_button),
+                onClick={}
+            )
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
-            ProfileCard(title = stringResource(R.string.support_button))
+            ProfileCard(title = stringResource(R.string.support_button),
+                onClick={}
+            )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(Color.White)
-            .clickable{navController.navigate(Screens.ReviewConsent.route)}){
-            ProfileCard(title = stringResource(R.string.view_consent_button))
+        Row(Modifier.background(Color.White)) {
+            ProfileCard(
+                title = stringResource(R.string.view_consent_button),
+                onClick={navController.navigate(Screens.ReviewConsent.route)})
         }
     }
 }

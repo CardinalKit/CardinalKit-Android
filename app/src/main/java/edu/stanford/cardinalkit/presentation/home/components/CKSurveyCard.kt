@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -23,15 +24,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.text.SimpleDateFormat
 
+@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 
 fun CKSurveyCard(){
     Card(
+        onClick={},
         modifier = Modifier
             .width(165.dp)
-            .height(165.dp)
-            .clickable { },
+            .height(165.dp),
         backgroundColor = Color.White,
         shape= RoundedCornerShape(18),
     ){
