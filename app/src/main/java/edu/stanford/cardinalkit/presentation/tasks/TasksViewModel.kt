@@ -35,18 +35,21 @@ class TasksViewModel @Inject constructor(
     val uploadTaskLogState: State<Response<Void?>> = _uploadTaskLogState
 
     init {
+        // Sets up listeners for realtime updates from DB
         getTasks()
         getTaskLogs()
     }
 
-    fun getTasks() = viewModelScope.launch {
+    private fun getTasks() = viewModelScope.launch {
         useCases.getTasks().collect { response ->
             _tasksState.value = response
         }
     }
 
-    fun setDate(date: LocalDate) {
-        _currentDate.value = date
+    private fun getTaskLogs() = viewModelScope.launch {
+        useCases.getTaskLogs().collect { response ->
+            _taskLogsState.value = response
+        }
     }
 
     fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
@@ -55,9 +58,8 @@ class TasksViewModel @Inject constructor(
         }
     }
 
-    fun getTaskLogs() = viewModelScope.launch {
-        useCases.getTaskLogs().collect { response ->
-            _taskLogsState.value = response
-        }
+    fun setDate(date: LocalDate) {
+        _currentDate.value = date
     }
+
 }
