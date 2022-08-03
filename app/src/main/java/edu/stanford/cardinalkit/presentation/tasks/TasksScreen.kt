@@ -49,15 +49,6 @@ fun TasksScreen(
                         viewModel.setDate(selectedDate)
                     },
                     selectedBackgroundColor = Color.LightGray,
-                    todayLabel = {
-                        Text(
-                            modifier = Modifier.padding(10.dp),
-                            text = stringResource(R.string.today),
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 15.sp,
-                            color = PrimaryTheme
-                        )
-                    },
                 )
                 Box(modifier= Modifier
                     .padding(horizontal = 20.dp)

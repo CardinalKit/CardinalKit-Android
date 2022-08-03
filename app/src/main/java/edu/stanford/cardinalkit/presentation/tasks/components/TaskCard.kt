@@ -95,7 +95,7 @@ fun TaskCard(
                         Icon(
                             imageVector = Icons.Outlined.Circle,
                             tint = PrimaryTheme,
-                            contentDescription = "Complete a survey",
+                            contentDescription = "Complete a task",
                             modifier = Modifier.padding(15.dp)
                         )
                     }
