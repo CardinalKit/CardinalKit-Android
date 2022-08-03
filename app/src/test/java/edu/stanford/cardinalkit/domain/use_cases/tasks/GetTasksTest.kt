@@ -26,7 +26,7 @@ class GetTasksTest {
         val tasksToInsert = mutableListOf<CKTask>()
 
         val fakeTask0 = CKTask(
-            id = "1234",
+            id = "XE7VeC86W2qU9J8Q3C0A",
             title = "First Survey",
             description = "This is the first survey.",
             context = CKTaskContext(
@@ -36,13 +36,14 @@ class GetTasksTest {
             schedule = CKTaskSchedule(
                 startDate = Date(),
                 endDate = null,
+                interval = 1,
                 description = "taken daily"
             ),
             isActive = true
         )
 
         val fakeTask1 = CKTask(
-            id = "1235",
+            id = "sIbsVjdnpkcaC5tjJwjQ",
             title = "Second Survey",
             description = "This is the second survey.",
             context = CKTaskContext(
@@ -52,6 +53,7 @@ class GetTasksTest {
             schedule = CKTaskSchedule(
                 startDate = Date(),
                 endDate = null,
+                interval = 1,
                 description = "taken daily"
             ),
             isActive = false
