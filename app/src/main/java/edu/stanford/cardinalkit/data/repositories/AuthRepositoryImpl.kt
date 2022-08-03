@@ -56,8 +56,9 @@ class AuthRepositoryImpl  @Inject constructor(
 
     override suspend fun signIn(email: String, password: String) = flow {
         try {
-            auth.signInWithEmailAndPassword(email, password).await()
-            emit(Response.Success(true))
+            val authResult = auth.signInWithEmailAndPassword(email, password).await()
+            val isNewUser = authResult.additionalUserInfo?.isNewUser
+            emit(Response.Success(isNewUser))
         } catch (e: Exception) {
             emit(Response.Error(e))
         }
@@ -66,7 +67,16 @@ class AuthRepositoryImpl  @Inject constructor(
     override suspend fun signUp(email: String, password: String) = flow {
         try {
             auth.createUserWithEmailAndPassword(email, password).await()
-            emit(Response.Success(true))
+            auth.currentUser?.apply {
+                usersRef.document(uid).set(mapOf(
+                    "userID" to uid,
+                    "name" to displayName,
+                    "email" to email,
+                    "lastActive" to serverTimestamp(),
+                    "createdDate" to serverTimestamp()
+                ), SetOptions.merge()).await()
+                emit(Response.Success(true))
+            }
         } catch (e: Exception) {
             emit(Response.Error(e))
         }

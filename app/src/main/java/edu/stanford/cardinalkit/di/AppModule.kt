@@ -28,6 +28,7 @@ import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import edu.stanford.cardinalkit.domain.repositories.ContactsRepository
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
 import edu.stanford.cardinalkit.domain.repositories.TasksRepository
+import edu.stanford.cardinalkit.domain.use_cases.auth.*
 import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
@@ -213,5 +214,18 @@ class AppModule {
         getTasks = GetTasks(repository),
         uploadTaskLog = UploadTaskLog(repository),
         getTaskLogs = GetTaskLogs(repository)
+    )
+
+    @Provides
+    @Named(Constants.AUTH_USE_CASES)
+    fun provideAuthUseCases(
+        repository: AuthRepository
+    ) = AuthUseCases(
+        signInWithEmail = SignInWithEmail(repository),
+        signUpWithEmail = SignUpWithEmail(repository),
+        oneTapSignIn = OneTapSignIn(repository),
+        signInWithGoogle = SignInWithGoogle(repository),
+        saveUser = SaveUser(repository),
+        getAuthStatus = GetAuthStatus(repository)
     )
 }
