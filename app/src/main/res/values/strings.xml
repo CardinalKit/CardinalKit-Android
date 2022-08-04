@@ -34,7 +34,7 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="choose_your_sign_in_method">Choose your sign in method</string>
-    <string name="profile_name">Profile</string>
+    <string name="profile_name">Profile Settings</string>
     <string name="biodesign">Stanford Byers Center for Biodesign</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>

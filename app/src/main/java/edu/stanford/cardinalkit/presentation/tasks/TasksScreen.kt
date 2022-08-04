@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -37,16 +38,7 @@ fun TasksScreen(
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Light
                         )
-                        Spacer(Modifier.weight(1f))
-                        OutlinedButton(
-                            onClick = {
-                                val today = LocalDate.now()
-                                datePickerState.smoothScrollToDate(today)
-                                viewModel.setDate(today)
-                            },
-                        ) {
-                            Text("Today")
-                        }
+
                     }
                 },
                 backgroundColor = Color(0xFFF1F1F1),
@@ -64,19 +56,29 @@ fun TasksScreen(
                     selectedBackgroundColor = Color.LightGray,
                     state = datePickerState
                 )
-                Box(modifier= Modifier
+                Row(modifier= Modifier
                     .padding(horizontal = 20.dp)
-                    .padding(bottom = 10.dp)
-                    .padding(top = 15.dp)){
+                    .padding(top = 15.dp),
+                verticalAlignment = Alignment.CenterVertically){
                     Text(
                         text= stringResource(R.string.todo),
-                        fontSize = 18.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold
                     )
+                    Spacer(Modifier.weight(1f))
+                    OutlinedButton(
+                        onClick = {
+                            val today = LocalDate.now()
+                            datePickerState.smoothScrollToDate(today)
+                            viewModel.setDate(today)
+                        },
+                    ) {
+                        Text("Today", color = PrimaryTheme)
+                    }
                 }
                 Box(modifier= Modifier
                     .padding(horizontal = 20.dp)
-                    .padding(top = 10.dp)) {
+                    .padding(top = 5.dp)) {
                     TaskComponent()
                 }
             }

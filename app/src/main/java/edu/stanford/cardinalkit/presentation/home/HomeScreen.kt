@@ -56,7 +56,7 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState())){
                 Text(
                     text = stringResource(R.string.welcome),
-                    fontSize = 22.sp,
+                    fontSize = 25.sp,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(bottom=3.dp)
                 )
