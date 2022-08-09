@@ -53,7 +53,7 @@ android {
 dependencies {
 
     //FHIR
-    implementation 'com.google.android.fhir:data-capture:0.1.0-beta03'
+    implementation 'com.google.android.fhir:data-capture:0.1.0-beta04'
 
     //Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
