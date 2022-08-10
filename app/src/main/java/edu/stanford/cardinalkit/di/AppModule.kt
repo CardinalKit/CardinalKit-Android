@@ -226,6 +226,7 @@ class AppModule {
         oneTapSignIn = OneTapSignIn(repository),
         signInWithGoogle = SignInWithGoogle(repository),
         saveUser = SaveUser(repository),
-        getAuthStatus = GetAuthStatus(repository)
+        getAuthStatus = GetAuthStatus(repository),
+        resetPassword = ResetPassword(repository)
     )
 }

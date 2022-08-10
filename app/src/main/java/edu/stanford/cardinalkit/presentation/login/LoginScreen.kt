@@ -158,7 +158,7 @@ fun LoginScreen(
 
                 ) {
                     TextButton(
-                        onClick = { navController.navigate(Screens.RegisterScreen.route) },
+                        onClick = { navController.navigate(Screens.ForgotPasswordScreen.route) },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.DarkGray,
                             backgroundColor = Color.White
@@ -198,10 +198,11 @@ fun LoginScreen(
                         )
                     }
                 }
+                Spacer(modifier = Modifier.height(20.dp))
                 TextButton(
                     onClick = {navController.navigate(Screens.RegisterScreen.route)},
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = Color.Black,
+                        contentColor = Color.Gray,
                         backgroundColor = Color.White
                     ),
                     ) {

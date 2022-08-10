@@ -7,6 +7,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
@@ -70,4 +71,13 @@ class LoginViewModel @Inject constructor(
             emit(result)
         }
     }
+
+    fun resetPassword(email: String){
+        viewModelScope.launch {
+            useCases.resetPassword(email).collect { result ->
+                _signInState.value = result
+            }
+        }
+    }
+
 }

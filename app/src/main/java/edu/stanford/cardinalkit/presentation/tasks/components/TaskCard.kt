@@ -81,7 +81,7 @@ fun TaskCard(
         colors = CardDefaults.cardColors(Color.White)
     ){
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(vertical=5.dp)
         ){
             Row(
                 modifier = Modifier.fillMaxWidth()

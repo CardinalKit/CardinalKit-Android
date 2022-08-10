@@ -1,6 +1,7 @@
 package edu.stanford.cardinalkit.presentation.home
 
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.home.components.*
+import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +56,7 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState())){
                 Text(
                     text = stringResource(R.string.welcome),
-                    fontSize = 22.sp,
+                    fontSize = 25.sp,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(bottom=3.dp)
                 )
@@ -74,6 +76,7 @@ fun HomeScreen(
                         fontSize = 18.sp
                     )
                     IconButton(onClick={
+                        navController.navigate(Screens.TasksScreen.route)
                     }){
                         Icon(Icons.Filled.ArrowForward, "forward Icon")
                     }

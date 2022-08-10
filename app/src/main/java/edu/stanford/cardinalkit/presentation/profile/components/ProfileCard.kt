@@ -13,20 +13,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileCard(
     title:String,
+    onClick: () -> Unit,
 
 ){
     Card(
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
-            .clickable { },
-        colors = CardDefaults.cardColors(Color.White)
+            .padding(10.dp),
+        colors = CardDefaults.cardColors(Color.White),
     ) {
         Column(
             modifier = Modifier.padding(15.dp)

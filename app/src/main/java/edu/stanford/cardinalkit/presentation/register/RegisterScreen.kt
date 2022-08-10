@@ -128,6 +128,16 @@ fun RegisterScreen(
                         focusedBorderColor = Color.Gray,
                         cursorColor = Color.LightGray),
                 )
+                Row(
+                    modifier=Modifier.fillMaxWidth()
+                        .padding(horizontal = 60.dp)
+                        .padding(vertical=10.dp),
+                    horizontalArrangement = Arrangement.Start
+                ){
+                    Text(
+                        text="Your password should contain:\n- a minimum of 8 characters\n- at least 1 uppercase\n- at least 1 lowercase\n- 1 digit\n- 1 special character"
+                    )
+                }
                 OutlinedTextField(
                     value = password,
                     onValueChange ={ newText->
@@ -192,7 +202,28 @@ fun RegisterScreen(
                                 Toast.makeText(context, R.string.required_field_empty, Toast.LENGTH_SHORT).show()
                             } else if(password != confirm) {
                                 Toast.makeText(context, R.string.passwords_unmatched, Toast.LENGTH_SHORT).show()
-                            } else {
+                            } else if(!viewModel.isValidPassword(password)){
+                                if(password.length<8){
+                                    Toast.makeText(context,"Password has to be at least 8 characters",Toast.LENGTH_SHORT).show()
+                                }
+                                else if(password.firstOrNull { it.isDigit() } == null){
+                                    Toast.makeText(context,"Password has to contain 1 digit",Toast.LENGTH_SHORT).show()
+                                }
+                                else if(password.filter { it.isLetter() }.filter { it.isUpperCase() }.firstOrNull() == null){
+                                    Toast.makeText(context,"Password has to contain 1 uppercase",Toast.LENGTH_SHORT).show()
+
+                                }
+                                else if(password.filter { it.isLetter() }.filter { it.isLowerCase() }.firstOrNull() == null){
+                                    Toast.makeText(context,"Password has to contain 1 lowercase",Toast.LENGTH_SHORT).show()
+
+                                }
+                                else if(password.firstOrNull { !it.isLetterOrDigit() } == null){
+                                    Toast.makeText(context,"Password has to contain a special character",Toast.LENGTH_SHORT).show()
+
+                                }
+
+                            }
+                            else {
                                 viewModel.signUp(email, password)
                             }
                         },
