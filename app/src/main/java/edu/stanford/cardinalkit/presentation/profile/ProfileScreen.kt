@@ -1,5 +1,7 @@
 package edu.stanford.cardinalkit.presentation.profile
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -25,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -135,6 +138,7 @@ fun ScreenContent(
     navController: NavHostController,
 ){
     Column() {
+        val context = LocalContext.current
         Row(Modifier.background(Color.White)){
             ProfileCard(title = stringResource(R.string.upload_health_data_button),
             onClick={},
@@ -143,13 +147,24 @@ fun ScreenContent(
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
             ProfileCard(title = stringResource(R.string.report_issue_button),
-                onClick={}
+                onClick={
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("https://github.com/CardinalKit/CardinalKit/issues")
+                    }
+                    context.startActivity(intent, bundleOf())
+
+                }
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
         Row(Modifier.background(Color.White)){
             ProfileCard(title = stringResource(R.string.support_button),
-                onClick={}
+                onClick={
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("https://cardinalkit.org/")
+                    }
+                    context.startActivity(intent, bundleOf())
+                }
             )
         }
         Spacer(modifier = Modifier.height(3.dp))

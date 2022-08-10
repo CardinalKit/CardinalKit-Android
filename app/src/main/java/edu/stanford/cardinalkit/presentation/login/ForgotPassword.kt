@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,15 +20,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ForgotPassword(
+    viewModel: LoginViewModel = hiltViewModel(),
     navController : NavController
 ){
     Scaffold(
@@ -49,6 +54,7 @@ fun ForgotPassword(
         },
         containerColor = Color(0xFFFFFFFF),
         content ={
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -72,13 +78,13 @@ fun ForgotPassword(
                     text="Enter your email address and a link will be sent to reset your password"
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                var email by remember{
+                var emailPassword by remember{
                     mutableStateOf("")
                 }
                 OutlinedTextField(
-                    value = email,
+                    value = emailPassword,
                     onValueChange ={ newText->
-                        email = newText
+                        emailPassword = newText
                     },
                     label = {
                         androidx.compose.material3.Text(text = "Email Address")
@@ -97,7 +103,7 @@ fun ForgotPassword(
                 ) {
                     TextButton(
                         onClick = {
-
+                            viewModel.resetPassword(emailPassword)
                         },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.Gray,
@@ -114,5 +120,15 @@ fun ForgotPassword(
                 }
             }
 
-        })
+        }
+
+    )
+    val context = LocalContext.current
+    when(val resetPassword = viewModel.signInState.value) {
+        is Response.Loading -> ProgressIndicator()
+        is Response.Error -> resetPassword.e?.let {
+            Toast.makeText(context,"Email is invalid", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

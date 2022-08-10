@@ -63,6 +63,14 @@ class AuthRepositoryImpl  @Inject constructor(
             emit(Response.Error(e))
         }
     }
+    override suspend fun resetPassword(email: String) = flow {
+        try {
+            auth.sendPasswordResetEmail(email).await()
+            emit(Response.Success(true))
+        } catch (e: Exception) {
+            emit(Response.Error(e))
+        }
+    }
 
     override suspend fun signUp(email: String, password: String) = flow {
         try {

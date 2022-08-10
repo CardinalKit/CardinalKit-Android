@@ -72,4 +72,12 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun resetPassword(email: String){
+        viewModelScope.launch {
+            useCases.resetPassword(email).collect { result ->
+                _signInState.value = result
+            }
+        }
+    }
+
 }
