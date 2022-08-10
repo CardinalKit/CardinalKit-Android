@@ -8,9 +8,9 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
-        maven {
-            url "file://${rootDir}/app/src/repository"
-        }
+//        maven {
+//            url "file://${rootDir}/app/src/repository"
+//        }
         google()
         mavenCentral()
     }
