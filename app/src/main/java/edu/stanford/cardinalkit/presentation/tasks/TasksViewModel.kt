@@ -34,17 +34,22 @@ class TasksViewModel @Inject constructor(
     private val _uploadTaskLogState = mutableStateOf<Response<Void?>>(Response.Loading)
     val uploadTaskLogState: State<Response<Void?>> = _uploadTaskLogState
 
+
+
+
     init {
         // Sets up listeners for realtime updates from DB
         getTasks()
         getTaskLogs()
     }
 
+
     private fun getTasks() = viewModelScope.launch {
         useCases.getTasks().collect { response ->
             _tasksState.value = response
         }
     }
+
 
     private fun getTaskLogs() = viewModelScope.launch {
         useCases.getTaskLogs().collect { response ->

@@ -6,8 +6,6 @@ import androidx.compose.runtime.Composable
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -31,17 +29,59 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
+import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
+import okhttp3.internal.checkOffsetAndCount
+import java.lang.Double.NaN
+import java.time.LocalDate
+import java.util.*
 
 
 @Composable
 fun TaskCardUI(
-
+    viewModel: TasksViewModel = hiltViewModel(),
 ) {
 
-    val annotatedString1 = AnnotatedString.Builder("1/2 Task")
+    // check the task logs to see if this task has been completed
+    var counterComplete = 0
+    var counterTask=0
+
+    when(val response = viewModel.taskLogsState.value) {
+        is Response.Success -> {
+            response.data?.let { taskLogs ->
+                for (log in taskLogs) {
+                    if (log.date.toLocalDate() == viewModel.currentDate.value){
+                        counterComplete++
+                    }
+                }
+            }
+        }
+
+    }
+    when(val response = viewModel.tasksState.value) {
+        is Response.Success -> {
+            response.data?.let { task ->
+                for (log in task) {
+                    if (log.schedule.isScheduledOn(viewModel.currentDate.value)) {
+                        counterComplete++
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    val completedTask= counterComplete
+    val totalTask= counterTask
+
+
+
+    val annotatedString1 = AnnotatedString.Builder("${completedTask}/${totalTask} Task")
         .apply {
             addStyle(
                 SpanStyle(
@@ -98,8 +138,9 @@ fun TaskCardUI(
             }
 
 
+            var num = completedTask.toFloat()/ totalTask
 
-            TaskProgressBar(percentage = 50f)
+            TaskProgressBar(percentage = num*100)
 
 
         }
@@ -117,6 +158,7 @@ fun TaskProgressBar(percentage: Float) {
                 .size(100.dp)
                 .padding(6.dp)
         ) {
+
             drawCircle(
                 SolidColor(Color(0xFFE3E5E7)),
                 size.width / 2,
@@ -128,25 +170,17 @@ fun TaskProgressBar(percentage: Float) {
                     colors = listOf(PrimaryTheme, Color.White)
                 ),
                 startAngle = -90f,
-                sweepAngle = convertedValue,
+                sweepAngle = convertedValue.toFloat(),
                 useCenter = false,
                 style = Stroke(26f, cap = StrokeCap.Round)
             )
         }
 
-        val annotatedString2 = AnnotatedString.Builder("${percentage.toInt()}%\nDone")
-            .apply {
-                addStyle(
-                    SpanStyle(
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Normal
-                    ), 4, 8
-                )
-            }
+        val annotatedString2 = AnnotatedString.Builder("${percentage}%\nDone")
 
         Text(
             text = annotatedString2.toAnnotatedString(),
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )

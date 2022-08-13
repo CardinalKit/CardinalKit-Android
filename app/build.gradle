@@ -137,4 +137,7 @@ dependencies {
     // JSON
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    //System Bars Padding
+    implementation 'dev.chrisbanes.accompanist:accompanist-insets:0.6.2'
+
 }

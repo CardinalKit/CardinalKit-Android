@@ -1,5 +1,7 @@
 package edu.stanford.cardinalkit.presentation.register
 
+import android.text.TextUtils
+import android.util.Patterns
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -7,11 +9,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
-import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import edu.stanford.cardinalkit.domain.use_cases.auth.AuthUseCases
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
+
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
@@ -46,6 +48,9 @@ class RegisterViewModel @Inject constructor(
         if (password.firstOrNull { !it.isLetterOrDigit() } == null) return false // special character
 
         return true
+    }
+    fun isValidEmail(target: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
 }

@@ -200,7 +200,11 @@ fun RegisterScreen(
                         onClick = {
                             if(email.isEmpty() or password.isEmpty() or confirm.isEmpty()){
                                 Toast.makeText(context, R.string.required_field_empty, Toast.LENGTH_SHORT).show()
-                            } else if(password != confirm) {
+                            } else if(!viewModel.isValidEmail(email)){
+                                Toast.makeText(context, "Enter valid email", Toast.LENGTH_SHORT).show()
+
+                            }
+                            else if(password != confirm) {
                                 Toast.makeText(context, R.string.passwords_unmatched, Toast.LENGTH_SHORT).show()
                             } else if(!viewModel.isValidPassword(password)){
                                 if(password.length<8){
