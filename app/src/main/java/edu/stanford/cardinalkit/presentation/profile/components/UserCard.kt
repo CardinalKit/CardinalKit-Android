@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserCard(
-    fullName: String
+    userID: String
 ) {
     Card(
         modifier = Modifier
@@ -27,7 +27,7 @@ fun UserCard(
         Column()
         {
             Text(
-                text = fullName,
+                text = userID,
                 fontSize = 15.sp
             )
         }

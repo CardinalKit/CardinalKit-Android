@@ -10,6 +10,7 @@ interface AuthRepository {
     fun isAuthenticated(): Boolean
     fun getAuthStatus(): Flow<Boolean>
     fun getFullName(): String
+    fun getUserID(): String
     suspend fun oneTapSignInWithGoogle(): Flow<Response<BeginSignInResult>>
     suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential): Flow<Response<Boolean>>
     suspend fun signIn(email: String, password: String): Flow<Response<Boolean>>

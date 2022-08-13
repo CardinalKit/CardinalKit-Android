@@ -84,12 +84,12 @@ fun ProfileScreen(
                     )
                     Text(
                         modifier = Modifier.padding(top = 20.dp),
-                        text = stringResource(R.string.profile_name),
+                        text = stringResource(R.string.user_id),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                     UserCard(
-                        fullName = viewModel.fullName
+                        userID = viewModel.userID
                     )
                 }
             }
