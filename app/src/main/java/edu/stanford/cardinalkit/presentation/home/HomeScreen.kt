@@ -19,19 +19,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.home.components.*
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
-import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: TasksViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
     Scaffold(
@@ -42,55 +39,64 @@ fun HomeScreen(
                         text = stringResource(R.string.home_screen_title),
                         modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
-                    fontWeight = FontWeight.Light
+                        fontWeight = FontWeight.Light
                     )
                 },
                 backgroundColor = Color(0xFFF1F1F1),
-                contentColor = Color.Black)
+                contentColor = Color.Black
+            )
 
         },
-        containerColor =  Color(0xFFF5F5F5),
+        containerColor = Color(0xFFF5F5F5),
         content = {
 
-            Column(modifier= Modifier
-                .padding(top = 50.dp)
-                .padding(all = 27.dp)
-                .verticalScroll(rememberScrollState())){
+            Column(
+                modifier = Modifier
+                    .padding(top = 50.dp)
+                    .padding(all = 27.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
                 Text(
                     text = stringResource(R.string.welcome),
                     fontSize = 25.sp,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom=3.dp)
+                    modifier = Modifier.padding(bottom = 3.dp)
                 )
                 Text(
                     text = stringResource(R.string.welcome_message),
                     fontSize = 15.sp,
-                    modifier=Modifier.padding(bottom=10.dp)
+                    modifier = Modifier.padding(bottom = 10.dp)
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement= Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(R.string.task_summary),
-                        fontWeight= FontWeight.SemiBold,
+                        fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp
                     )
-                    IconButton(onClick={
-                        navController.navigate(Screens.TasksScreen.route)
-                    }){
-                        Icon(Icons.Filled.ArrowForward, "forward Icon")
+                    IconButton(onClick = {
+                        navController.navigate(Screens.TasksScreen.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }) {
+                        Icon(Icons.Filled.ArrowForward, "forward icon")
                     }
                 }
                 TaskCardUI()
                 Spacer(modifier = Modifier.height(20.dp))
-                Column(){
+                Column() {
                     LearnMoreCard()
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement= Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         StepsCard()
                         CKSurveyCard()

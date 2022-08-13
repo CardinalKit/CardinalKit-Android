@@ -16,12 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.domain.models.Contact
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
@@ -42,18 +44,18 @@ fun ContactCard(
                 .padding(15.dp)
                 .fillMaxWidth()
         ) {
-            Row(){
+            Row {
                 Icon(imageVector = Icons.Filled.AccountCircle , modifier = Modifier
                     .padding(end = 10.dp)
                     .height(50.dp)
                     .width(45.dp), contentDescription = "profile", tint = PrimaryTheme)
-                Column() {
+                Column {
                     Text(
-                        text = contact.name,
+                        text = "${contact.title} ${contact.firstName} ${contact.lastName}",
                         fontSize = 22.sp
                     )
                     Text(
-                        text = contact.title,
+                        text = contact.role,
                         fontSize = 15.sp
                     )
                 }
@@ -67,14 +69,19 @@ fun ContactCard(
             Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 ContactSection(
                     phoneNumber = contact.phoneNumber,
-                    textNumber = contact.textNumber,
+                    smsNumber = contact.smsNumber,
                     email = contact.email
                 )
             }
             val context = LocalContext.current
             OutlinedCard(
                 Modifier
-                    .clickable { openMaps(context=context)}
+                    .clickable {
+                        openMaps(
+                            context = context,
+                            contact = contact
+                        )
+                    }
                     .fillMaxWidth()
                     .padding(10.dp),
                 colors = cardColors(Color.White)) {
@@ -84,15 +91,15 @@ fun ContactCard(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Location",
+                        text = stringResource(R.string.location),
                         fontSize = 18.sp
                     )
                     Text(
-                        text = contact.addressLineOne,
+                        text = contact.streetAddress,
                         fontSize = 15.sp
                     )
                     Text(
-                        text = contact.addressLineTwo,
+                        text = "${contact.city}, ${contact.state}, ${contact.country}, ${contact.postalCode} ",
                         fontSize = 15.sp
                     )
                 }
@@ -104,7 +111,7 @@ fun ContactCard(
 @Composable
 fun ContactSection(
     phoneNumber: String,
-    textNumber: String,
+    smsNumber: String,
     email: String
 ){
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
@@ -114,7 +121,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text="Call",
+                text = stringResource(R.string.call),
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -124,12 +131,12 @@ fun ContactSection(
         }
         OutlinedButton(
             onClick = {
-                sendAText(context = context, phoneNumber = textNumber)
+                sendAText(context = context, smsNumber = smsNumber)
             },
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text="Text",
+                text = stringResource(R.string.sms),
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -141,7 +148,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text="Email",
+                text = stringResource(R.string.email),
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -166,12 +173,12 @@ fun makeACall(context: Context, phoneNumber: String) {
     }
 }
 
-fun sendAText(context: Context, phoneNumber: String) {
+fun sendAText(context: Context, smsNumber: String) {
     if (ContextCompat.checkSelfPermission(context,android.Manifest.permission.SEND_SMS ) ==
         PackageManager.PERMISSION_GRANTED
     ) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("sms: $phoneNumber")
+        intent.data = Uri.parse("sms: $smsNumber")
         startActivity(context, intent, bundleOf())
     } else {
         ActivityCompat.requestPermissions(
@@ -180,16 +187,14 @@ fun sendAText(context: Context, phoneNumber: String) {
     }
 }
 
-fun sendEmail(context: Context, recipientMail:String){
-    val emailIntent = Intent(Intent.ACTION_SEND)
-    emailIntent.data= Uri.parse("mailto:$recipientMail")
-    emailIntent.type = "text/plain"
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, recipientMail)
-    startActivity(context,emailIntent, bundleOf())
+fun sendEmail(context: Context, recipientMail: String) {
+    val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+        "mailto", recipientMail, null))
+    startActivity(context, Intent.createChooser(emailIntent, "Choose an email client:"), bundleOf())
 }
 
-fun openMaps(context: Context){
-    val gmmIntentUri = Uri.parse("geo:0,0?q=")
+fun openMaps(context: Context, contact: Contact){
+    val gmmIntentUri = Uri.parse("geo:0,0?q=${contact.streetAddress}, ${contact.city}, ${contact.state}, ${contact.country}")
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
     mapIntent.setPackage("com.google.android.apps.maps")
     startActivity(context, mapIntent,bundleOf())

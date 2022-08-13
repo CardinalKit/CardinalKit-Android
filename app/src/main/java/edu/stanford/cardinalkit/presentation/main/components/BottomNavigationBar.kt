@@ -18,13 +18,14 @@ import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 @Composable
 fun BottomNavigationBar(
     navController: NavHostController,
-    modifier:Modifier){
+    modifier: Modifier
+) {
     BottomNavigation {
         val COLOR_NORMAL = Color.Gray
         val COLOR_SELECTED = PrimaryTheme
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backStackEntry?.destination?.route
-        Row(modifier = modifier.background(Color.White)){
+        Row(modifier = modifier.background(Color.White)) {
             TabBarItems.BarItems.forEach { navItem ->
                 BottomNavigationItem(
                     selected = currentRoute == navItem.route,
@@ -44,7 +45,7 @@ fun BottomNavigationBar(
                         )
                     },
                     label = {
-                        Text(text = navItem.title, color =Color.Gray)
+                        Text(text = navItem.title, color = Color.Gray)
                     },
                     selectedContentColor = COLOR_SELECTED,
                     unselectedContentColor = COLOR_NORMAL
