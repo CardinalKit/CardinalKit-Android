@@ -1,107 +1,118 @@
 package edu.stanford.cardinalkit.presentation.home.components
 
-import android.util.Log
-import android.widget.Toast
-import androidx.compose.runtime.Composable
 
+import androidx.compose.runtime.Composable
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
-import edu.stanford.cardinalkit.common.Constants
+import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
+import java.time.LocalDate
 
 
 @Composable
 fun TaskCardUI(
-
+    viewModel: TasksViewModel = hiltViewModel(),
 ) {
 
-    val annotatedString1 = AnnotatedString.Builder("1/2 Task")
-        .apply {
-            addStyle(
-                SpanStyle(
-                    color = PrimaryTheme,
-                ), 0, 3
-            )
+    val totalTasksCompleteToday = remember {
+        mutableStateOf(0)
+    }
+
+    when (val response = viewModel.taskLogsState.value) {
+        is Response.Success -> {
+            response.data?.let { taskLogs ->
+                totalTasksCompleteToday.value = taskLogs.filter {
+                    it.date.toLocalDate() == LocalDate.now()
+                }.distinctBy { it.taskID }.count()
+            }
         }
+    }
 
+    var totalTasksToday = remember {
+        mutableStateOf(0)
+    }
 
+    when (val response = viewModel.tasksState.value) {
+        is Response.Success -> {
+            response.data?.let { tasks ->
+                totalTasksToday.value = tasks.count {
+                    it.schedule.isScheduledOn(LocalDate.now())
+                }
+            }
+        }
+    }
 
-
-
-    Card(
-        backgroundColor = Color.White,
-        modifier = Modifier
-            .fillMaxWidth(),
-        elevation = 0.dp,
-        shape= RoundedCornerShape(18)
-    ) {
-        Row(
-            modifier = Modifier.padding(20.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column() {
-                Text(
-                    text = "Task Progress",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Medium
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                Row {
-                    androidx.compose.material3.Icon(
-                        imageVector = Icons.Filled.Assignment,
-                        contentDescription = "Complete a survey"
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = annotatedString1.toAnnotatedString(),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.ExtraBold
+    if (totalTasksToday.value > 0) {
+        val annotatedString1 =
+            AnnotatedString.Builder("${totalTasksCompleteToday.value}/${totalTasksToday.value} ${stringResource(R.string.complete)}")
+                .apply {
+                    addStyle(
+                        SpanStyle(
+                            color = PrimaryTheme,
+                        ), 0, 3
                     )
                 }
-
-
-                Spacer(modifier = Modifier.height(6.dp))
-                Text(
-                    text = "Keep up the good work,\nyou got this",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal
-                )
-
-
-
+        Card(
+            backgroundColor = Color.White,
+            modifier = Modifier
+                .fillMaxWidth(),
+            elevation = 0.dp,
+            shape = RoundedCornerShape(18)
+        ) {
+            Row(
+                modifier = Modifier.padding(20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column() {
+                    Text(
+                        text = stringResource(R.string.task_progress),
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row {
+                        androidx.compose.material3.Icon(
+                            imageVector = Icons.Filled.Assignment,
+                            contentDescription = "Complete a survey"
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = annotatedString1.toAnnotatedString(),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        text = stringResource(R.string.motivational_message),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal
+                    )
+                }
+                var num = totalTasksCompleteToday.value / totalTasksToday.value
+                TaskProgressBar(percentage = num * 100f)
             }
-
-
-
-            TaskProgressBar(percentage = 50f)
-
-
         }
     }
 }
@@ -117,6 +128,7 @@ fun TaskProgressBar(percentage: Float) {
                 .size(100.dp)
                 .padding(6.dp)
         ) {
+
             drawCircle(
                 SolidColor(Color(0xFFE3E5E7)),
                 size.width / 2,
@@ -128,31 +140,21 @@ fun TaskProgressBar(percentage: Float) {
                     colors = listOf(PrimaryTheme, Color.White)
                 ),
                 startAngle = -90f,
-                sweepAngle = convertedValue,
+                sweepAngle = convertedValue.toFloat(),
                 useCenter = false,
                 style = Stroke(26f, cap = StrokeCap.Round)
             )
         }
 
-        val annotatedString2 = AnnotatedString.Builder("${percentage.toInt()}%\nDone")
-            .apply {
-                addStyle(
-                    SpanStyle(
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Normal
-                    ), 4, 8
-                )
-            }
+        val annotatedString2 = AnnotatedString.Builder("${percentage}%\n${stringResource(R.string.done)}")
 
         Text(
             text = annotatedString2.toAnnotatedString(),
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
-
     }
-
 }
 
 

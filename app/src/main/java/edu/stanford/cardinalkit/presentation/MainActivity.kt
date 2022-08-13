@@ -1,7 +1,6 @@
 package edu.stanford.cardinalkit.presentation
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,12 +18,14 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
+    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().apply {}
 
         setContent {
+
             val navController = rememberAnimatedNavController()
             val isAuthenticated = remember { mutableStateOf(false) }
 
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                     startDestination = Screens.JoinStudyScreen.route
                 )
             }
+
         }
     }
 }

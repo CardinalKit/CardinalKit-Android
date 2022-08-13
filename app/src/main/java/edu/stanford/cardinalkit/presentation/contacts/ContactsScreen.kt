@@ -52,7 +52,7 @@ fun ContactsScreen(
         },
         containerColor =  Color(0xFFF5F5F5),
         content = {
-           Column(modifier=Modifier.padding(bottom=70.dp)){
+           Column(modifier=Modifier.padding(bottom=50.dp)){
                when(val contactsResponse = viewModel.contactsState.value) {
                    is Response.Error -> Log.d("ContactsScreen", contactsResponse.e?.message.toString())
                    is Response.Loading -> ProgressIndicator()

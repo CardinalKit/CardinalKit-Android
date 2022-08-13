@@ -40,11 +40,13 @@ class TasksViewModel @Inject constructor(
         getTaskLogs()
     }
 
+
     private fun getTasks() = viewModelScope.launch {
         useCases.getTasks().collect { response ->
             _tasksState.value = response
         }
     }
+
 
     private fun getTaskLogs() = viewModelScope.launch {
         useCases.getTaskLogs().collect { response ->

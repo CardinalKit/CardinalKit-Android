@@ -43,6 +43,10 @@
     <string name="welcome">Welcome</string>
     <string name="welcome_message">We are glad to see you!</string>
     <string name="task_summary">Task Summary</string>
+    <string name="task_progress">Task Progress</string>
+    <string name="motivational_message">Keep up the good work!</string>
+    <string name="complete">Complete</string>
+    <string name="done">Done</string>
 
     <!-- Error messages -->
     <string name="error_loading_survey_message">Error Loading Survey</string>

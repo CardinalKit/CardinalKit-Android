@@ -153,7 +153,7 @@ fun LoginScreen(
                     Modifier
                         .padding(top = 5.dp)
                         .fillMaxWidth()
-                        .padding(horizontal = 65.dp),
+                        .padding(horizontal = 55.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
 
                 ) {
