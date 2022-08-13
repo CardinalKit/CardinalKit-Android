@@ -1,22 +1,32 @@
 [
     {
-      "name": "Oliver Aalami",
-      "title": "Director",
+      "title": "Dr.",
+      "firstName": "Oliver",
+      "lastName": "Aalami",
+      "role": "Director",
       "email": "aalami@stanford.edu",
-      "description": "Lorem ipsum",
+      "description": "Dr. Aalami is the director of the CardinalKit project.",
       "phoneNumber": "123-456-7890",
-      "textNumber": "123-456-7890",
-      "addressLineOne": "318 Campus Drive, Stanford, CA 94305",
-      "addressLineTwo": "Stanford CA 94305"
+      "smsNumber": "123-456-7890",
+      "streetAddress": "318 Campus Drive",
+      "city": "Stanford",
+      "state": "California",
+      "country": "USA",
+      "postalCode": "94305"
     },
     {
-      "name": "Vishnu Ravi",
-      "title": "Lead Architect",
+      "title": "Dr.",
+      "firstName": "Vishnu",
+      "lastName": "Ravi",
+      "role": "Lead Architect",
       "email": "vishnur@stanford.edu",
-      "description": "Lorem ipsum",
+      "description": "Dr. Ravi is the lead architect and software engineer of the CardinalKit project.",
       "phoneNumber": "123-456-7890",
-      "textNumber": "123-456-7890",
-      "addressLineOne": "318 Campus Drive, Stanford, CA 94305",
-      "addressLineTwo": "Stanford CA 94305"
+      "smsNumber": "123-456-7890",
+      "streetAddress": "318 Campus Drive",
+      "city": "Stanford",
+      "state": "California",
+      "country": "USA",
+      "postalCode": "94305"
     }
 ]

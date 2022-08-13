@@ -49,11 +49,11 @@ fun ContactCard(
                     .width(45.dp), contentDescription = "profile", tint = PrimaryTheme)
                 Column() {
                     Text(
-                        text = contact.name,
+                        text = "${contact.title} ${contact.firstName} ${contact.lastName}",
                         fontSize = 22.sp
                     )
                     Text(
-                        text = contact.title,
+                        text = contact.role,
                         fontSize = 15.sp
                     )
                 }
@@ -67,14 +67,19 @@ fun ContactCard(
             Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 ContactSection(
                     phoneNumber = contact.phoneNumber,
-                    textNumber = contact.textNumber,
+                    textNumber = contact.smsNumber,
                     email = contact.email
                 )
             }
             val context = LocalContext.current
             OutlinedCard(
                 Modifier
-                    .clickable { openMaps(context=context)}
+                    .clickable {
+                        openMaps(
+                            context = context,
+                            contact = contact
+                        )
+                    }
                     .fillMaxWidth()
                     .padding(10.dp),
                 colors = cardColors(Color.White)) {
@@ -88,11 +93,11 @@ fun ContactCard(
                         fontSize = 18.sp
                     )
                     Text(
-                        text = contact.addressLineOne,
+                        text = contact.streetAddress,
                         fontSize = 15.sp
                     )
                     Text(
-                        text = contact.addressLineTwo,
+                        text = "${contact.city}, ${contact.state}, ${contact.country}, ${contact.postalCode} ",
                         fontSize = 15.sp
                     )
                 }
@@ -114,7 +119,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text="Call",
+                text = "Call",
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -129,7 +134,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text="Text",
+                text = "Text",
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -141,7 +146,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text="Email",
+                text = "Email",
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -188,8 +193,8 @@ fun sendEmail(context: Context, recipientMail:String){
     startActivity(context,emailIntent, bundleOf())
 }
 
-fun openMaps(context: Context){
-    val gmmIntentUri = Uri.parse("geo:0,0?q=")
+fun openMaps(context: Context, contact: Contact){
+    val gmmIntentUri = Uri.parse("geo:0,0?q=${contact.streetAddress}, ${contact.city}, ${contact.state}, ${contact.country}")
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
     mapIntent.setPackage("com.google.android.apps.maps")
     startActivity(context, mapIntent,bundleOf())
