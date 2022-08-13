@@ -47,6 +47,9 @@
     <string name="motivational_message">Keep up the good work!</string>
     <string name="complete">Complete</string>
     <string name="done">Done</string>
+    <string name="location">Location</string>
+    <string name="call">Call</string>
+    <string name="sms">SMS</string>
 
     <!-- Error messages -->
     <string name="error_loading_survey_message">Error Loading Survey</string>

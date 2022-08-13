@@ -16,12 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.domain.models.Contact
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
@@ -89,7 +91,7 @@ fun ContactCard(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Location",
+                        text = stringResource(R.string.location),
                         fontSize = 18.sp
                     )
                     Text(
@@ -119,7 +121,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text = "Call",
+                text = stringResource(R.string.call),
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -134,7 +136,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text = "Text",
+                text = stringResource(R.string.sms),
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -146,7 +148,7 @@ fun ContactSection(
             modifier= Modifier.padding(5.dp)
         ) {
             Text(
-                text = "Email",
+                text = stringResource(R.string.email),
                 fontSize = 14.sp,
                 color = PrimaryTheme,
                 modifier = Modifier
@@ -171,12 +173,12 @@ fun makeACall(context: Context, phoneNumber: String) {
     }
 }
 
-fun sendAText(context: Context, phoneNumber: String) {
+fun sendAText(context: Context, smsNumber: String) {
     if (ContextCompat.checkSelfPermission(context,android.Manifest.permission.SEND_SMS ) ==
         PackageManager.PERMISSION_GRANTED
     ) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("sms: $phoneNumber")
+        intent.data = Uri.parse("sms: $smsNumber")
         startActivity(context, intent, bundleOf())
     } else {
         ActivityCompat.requestPermissions(
