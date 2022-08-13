@@ -33,13 +33,13 @@ fun CKNavHost(navController: NavHostController, startDestination: String) {
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None }
     ) {
-        composable(Screens.OnboardingScreen.route){
+        composable(Screens.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }
-        composable(Screens.WelcomeScreen.route){
-            WelcomeScreen(navController=navController)
+        composable(Screens.WelcomeScreen.route) {
+            WelcomeScreen(navController = navController)
         }
-        composable(Screens.Review.route){
+        composable(Screens.Review.route) {
             Review(navController = navController)
         }
         composable(Screens.LoginScreen.route) {
@@ -51,16 +51,16 @@ fun CKNavHost(navController: NavHostController, startDestination: String) {
         composable(Screens.MainScreen.route) {
             MainScreen()
         }
-        composable(Screens.HomeScreen.route){
-            HomeScreen(navController= navController)
+        composable(Screens.HomeScreen.route) {
+            HomeScreen(navController = navController)
         }
-        composable(Screens.TasksScreen.route){
+        composable(Screens.TasksScreen.route) {
             TasksScreen()
         }
         composable(Screens.ProfileScreen.route) {
             ProfileScreen(navController = navController)
         }
-        composable(Screens.ContactsScreen.route){
+        composable(Screens.ContactsScreen.route) {
             ContactsScreen()
         }
         composable(Screens.ReviewConsent.route) {
