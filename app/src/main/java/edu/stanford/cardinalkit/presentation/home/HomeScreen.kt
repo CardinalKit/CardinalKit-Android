@@ -1,7 +1,5 @@
 package edu.stanford.cardinalkit.presentation.home
 
-
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -23,15 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import edu.stanford.cardinalkit.domain.models.Response
-import dev.chrisbanes.accompanist.insets.statusBarsHeight
-import dev.chrisbanes.accompanist.insets.statusBarsPadding
 import edu.stanford.cardinalkit.R
-import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.presentation.home.components.*
 import edu.stanford.cardinalkit.presentation.navigation.Screens
+
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
-import io.grpc.InternalChannelz.id
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -106,5 +100,4 @@ fun HomeScreen(
             }
         }
     )
-
 }
