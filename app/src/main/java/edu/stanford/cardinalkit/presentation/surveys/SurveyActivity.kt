@@ -19,7 +19,9 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.SurveyResult
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
+import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import java.time.LocalDate
 import java.util.*
 
@@ -27,7 +29,9 @@ import java.util.*
 class SurveyActivity : AppCompatActivity() {
 
     private var surveyName: String? = null // filename of the survey
+    private var taskID: String? = null // id of the task
     val viewModel by viewModels<SurveyViewModel>()
+    val tasksViewModel by viewModels<TasksViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +50,20 @@ class SurveyActivity : AppCompatActivity() {
         surveyName = intent.getStringExtra(Constants.SURVEY_NAME)
         surveyName?.let { viewModel.getSurvey(it) }
 
+        // Gets the task ID in order to report back if the survey was
+        // completed
+        taskID = intent.getStringExtra(Constants.TASK_ID)
+
         // Observes result of survey submission
         viewModel.surveyResultUploadedState.observe(this) {
             when(it){
-                is Response.Success -> finish()
+                is Response.Success -> {
+                    val log = taskID?.let { it -> CKTaskLog(it) }
+                    if (log != null) {
+                        tasksViewModel.uploadTaskLog(log)
+                    }
+                    finish()
+                }
                 is Response.Error -> {
                     Toast.makeText(context, it.e?.message, Toast.LENGTH_SHORT).show()
                 }

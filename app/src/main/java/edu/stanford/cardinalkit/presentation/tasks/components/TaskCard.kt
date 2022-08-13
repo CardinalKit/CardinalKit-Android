@@ -52,16 +52,12 @@ fun TaskCard(
         else -> completed = false
     }
 
-    fun launchSurvey(surveyName: String){
+    fun launchSurvey(surveyName: String, taskID: String){
         val intent = Intent(context, SurveyActivity::class.java).apply {
             putExtra(Constants.SURVEY_NAME, surveyName)
+            putExtra(Constants.TASK_ID, taskID)
         }
         context.startActivity(intent)
-    }
-
-    fun uploadTaskLog(id: String) {
-        val taskLog = CKTaskLog(id)
-        viewModel.uploadTaskLog(taskLog)
     }
 
     Card(
@@ -70,8 +66,7 @@ fun TaskCard(
             if(viewModel.currentDate.value == LocalDate.now()) {
                 when (category) {
                     CKTaskCategory.SURVEY -> {
-                        launchSurvey(uri)
-                        uploadTaskLog(id)
+                        launchSurvey(surveyName = uri, taskID = id)
                     }
                 }
             } else {
