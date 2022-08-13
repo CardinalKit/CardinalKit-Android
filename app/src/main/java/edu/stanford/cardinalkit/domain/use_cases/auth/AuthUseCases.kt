@@ -6,6 +6,7 @@ data class AuthUseCases (
     val oneTapSignIn: OneTapSignIn,
     val signInWithGoogle: SignInWithGoogle,
     val saveUser: SaveUser,
+    val updateLastActive: UpdateLastActive,
     val getAuthStatus: GetAuthStatus,
     val resetPassword: ResetPassword
 )

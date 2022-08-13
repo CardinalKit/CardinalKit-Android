@@ -34,6 +34,9 @@ class LoginViewModel @Inject constructor(
     private val _saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
     val saveUserState: State<Response<Boolean>> = _saveUserState
 
+    private val _updateLastActive = mutableStateOf<Response<Boolean>>(Response.Success(null))
+    val updateLastActive: State<Response<Boolean>> = _updateLastActive
+
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             useCases.signInWithEmail(email, password).collect { result ->
@@ -65,6 +68,15 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    fun updateLastActive() {
+        viewModelScope.launch {
+            useCases.updateLastActive().collect { result ->
+                _updateLastActive.value = result
+            }
+        }
+    }
+
 
     fun getAuthStatus() = liveData(Dispatchers.IO) {
         useCases.getAuthStatus().collect { result ->

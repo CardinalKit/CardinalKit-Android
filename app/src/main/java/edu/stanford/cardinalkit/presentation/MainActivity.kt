@@ -20,6 +20,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val loginViewModel by viewModels<LoginViewModel>()
+    private val healthViewModel by viewModels<HealthViewModel>()
+
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,6 @@ class MainActivity : AppCompatActivity() {
          * Gets permissions for accessing health data from Health Connect
          * if not already provided.
          */
-        val healthViewModel by viewModels<HealthViewModel>()
         val requestPermissionsActivityContract = healthViewModel.healthConnectManager.healthConnectClient
             .permissionController
             .createRequestPermissionActivityContract()
@@ -63,7 +65,6 @@ class MainActivity : AppCompatActivity() {
              * Observe authentication status - redirect to register/login screen
              * if not authenticated, or main screen if authenticated.
              */
-            val loginViewModel by viewModels<LoginViewModel>()
 
             loginViewModel.getAuthStatus().observe(this) {
                 isAuthenticated.value = it
@@ -72,6 +73,9 @@ class MainActivity : AppCompatActivity() {
             if(isAuthenticated.value) {
                 // Get health data permissions if needed
                 checkPermissionsAndRun()
+
+                // Update user's last active date
+                loginViewModel.updateLastActive()
 
                 // Navigate to main screen
                 CKNavHost(
@@ -85,5 +89,11 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Update user's last active date
+        loginViewModel.updateLastActive()
     }
 }

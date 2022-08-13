@@ -22,7 +22,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-class AuthRepositoryImpl  @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
     private var oneTapClient: SignInClient,
     @Named(Constants.SIGN_IN_REQUEST)
@@ -63,6 +63,7 @@ class AuthRepositoryImpl  @Inject constructor(
             emit(Response.Error(e))
         }
     }
+
     override suspend fun resetPassword(email: String) = flow {
         try {
             auth.sendPasswordResetEmail(email).await()
@@ -76,13 +77,15 @@ class AuthRepositoryImpl  @Inject constructor(
         try {
             auth.createUserWithEmailAndPassword(email, password).await()
             auth.currentUser?.apply {
-                usersRef.document(uid).set(mapOf(
-                    "userID" to uid,
-                    "name" to displayName,
-                    "email" to email,
-                    "lastActive" to serverTimestamp(),
-                    "createdDate" to serverTimestamp()
-                ), SetOptions.merge()).await()
+                usersRef.document(uid).set(
+                    mapOf(
+                        "userID" to uid,
+                        "name" to displayName,
+                        "email" to email,
+                        "lastActive" to serverTimestamp(),
+                        "createdDate" to serverTimestamp()
+                    ), SetOptions.merge()
+                ).await()
                 emit(Response.Success(true))
             }
         } catch (e: Exception) {
@@ -90,7 +93,7 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
-    override fun getAuthStatus() = callbackFlow  {
+    override fun getAuthStatus() = callbackFlow {
         val authStateListener = FirebaseAuth.AuthStateListener { auth ->
             trySend(auth.currentUser != null)
         }
@@ -104,13 +107,31 @@ class AuthRepositoryImpl  @Inject constructor(
         try {
             emit(Response.Loading)
             auth.currentUser?.apply {
-                usersRef.document(uid).set(mapOf(
-                    "userID" to uid,
-                    "name" to displayName,
-                    "email" to email,
-                    "lastActive" to serverTimestamp(),
-                    "createdDate" to serverTimestamp()
-                ), SetOptions.merge()).await()
+                usersRef.document(uid).set(
+                    mapOf(
+                        "userID" to uid,
+                        "name" to displayName,
+                        "email" to email,
+                        "lastActive" to serverTimestamp(),
+                        "createdDate" to serverTimestamp()
+                    ), SetOptions.merge()
+                ).await()
+                emit(Response.Success(true))
+            }
+        } catch (e: Exception) {
+            emit(Response.Error(e))
+        }
+    }
+
+    override suspend fun updateLastActive() = flow {
+        try {
+            emit(Response.Loading)
+            auth.currentUser?.apply {
+                usersRef.document(uid).set(
+                    mapOf(
+                        "lastActive" to serverTimestamp()
+                    ), SetOptions.merge()
+                ).await()
                 emit(Response.Success(true))
             }
         } catch (e: Exception) {
