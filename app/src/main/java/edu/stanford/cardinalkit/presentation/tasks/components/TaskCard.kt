@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
@@ -74,12 +75,12 @@ fun TaskCard(
                         if (!completed.value) {
                             launchSurvey(surveyName = uri, taskID = id)
                         } else {
-                            Toast.makeText(context, "You've already completed this task today.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, R.string.task_already_completed, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             } else {
-                Toast.makeText(context, "This task isn't scheduled today.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.task_not_scheduled_today, Toast.LENGTH_SHORT).show()
             }
         },
         colors = CardDefaults.cardColors(Color.White)
