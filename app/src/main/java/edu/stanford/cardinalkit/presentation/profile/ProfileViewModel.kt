@@ -15,6 +15,7 @@ class ProfileViewModel @Inject constructor(
     private val repository: AuthRepository
 ): ViewModel() {
     val fullName get() = repository.getFullName()
+    val userID get() = repository.getUserID()
 
     private val _signOutState = mutableStateOf<Response<Boolean>>(Response.Success(false))
     val signOutState: State<Response<Boolean>> = _signOutState

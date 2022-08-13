@@ -141,6 +141,8 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun getFullName() = auth.currentUser?.displayName.toString()
 
+    override fun getUserID() = auth.currentUser?.uid.toString()
+
     override suspend fun signOut() = flow {
         try {
             emit(Response.Loading)
