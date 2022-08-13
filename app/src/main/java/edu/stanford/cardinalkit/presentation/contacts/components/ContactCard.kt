@@ -44,12 +44,12 @@ fun ContactCard(
                 .padding(15.dp)
                 .fillMaxWidth()
         ) {
-            Row(){
+            Row {
                 Icon(imageVector = Icons.Filled.AccountCircle , modifier = Modifier
                     .padding(end = 10.dp)
                     .height(50.dp)
                     .width(45.dp), contentDescription = "profile", tint = PrimaryTheme)
-                Column() {
+                Column {
                     Text(
                         text = "${contact.title} ${contact.firstName} ${contact.lastName}",
                         fontSize = 22.sp
@@ -69,7 +69,7 @@ fun ContactCard(
             Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 ContactSection(
                     phoneNumber = contact.phoneNumber,
-                    textNumber = contact.smsNumber,
+                    smsNumber = contact.smsNumber,
                     email = contact.email
                 )
             }
@@ -111,7 +111,7 @@ fun ContactCard(
 @Composable
 fun ContactSection(
     phoneNumber: String,
-    textNumber: String,
+    smsNumber: String,
     email: String
 ){
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
@@ -131,7 +131,7 @@ fun ContactSection(
         }
         OutlinedButton(
             onClick = {
-                sendAText(context = context, phoneNumber = textNumber)
+                sendAText(context = context, smsNumber = smsNumber)
             },
             modifier= Modifier.padding(5.dp)
         ) {
@@ -187,12 +187,10 @@ fun sendAText(context: Context, smsNumber: String) {
     }
 }
 
-fun sendEmail(context: Context, recipientMail:String){
-    val emailIntent = Intent(Intent.ACTION_SEND)
-    emailIntent.data= Uri.parse("mailto:$recipientMail")
-    emailIntent.type = "text/plain"
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, recipientMail)
-    startActivity(context,emailIntent, bundleOf())
+fun sendEmail(context: Context, recipientMail: String) {
+    val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+        "mailto", recipientMail, null))
+    startActivity(context, Intent.createChooser(emailIntent, "Choose an email client:"), bundleOf())
 }
 
 fun openMaps(context: Context, contact: Contact){
