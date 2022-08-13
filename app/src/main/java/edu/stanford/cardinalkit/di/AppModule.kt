@@ -38,6 +38,7 @@ import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
 import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
 import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTaskLogs
 import edu.stanford.cardinalkit.domain.use_cases.tasks.UploadTaskLog
+import edu.stanford.cardinalkit.services.HealthConnectManager
 import javax.inject.Named
 
 @Module
@@ -229,4 +230,9 @@ class AppModule {
         getAuthStatus = GetAuthStatus(repository),
         resetPassword = ResetPassword(repository)
     )
+
+    @Provides
+    fun provideHealthConnectManager(
+        context: Context
+    ) = HealthConnectManager(context)
 }
