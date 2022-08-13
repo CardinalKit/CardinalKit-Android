@@ -55,5 +55,6 @@ object Constants {
 
     // Intents
     const val SURVEY_NAME = "edu.stanford.cardinalkit.SURVEY_NAME"
+    const val TASK_ID = "edu.stanford.cardinalkit.TASK_ID"
 
 }
