@@ -15,7 +15,7 @@ An Android application for the CardinalKit framework, developed with [Jetpack Co
 - Pre-integrated with Google Cloud Firebase backend
 
 ## Requirements
-This application supports Android 21 (Lollipop) and above. 
+This application supports Android 26 (Oreo) and above. Developers should use Android Studio Chipmunk 2021.2.1 or later.
 
 ## Getting Started
 *Installation instructions coming soon.*
