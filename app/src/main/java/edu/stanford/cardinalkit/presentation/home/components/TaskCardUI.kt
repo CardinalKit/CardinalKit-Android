@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
@@ -34,10 +36,7 @@ fun TaskCardUI(
 ) {
 
     val totalTasksCompleteToday = remember {
-        mutableStateOf<Int>(0)
-    }
-    var totalTasksToday = remember {
-        mutableStateOf<Int>(0)
+        mutableStateOf(0)
     }
 
     when (val response = viewModel.taskLogsState.value) {
@@ -48,6 +47,10 @@ fun TaskCardUI(
                 }.distinctBy { it.taskID }.count()
             }
         }
+    }
+
+    var totalTasksToday = remember {
+        mutableStateOf(0)
     }
 
     when (val response = viewModel.tasksState.value) {
@@ -61,9 +64,8 @@ fun TaskCardUI(
     }
 
     if (totalTasksToday.value > 0) {
-
         val annotatedString1 =
-            AnnotatedString.Builder("${totalTasksCompleteToday.value}/${totalTasksToday.value} Task")
+            AnnotatedString.Builder("${totalTasksCompleteToday.value}/${totalTasksToday.value} ${stringResource(R.string.complete)}")
                 .apply {
                     addStyle(
                         SpanStyle(
@@ -71,7 +73,6 @@ fun TaskCardUI(
                         ), 0, 3
                     )
                 }
-
         Card(
             backgroundColor = Color.White,
             modifier = Modifier
@@ -85,7 +86,7 @@ fun TaskCardUI(
             ) {
                 Column() {
                     Text(
-                        text = "Task Progress",
+                        text = stringResource(R.string.task_progress),
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Medium
                     )
@@ -102,16 +103,13 @@ fun TaskCardUI(
                             fontWeight = FontWeight.ExtraBold
                         )
                     }
-
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = "Keep up the good work,\nyou got this",
+                        text = stringResource(R.string.motivational_message),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Normal
                     )
                 }
-
-
                 var num = totalTasksCompleteToday.value / totalTasksToday.value
                 TaskProgressBar(percentage = num * 100f)
             }
@@ -148,7 +146,7 @@ fun TaskProgressBar(percentage: Float) {
             )
         }
 
-        val annotatedString2 = AnnotatedString.Builder("${percentage}%\nDone")
+        val annotatedString2 = AnnotatedString.Builder("${percentage}%\n${stringResource(R.string.done)}")
 
         Text(
             text = annotatedString2.toAnnotatedString(),
