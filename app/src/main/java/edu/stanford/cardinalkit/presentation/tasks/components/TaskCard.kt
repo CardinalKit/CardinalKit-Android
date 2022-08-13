@@ -10,12 +10,15 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
@@ -39,17 +42,20 @@ fun TaskCard(
     val context = LocalContext.current
 
     // check the task logs to see if this task has been completed
-    var completed = false
+    var completed = remember {
+        mutableStateOf(false)
+    }
+
     when(val response = viewModel.taskLogsState.value) {
         is Response.Success -> {
             response.data?.let { taskLogs ->
-                completed = taskLogs.any { log ->
+                completed.value = taskLogs.any { log ->
                     log.taskID == id
                             && log.date.toLocalDate() == viewModel.currentDate.value
                 }
             }
         }
-        else -> completed = false
+        else -> completed.value = false
     }
 
     fun launchSurvey(surveyName: String, taskID: String){
@@ -66,11 +72,15 @@ fun TaskCard(
             if(viewModel.currentDate.value == LocalDate.now()) {
                 when (category) {
                     CKTaskCategory.SURVEY -> {
-                        launchSurvey(surveyName = uri, taskID = id)
+                        if (!completed.value) {
+                            launchSurvey(surveyName = uri, taskID = id)
+                        } else {
+                            Toast.makeText(context, R.string.task_already_completed, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             } else {
-                Toast.makeText(context, "This task isn't scheduled today.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.task_not_scheduled_today, Toast.LENGTH_SHORT).show()
             }
         },
         colors = CardDefaults.cardColors(Color.White)
@@ -84,7 +94,7 @@ fun TaskCard(
                 Column(
                     verticalArrangement = Arrangement.Center
                 ){
-                    if(completed){
+                    if(completed.value){
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
                             tint = PrimaryTheme,

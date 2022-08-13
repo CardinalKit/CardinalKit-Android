@@ -55,6 +55,8 @@
     <string name="error_loading_survey_message">Error Loading Survey</string>
     <string name="error_uploading_survey_results_message">Error Uploading Survey Results</string>
     <string name="error_loading_tasks">Error loading tasks</string>
+    <string name="task_not_scheduled_today">This task is not scheduled today.</string>
+    <string name="task_already_completed">You have already completed this task.</string>
 
     <!-- Form validation -->
     <string name="email_empty">Please enter a valid email address.</string>
