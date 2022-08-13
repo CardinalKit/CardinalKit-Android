@@ -34,9 +34,6 @@ class TasksViewModel @Inject constructor(
     private val _uploadTaskLogState = mutableStateOf<Response<Void?>>(Response.Loading)
     val uploadTaskLogState: State<Response<Void?>> = _uploadTaskLogState
 
-
-
-
     init {
         // Sets up listeners for realtime updates from DB
         getTasks()

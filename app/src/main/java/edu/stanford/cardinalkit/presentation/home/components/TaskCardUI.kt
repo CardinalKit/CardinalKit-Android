@@ -8,6 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
@@ -23,6 +25,7 @@ import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
+import java.time.LocalDate
 
 
 @Composable
@@ -30,87 +33,88 @@ fun TaskCardUI(
     viewModel: TasksViewModel = hiltViewModel(),
 ) {
 
-    // check the task logs to see if this task has been completed
-    var counterComplete = 0
-    var counterTask=0
+    val totalTasksCompleteToday = remember {
+        mutableStateOf<Int>(0)
+    }
+    var totalTasksToday = remember {
+        mutableStateOf<Int>(0)
+    }
 
-    when(val response = viewModel.taskLogsState.value) {
+    when (val response = viewModel.taskLogsState.value) {
         is Response.Success -> {
             response.data?.let { taskLogs ->
-                for (log in taskLogs) {
-                    if (log.date.toLocalDate() == viewModel.currentDate.value){
-                        counterComplete++
-                    }
-                }
+                totalTasksCompleteToday.value = taskLogs.filter {
+                    it.date.toLocalDate() == LocalDate.now()
+                }.distinctBy { it.taskID }.count()
             }
         }
-
     }
-    when(val response = viewModel.tasksState.value) {
+
+    when (val response = viewModel.tasksState.value) {
         is Response.Success -> {
-            response.data?.let { task ->
-                for (log in task) {
-                    if (log.schedule.isScheduledOn(viewModel.currentDate.value)) {
-                        counterComplete++
-                    }
+            response.data?.let { tasks ->
+                totalTasksToday.value = tasks.count {
+                    it.schedule.isScheduledOn(LocalDate.now())
                 }
             }
         }
     }
 
-    val completedTask= counterComplete
-    val totalTask= counterTask
+    if (totalTasksToday.value > 0) {
 
-    val annotatedString1 = AnnotatedString.Builder("${completedTask}/${totalTask} Task")
-        .apply {
-            addStyle(
-                SpanStyle(
-                    color = PrimaryTheme,
-                ), 0, 3
-            )
-        }
-
-    Card(
-        backgroundColor = Color.White,
-        modifier = Modifier
-            .fillMaxWidth(),
-        elevation = 0.dp,
-        shape= RoundedCornerShape(18)
-    ) {
-        Row(
-            modifier = Modifier.padding(20.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column() {
-                Text(
-                    text = "Task Progress",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Medium
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                Row {
-                    androidx.compose.material3.Icon(
-                        imageVector = Icons.Filled.Assignment,
-                        contentDescription = "Complete a survey"
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = annotatedString1.toAnnotatedString(),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.ExtraBold
+        val annotatedString1 =
+            AnnotatedString.Builder("${totalTasksCompleteToday.value}/${totalTasksToday.value} Task")
+                .apply {
+                    addStyle(
+                        SpanStyle(
+                            color = PrimaryTheme,
+                        ), 0, 3
                     )
                 }
 
-                Spacer(modifier = Modifier.height(6.dp))
-                Text(
-                    text = "Keep up the good work,\nyou got this",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal
-                )
-            }
+        Card(
+            backgroundColor = Color.White,
+            modifier = Modifier
+                .fillMaxWidth(),
+            elevation = 0.dp,
+            shape = RoundedCornerShape(18)
+        ) {
+            Row(
+                modifier = Modifier.padding(20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column() {
+                    Text(
+                        text = "Task Progress",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row {
+                        androidx.compose.material3.Icon(
+                            imageVector = Icons.Filled.Assignment,
+                            contentDescription = "Complete a survey"
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = annotatedString1.toAnnotatedString(),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
 
-            var num = completedTask.toFloat()/ totalTask
-            TaskProgressBar(percentage = num*100)
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        text = "Keep up the good work,\nyou got this",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal
+                    )
+                }
+
+
+                var num = totalTasksCompleteToday.value / totalTasksToday.value
+                TaskProgressBar(percentage = num * 100f)
+            }
         }
     }
 }
