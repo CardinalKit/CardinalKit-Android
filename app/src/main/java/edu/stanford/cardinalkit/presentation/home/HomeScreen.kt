@@ -98,8 +98,8 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
+                        StepsCard()
                         CKSurveyCard()
-                        CalendarCard()
                     }
                     Spacer(modifier = Modifier.height(70.dp))
                 }
