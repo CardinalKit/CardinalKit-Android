@@ -10,6 +10,8 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -39,17 +41,20 @@ fun TaskCard(
     val context = LocalContext.current
 
     // check the task logs to see if this task has been completed
-    var completed = false
+    var completed = remember {
+        mutableStateOf(false)
+    }
+
     when(val response = viewModel.taskLogsState.value) {
         is Response.Success -> {
             response.data?.let { taskLogs ->
-                completed = taskLogs.any { log ->
+                completed.value = taskLogs.any { log ->
                     log.taskID == id
                             && log.date.toLocalDate() == viewModel.currentDate.value
                 }
             }
         }
-        else -> completed = false
+        else -> completed.value = false
     }
 
     fun launchSurvey(surveyName: String, taskID: String){
@@ -66,7 +71,11 @@ fun TaskCard(
             if(viewModel.currentDate.value == LocalDate.now()) {
                 when (category) {
                     CKTaskCategory.SURVEY -> {
-                        launchSurvey(surveyName = uri, taskID = id)
+                        if (!completed.value) {
+                            launchSurvey(surveyName = uri, taskID = id)
+                        } else {
+                            Toast.makeText(context, "You've already completed this task today.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             } else {
@@ -84,7 +93,7 @@ fun TaskCard(
                 Column(
                     verticalArrangement = Arrangement.Center
                 ){
-                    if(completed){
+                    if(completed.value){
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
                             tint = PrimaryTheme,
