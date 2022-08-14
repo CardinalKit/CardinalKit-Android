@@ -25,17 +25,17 @@ class TasksViewModel @Inject constructor(
     @Named(Constants.TASKLOG_USE_CASES)
     private var taskLogUseCases: TaskLogUseCases
 ) : ViewModel() {
-    private val _tasksState = mutableStateOf<Response<List<CKTask>>>(Response.Loading)
-    val tasksState: State<Response<List<CKTask>>> = _tasksState
+    var tasksState = mutableStateOf<Response<List<CKTask>>>(Response.Loading)
+        private set
 
-    private val _taskLogsState = mutableStateOf<Response<List<CKTaskLog>>>(Response.Loading)
-    val taskLogsState: State<Response<List<CKTaskLog>>> = _taskLogsState
+    var taskLogsState = mutableStateOf<Response<List<CKTaskLog>>>(Response.Loading)
+        private set
 
-    private val _currentDate = mutableStateOf<LocalDate>(LocalDate.now())
-    val currentDate: State<LocalDate> = _currentDate
+    var currentDate = mutableStateOf<LocalDate>(LocalDate.now())
+        private set
 
-    private val _uploadTaskLogState = mutableStateOf<Response<Void?>>(Response.Loading)
-    val uploadTaskLogState: State<Response<Void?>> = _uploadTaskLogState
+    var uploadTaskLogState = mutableStateOf<Response<Void?>>(Response.Loading)
+        private set
 
     init {
         // Sets up listeners for realtime updates from DB
@@ -46,25 +46,25 @@ class TasksViewModel @Inject constructor(
 
     private fun getTasks() = viewModelScope.launch {
         tasksUseCases.getTasks().collect { response ->
-            _tasksState.value = response
+            tasksState.value = response
         }
     }
 
 
     private fun getTaskLogs() = viewModelScope.launch {
         taskLogUseCases.getTaskLogs().collect { response ->
-            _taskLogsState.value = response
+            taskLogsState.value = response
         }
     }
 
     fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
         taskLogUseCases.uploadTaskLog(log).collect { response ->
-            _uploadTaskLogState.value = response
+            uploadTaskLogState.value = response
         }
     }
 
     fun setDate(date: LocalDate) {
-        _currentDate.value = date
+        currentDate.value = date
     }
 
 }
