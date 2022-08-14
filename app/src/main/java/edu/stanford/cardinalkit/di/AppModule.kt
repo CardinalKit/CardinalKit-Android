@@ -174,6 +174,12 @@ class AppModule {
     ): TasksRepository = TasksRepositoryImpl(tasksRef)
 
     @Provides
+    @Named(Constants.TASKS_LOCAL_REPOSITORY)
+    fun provideTasksLocalRepository(
+        context: Context
+    ): TasksRepository = TasksLocalRepositoryImpl(context)
+
+    @Provides
     @Named(Constants.TASKLOG_REPOSITORY)
     fun provideTaskLogRepository(
         @Named(Constants.TASKLOG_REF)
@@ -208,7 +214,7 @@ class AppModule {
     @Provides
     @Named(Constants.TASKS_USE_CASES)
     fun provideTasksUseCases(
-        @Named(Constants.TASKS_REPOSITORY)
+        @Named(Constants.TASKS_LOCAL_REPOSITORY)
         repository: TasksRepository
     ) = TasksUseCases(
         getTasks = GetTasks(repository)

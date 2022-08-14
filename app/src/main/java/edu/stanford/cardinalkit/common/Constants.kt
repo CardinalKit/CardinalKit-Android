@@ -45,6 +45,7 @@ object Constants {
     const val SURVEYS_USE_CASES = "surveysUseCases"
 
     const val TASKS_REPOSITORY = "tasksRepository"
+    const val TASKS_LOCAL_REPOSITORY = "tasksLocalRepository"
     const val TASKS_USE_CASES = "tasksUseCases"
 
     const val TASKLOG_REPOSITORY = "taskLogRepository"

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "XE7VeC86W2qU9J8Q3C0A",
+    "title": "PHQ-9 Questionnaire",
+    "isActive": "true",
+    "context": {
+      "category": "SURVEY",
+      "uri": "single_choice_questionnaire.json"
+    },
+    "schedule": {
+      "interval": 1,
+      "startDate": "08-02-2022"
+    }
+  }
+]
