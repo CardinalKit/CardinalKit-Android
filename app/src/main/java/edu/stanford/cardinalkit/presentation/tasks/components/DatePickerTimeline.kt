@@ -49,14 +49,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
-import java.time.Duration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.DAYS
-import kotlin.time.DurationUnit
 
 @Suppress("LongMethod")
 @ExperimentalComposeUiApi

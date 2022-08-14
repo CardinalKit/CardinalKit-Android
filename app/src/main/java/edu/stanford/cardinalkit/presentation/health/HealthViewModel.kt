@@ -4,14 +4,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.health.connect.client.permission.Permission
 import androidx.health.connect.client.records.StepsRecord
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.services.HealthConnectManager
-import javax.inject.Inject
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import javax.inject.Inject
 
 @HiltViewModel
 class HealthViewModel @Inject constructor(

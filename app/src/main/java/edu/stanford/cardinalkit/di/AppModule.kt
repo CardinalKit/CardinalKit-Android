@@ -23,8 +23,6 @@ import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.data.repositories.*
 import edu.stanford.cardinalkit.domain.repositories.*
 import edu.stanford.cardinalkit.domain.use_cases.auth.*
-import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
-import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
 import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
 import edu.stanford.cardinalkit.domain.use_cases.surveys.GetSurvey
@@ -33,6 +31,8 @@ import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
 import edu.stanford.cardinalkit.domain.use_cases.tasklogs.GetTaskLogs
 import edu.stanford.cardinalkit.domain.use_cases.tasklogs.TaskLogUseCases
 import edu.stanford.cardinalkit.domain.use_cases.tasklogs.UploadTaskLog
+import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
+import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import edu.stanford.cardinalkit.services.HealthConnectManager
 import javax.inject.Named
 

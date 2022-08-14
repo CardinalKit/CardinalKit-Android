@@ -1,7 +1,5 @@
 package edu.stanford.cardinalkit.data.repositories
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -11,8 +9,8 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue.serverTimestamp
 import com.google.firebase.firestore.SetOptions
 import edu.stanford.cardinalkit.common.Constants
-import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.domain.repositories.AuthRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
