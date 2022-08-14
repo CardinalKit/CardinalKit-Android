@@ -16,4 +16,6 @@ object Config {
     const val REMOTE_TASKS = false
     const val REMOTE_CONTACTS = false
 
+    const val DEBUG = true
+
 }

@@ -58,12 +58,26 @@ fun Review(
                     DisplayList(items = data)
                 }
                 Column(
-                    modifier=Modifier.padding(top=6.dp),
-                    verticalArrangement=Arrangement.Bottom){
-                    GetStartedButton(
-                        modifier = Modifier,
+                    modifier = Modifier
+                        .padding(top = 6.dp),
+                    verticalArrangement = Arrangement.Bottom
+                ){
+                    Row(
+                        modifier = Modifier.padding(10.dp)
                     ) {
-                        navController.navigate(Screens.RegisterScreen.route)
+                        RespondButton(
+                            label = "Disagree",
+                            modifier = Modifier,
+                        ) {
+                            navController.navigate(Screens.JoinStudyScreen.route)
+                        }
+                        Spacer(modifier = Modifier.weight(1f))
+                        RespondButton(
+                            label = "Agree",
+                            modifier = Modifier,
+                        ) {
+                            navController.navigate(Screens.SignatureScreen.route)
+                        }
                     }
                 }
             }
@@ -97,14 +111,14 @@ fun ReviewScreen(onBoardingPage: OnBoardingPage) {
 }
 
 @Composable
-fun GetStartedButton(
+fun RespondButton (
+    label: String,
     modifier: Modifier,
     onClick: () -> Unit
 ){
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 5.dp),
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -114,16 +128,14 @@ fun GetStartedButton(
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Color.Gray,
                     backgroundColor = Color.LightGray
-                ),
-                modifier = Modifier.fillMaxWidth()
+                )
             ) {
                 Text(
-                    text = "Agree and Consent",
+                    text = label,
                     fontSize = 16.sp,
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 30.dp)
+                    modifier = Modifier.padding(vertical = 8.dp)
                 )
-
-        }
+            }
     }
 }
 

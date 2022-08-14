@@ -143,4 +143,7 @@ dependencies {
     //System Bars Padding
     implementation 'dev.chrisbanes.accompanist:accompanist-insets:0.6.2'
 
+    //Signature Pad
+    implementation 'se.warting.signature:signature-pad:0.0.20'
+
 }
