@@ -10,6 +10,7 @@ import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
+import edu.stanford.cardinalkit.domain.use_cases.tasklogs.TaskLogUseCases
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -20,19 +21,21 @@ import javax.inject.Named
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     @Named(Constants.TASKS_USE_CASES)
-    private var useCases: TasksUseCases
-): ViewModel() {
-    private val _tasksState = mutableStateOf<Response<List<CKTask>>>(Response.Loading)
-    val tasksState: State<Response<List<CKTask>>> = _tasksState
+    private var tasksUseCases: TasksUseCases,
+    @Named(Constants.TASKLOG_USE_CASES)
+    private var taskLogUseCases: TaskLogUseCases
+) : ViewModel() {
+    var tasksState = mutableStateOf<Response<List<CKTask>>>(Response.Loading)
+        private set
 
-    private val _taskLogsState = mutableStateOf<Response<List<CKTaskLog>>>(Response.Loading)
-    val taskLogsState: State<Response<List<CKTaskLog>>> = _taskLogsState
+    var taskLogsState = mutableStateOf<Response<List<CKTaskLog>>>(Response.Loading)
+        private set
 
-    private val _currentDate = mutableStateOf<LocalDate>(LocalDate.now())
-    val currentDate: State<LocalDate> = _currentDate
+    var currentDate = mutableStateOf<LocalDate>(LocalDate.now())
+        private set
 
-    private val _uploadTaskLogState = mutableStateOf<Response<Void?>>(Response.Loading)
-    val uploadTaskLogState: State<Response<Void?>> = _uploadTaskLogState
+    var uploadTaskLogState = mutableStateOf<Response<Void?>>(Response.Loading)
+        private set
 
     init {
         // Sets up listeners for realtime updates from DB
@@ -42,26 +45,26 @@ class TasksViewModel @Inject constructor(
 
 
     private fun getTasks() = viewModelScope.launch {
-        useCases.getTasks().collect { response ->
-            _tasksState.value = response
+        tasksUseCases.getTasks().collect { response ->
+            tasksState.value = response
         }
     }
 
 
     private fun getTaskLogs() = viewModelScope.launch {
-        useCases.getTaskLogs().collect { response ->
-            _taskLogsState.value = response
+        taskLogUseCases.getTaskLogs().collect { response ->
+            taskLogsState.value = response
         }
     }
 
     fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
-        useCases.uploadTaskLog(log).collect { response ->
-            _uploadTaskLogState.value = response
+        taskLogUseCases.uploadTaskLog(log).collect { response ->
+            uploadTaskLogState.value = response
         }
     }
 
     fun setDate(date: LocalDate) {
-        _currentDate.value = date
+        currentDate.value = date
     }
 
 }

@@ -20,14 +20,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
-import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
-import edu.stanford.cardinalkit.data.repositories.ContactsRepositoryImpl
-import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
-import edu.stanford.cardinalkit.data.repositories.TasksRepositoryImpl
-import edu.stanford.cardinalkit.domain.repositories.AuthRepository
-import edu.stanford.cardinalkit.domain.repositories.ContactsRepository
-import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
-import edu.stanford.cardinalkit.domain.repositories.TasksRepository
+import edu.stanford.cardinalkit.data.repositories.*
+import edu.stanford.cardinalkit.domain.repositories.*
 import edu.stanford.cardinalkit.domain.use_cases.auth.*
 import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
@@ -36,8 +30,9 @@ import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
 import edu.stanford.cardinalkit.domain.use_cases.surveys.GetSurvey
 import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
 import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
-import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTaskLogs
-import edu.stanford.cardinalkit.domain.use_cases.tasks.UploadTaskLog
+import edu.stanford.cardinalkit.domain.use_cases.tasklogs.GetTaskLogs
+import edu.stanford.cardinalkit.domain.use_cases.tasklogs.TaskLogUseCases
+import edu.stanford.cardinalkit.domain.use_cases.tasklogs.UploadTaskLog
 import edu.stanford.cardinalkit.services.HealthConnectManager
 import javax.inject.Named
 
@@ -176,10 +171,14 @@ class AppModule {
     fun provideTasksRepository(
         @Named(Constants.TASKS_REF)
         tasksRef: CollectionReference?,
+    ): TasksRepository = TasksRepositoryImpl(tasksRef)
+
+    @Provides
+    @Named(Constants.TASKLOG_REPOSITORY)
+    fun provideTaskLogRepository(
         @Named(Constants.TASKLOG_REF)
         taskLogRef: CollectionReference?
-    ): TasksRepository = TasksRepositoryImpl(tasksRef, taskLogRef)
-
+    ): TaskLogRepository = TaskLogRepositoryImpl(taskLogRef)
 
     @Provides
     @Named(Constants.CONTACTS_REPOSITORY)
@@ -212,7 +211,15 @@ class AppModule {
         @Named(Constants.TASKS_REPOSITORY)
         repository: TasksRepository
     ) = TasksUseCases(
-        getTasks = GetTasks(repository),
+        getTasks = GetTasks(repository)
+    )
+
+    @Provides
+    @Named(Constants.TASKLOG_USE_CASES)
+    fun provideTaskLogUseCases(
+        @Named(Constants.TASKLOG_REPOSITORY)
+        repository: TaskLogRepository
+    ) = TaskLogUseCases(
         uploadTaskLog = UploadTaskLog(repository),
         getTaskLogs = GetTaskLogs(repository)
     )

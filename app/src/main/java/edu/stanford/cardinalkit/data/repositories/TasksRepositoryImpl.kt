@@ -19,51 +19,21 @@ import javax.inject.Singleton
 class TasksRepositoryImpl @Inject constructor(
     @Named(Constants.TASKS_REF)
     private val tasksRef: CollectionReference?,
-    @Named(Constants.TASKLOG_REF)
-    private val taskLogRef: CollectionReference?
 ) : TasksRepository {
     override fun getTasks() = callbackFlow {
         tasksRef?.let {
-            val snapshotListener = tasksRef.whereEqualTo("isActive", true).addSnapshotListener { snapshot, e ->
-                val response = if (snapshot != null) {
-                    val tasks = snapshot.toObjects(CKTask::class.java)
-                    Response.Success(tasks)
-                } else {
-                    Response.Error(e)
+            val snapshotListener =
+                tasksRef.whereEqualTo("isActive", true).addSnapshotListener { snapshot, e ->
+                    val response = if (snapshot != null) {
+                        val tasks = snapshot.toObjects(CKTask::class.java)
+                        Response.Success(tasks)
+                    } else {
+                        Response.Error(e)
+                    }
+                    trySend(response).isSuccess
                 }
-                trySend(response).isSuccess
-            }
             awaitClose {
                 snapshotListener.remove()
-            }
-        }
-    }
-
-    override fun getTaskLogs() = callbackFlow {
-        taskLogRef?.let {
-            val snapshotListener = taskLogRef.addSnapshotListener { snapshot, e ->
-                val response = if (snapshot != null) {
-                    val tasks = snapshot.toObjects(CKTaskLog::class.java)
-                    Response.Success(tasks)
-                } else {
-                    Response.Error(e)
-                }
-                trySend(response).isSuccess
-            }
-            awaitClose {
-                snapshotListener.remove()
-            }
-        }
-    }
-
-    override suspend fun uploadTaskLog(log: CKTaskLog) = flow {
-        taskLogRef?.let {
-            try {
-                emit(Response.Loading)
-                val upload = taskLogRef.document().set(log).await()
-                emit(Response.Success(upload))
-            } catch (e: Exception) {
-                emit(Response.Error(e))
             }
         }
     }
