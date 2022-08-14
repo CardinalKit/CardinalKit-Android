@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.*
 import edu.stanford.cardinalkit.domain.repositories.TasksRepository
+import edu.stanford.cardinalkit.domain.use_cases.tasklogs.GetTaskLogs
 import edu.stanford.cardinalkit.domain.use_cases.tasks.data.repository.FakeTasksRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

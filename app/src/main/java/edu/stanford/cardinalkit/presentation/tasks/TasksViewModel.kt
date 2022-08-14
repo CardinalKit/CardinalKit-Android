@@ -10,6 +10,7 @@ import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
+import edu.stanford.cardinalkit.domain.use_cases.tasklogs.TaskLogUseCases
 import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -20,8 +21,10 @@ import javax.inject.Named
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     @Named(Constants.TASKS_USE_CASES)
-    private var useCases: TasksUseCases
-): ViewModel() {
+    private var tasksUseCases: TasksUseCases,
+    @Named(Constants.TASKLOG_USE_CASES)
+    private var taskLogUseCases: TaskLogUseCases
+) : ViewModel() {
     private val _tasksState = mutableStateOf<Response<List<CKTask>>>(Response.Loading)
     val tasksState: State<Response<List<CKTask>>> = _tasksState
 
@@ -42,20 +45,20 @@ class TasksViewModel @Inject constructor(
 
 
     private fun getTasks() = viewModelScope.launch {
-        useCases.getTasks().collect { response ->
+        tasksUseCases.getTasks().collect { response ->
             _tasksState.value = response
         }
     }
 
 
     private fun getTaskLogs() = viewModelScope.launch {
-        useCases.getTaskLogs().collect { response ->
+        taskLogUseCases.getTaskLogs().collect { response ->
             _taskLogsState.value = response
         }
     }
 
     fun uploadTaskLog(log: CKTaskLog): Job = viewModelScope.launch {
-        useCases.uploadTaskLog(log).collect { response ->
+        taskLogUseCases.uploadTaskLog(log).collect { response ->
             _uploadTaskLogState.value = response
         }
     }

@@ -30,8 +30,8 @@ class SurveyActivity : AppCompatActivity() {
 
     private var surveyName: String? = null // filename of the survey
     private var taskID: String? = null // id of the task
-    val viewModel by viewModels<SurveyViewModel>()
-    val tasksViewModel by viewModels<TasksViewModel>()
+    val surveyViewModel by viewModels<SurveyViewModel>()
+    private val tasksViewModel by viewModels<TasksViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +48,14 @@ class SurveyActivity : AppCompatActivity() {
         // Gets the filename of the FHIR survey JSON that was passed in
         // and creates the survey views
         surveyName = intent.getStringExtra(Constants.SURVEY_NAME)
-        surveyName?.let { viewModel.getSurvey(it) }
+        surveyName?.let { surveyViewModel.getSurvey(it) }
 
         // Gets the task ID in order to report back if the survey was
         // completed
         taskID = intent.getStringExtra(Constants.TASK_ID)
 
         // Observes result of survey submission
-        viewModel.surveyResultUploadedState.observe(this) {
+        surveyViewModel.surveyResultUploadedState.observe(this) {
             when(it){
                 is Response.Success -> {
                     val log = taskID?.let { it -> CKTaskLog(it) }
@@ -71,7 +71,7 @@ class SurveyActivity : AppCompatActivity() {
         }
 
         // Observes state of survey download
-        viewModel.surveyDownloadState.observe(this) {
+        surveyViewModel.surveyDownloadState.observe(this) {
             when(it){
                 is Response.Success -> {
                     val arguments =
@@ -119,6 +119,6 @@ class SurveyActivity : AppCompatActivity() {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
                 as QuestionnaireFragment
         val questionnaireResponse = fragment.getQuestionnaireResponse()
-        surveyName?.let { viewModel.uploadSurveyResult(it, questionnaireResponse) }
+        surveyName?.let { surveyViewModel.uploadSurveyResult(it, questionnaireResponse) }
     }
 }
