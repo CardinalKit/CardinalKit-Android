@@ -4,6 +4,8 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
+import edu.stanford.cardinalkit.R
+import edu.stanford.cardinalkit.common.Config
 import edu.stanford.cardinalkit.domain.models.Contact
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
@@ -23,7 +25,7 @@ class TasksLocalRepositoryImpl @Inject constructor(
         emit(Response.Loading)
         // Load task data from JSON file in assets
         try {
-            jsonString = context.assets.open("tasks.json")
+            jsonString = context.assets.open(Config.TASKS_FILE)
                 .bufferedReader().use { it.readText() }
         } catch (e: IOException) {
             emit(Response.Error(e))
@@ -32,8 +34,8 @@ class TasksLocalRepositoryImpl @Inject constructor(
         // Deserialize JSON into a list of CKTasks
         try {
             val listTasksType = object : TypeToken<List<CKTask>>() {}.type
-            val contacts: List<CKTask> = Gson().fromJson(jsonString, listTasksType)
-            emit(Response.Success(contacts))
+            val tasks: List<CKTask> = Gson().fromJson(jsonString, listTasksType)
+            emit(Response.Success(tasks))
         } catch (e: JsonParseException){
             emit(Response.Error(e))
         }

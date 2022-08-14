@@ -2,6 +2,7 @@
   {
     "id": "XE7VeC86W2qU9J8Q3C0A",
     "title": "PHQ-9 Questionnaire",
+    "description": "Daily mood survey",
     "isActive": "true",
     "context": {
       "category": "SURVEY",
@@ -9,7 +10,22 @@
     },
     "schedule": {
       "interval": 1,
-      "startDate": "08-02-2022"
+      "startDate": "2022-08-02"
+    }
+  },
+  {
+    "id": "sIbsVjdnpkcaC5tjJwjQ",
+    "title": "Pain Questionnaire",
+    "description": "Weekly pain assessment",
+    "isActive": "true",
+    "context": {
+      "category": "SURVEY",
+      "uri": "single_choice_questionnaire.json"
+    },
+    "schedule": {
+      "interval": 7,
+      "startDate": "2022-08-13"
     }
   }
+
 ]

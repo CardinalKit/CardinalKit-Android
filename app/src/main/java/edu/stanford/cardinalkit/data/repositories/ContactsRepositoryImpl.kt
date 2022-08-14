@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
+import edu.stanford.cardinalkit.common.Config
 import edu.stanford.cardinalkit.domain.models.Contact
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.repositories.ContactsRepository
@@ -19,7 +20,7 @@ class ContactsRepositoryImpl @Inject constructor(
 
         // Load contact data from JSON file in assets
         try {
-            jsonString = context.assets.open("contacts.json")
+            jsonString = context.assets.open(Config.CONTACTS_FILE)
                 .bufferedReader().use { it.readText() }
         } catch (e: IOException) {
             return Response.Error(e)

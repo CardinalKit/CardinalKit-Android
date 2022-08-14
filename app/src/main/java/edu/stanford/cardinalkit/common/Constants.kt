@@ -2,8 +2,6 @@ package edu.stanford.cardinalkit.common
 
 object Constants {
 
-
-
     // General
     const val APP_PACKAGE_NAME = "edu.stanford.cardinalkit"
     const val TAG = "CardinalKit"

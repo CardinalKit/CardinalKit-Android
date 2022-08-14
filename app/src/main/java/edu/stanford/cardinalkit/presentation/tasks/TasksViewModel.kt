@@ -1,12 +1,11 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
-import android.util.Log
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
+import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
@@ -31,6 +30,12 @@ class TasksViewModel @Inject constructor(
     var taskLogsState = mutableStateOf<Response<List<CKTaskLog>>>(Response.Loading)
         private set
 
+    var totalTasksToday = mutableStateOf(0)
+        private set
+
+    var totalTasksCompleteToday = mutableStateOf(0)
+        private set
+
     var currentDate = mutableStateOf<LocalDate>(LocalDate.now())
         private set
 
@@ -38,7 +43,6 @@ class TasksViewModel @Inject constructor(
         private set
 
     init {
-        // Sets up listeners for realtime updates from DB
         getTasks()
         getTaskLogs()
     }
@@ -47,13 +51,28 @@ class TasksViewModel @Inject constructor(
     private fun getTasks() = viewModelScope.launch {
         tasksUseCases.getTasks().collect { response ->
             tasksState.value = response
+
+            if (response is Response.Success) {
+                response.data?.let { tasks ->
+                    totalTasksToday.value = tasks.count {
+                        it.schedule.isScheduledOn(LocalDate.now())
+                    }
+                }
+            }
         }
     }
-
 
     private fun getTaskLogs() = viewModelScope.launch {
         taskLogUseCases.getTaskLogs().collect { response ->
             taskLogsState.value = response
+
+            if (response is Response.Success) {
+                response.data?.let { taskLogs ->
+                    totalTasksCompleteToday.value = taskLogs.filter {
+                        it.date.toLocalDate() == LocalDate.now()
+                    }.distinctBy { it.taskID }.count()
+                }
+            }
         }
     }
 
