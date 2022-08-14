@@ -1,17 +1,14 @@
 package edu.stanford.cardinalkit.data.repositories
 
 import android.content.Context
-import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.SurveyResult
-import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.io.IOException
-import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton

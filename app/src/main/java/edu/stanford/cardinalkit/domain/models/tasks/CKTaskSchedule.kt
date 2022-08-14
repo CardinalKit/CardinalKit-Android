@@ -1,9 +1,9 @@
 package edu.stanford.cardinalkit.domain.models.tasks
 
-import java.time.LocalDate
-import java.util.*
 import edu.stanford.cardinalkit.common.toLocalDate
+import java.time.LocalDate
 import java.time.temporal.ChronoUnit
+import java.util.*
 
 data class CKTaskSchedule(
     val startDate: Date = Date(),

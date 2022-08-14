@@ -14,10 +14,10 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
 import edu.stanford.cardinalkit.presentation.Onboarding.*
 import edu.stanford.cardinalkit.presentation.RegisterScreen
-import edu.stanford.cardinalkit.presentation.main.MainScreen
 import edu.stanford.cardinalkit.presentation.contacts.ContactsScreen
 import edu.stanford.cardinalkit.presentation.login.ForgotPassword
 import edu.stanford.cardinalkit.presentation.login.SignInMethod
+import edu.stanford.cardinalkit.presentation.main.MainScreen
 import edu.stanford.cardinalkit.presentation.profile.ReviewConsent
 import edu.stanford.cardinalkit.presentation.welcome.JoinStudyScreen
 
