@@ -23,6 +23,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="submit">Submit</string>
+    <string name="clear">Clear</string>
     <string name="forgot_password_button">Forgot Password?</string>
     <string name="upload_health_data_button">Upload Health Data</string>
     <string name="report_issue_button">Report an Issue</string>
@@ -50,6 +51,11 @@
     <string name="location">Location</string>
     <string name="call">Call</string>
     <string name="sms">SMS</string>
+
+    <!-- Onboarding -->
+    <string name="signature_screen_title">Signature</string>
+    <string name="signature_instructions">Please enter your first and last name, then sign using your finger in the box below.</string>
+    <string name="signature">Signature</string>
 
     <!-- Error messages -->
     <string name="error_loading_survey_message">Error Loading Survey</string>

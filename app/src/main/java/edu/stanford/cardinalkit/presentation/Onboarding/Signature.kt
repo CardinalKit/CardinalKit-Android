@@ -50,9 +50,6 @@ fun Signature(
             var signatureSvg by remember {
                 mutableStateOf("")
             }
-            val penColor by remember {
-                mutableStateOf(Color.Black)
-            }
             var firstName by remember {
                 mutableStateOf("")
             }
@@ -70,12 +67,16 @@ fun Signature(
                     .padding(top = 10.dp),
                 verticalArrangement = Arrangement.Center
             ) {
+                Text(
+                    text = stringResource(R.string.signature_screen_title),
+                    fontSize = 25.sp
+                )
                 Column(
                     modifier = Modifier
                         .padding(top = 10.dp)
                 ) {
                     Text(
-                        text = "Please enter your first and last name, then sign using your finger in the box below.",
+                        text = stringResource(R.string.signature_instructions),
                         fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(5.dp))
@@ -94,6 +95,7 @@ fun Signature(
                             focusedBorderColor = Color.Gray,
                             cursorColor = Color.LightGray
                         ),
+                        modifier = Modifier.fillMaxWidth()
                     )
                     OutlinedTextField(
                         value = lastName,
@@ -108,13 +110,14 @@ fun Signature(
                             focusedBorderColor = Color.Gray,
                             cursorColor = Color.LightGray
                         ),
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
 
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    Text(text = "Signature", fontSize = 18.sp)
+                    Text(text = stringResource(R.string.signature), fontSize = 18.sp)
                     Spacer(modifier = Modifier.height(5.dp))
                     Box(
                         modifier = Modifier
@@ -129,7 +132,6 @@ fun Signature(
                             onReady = {
                                 signaturePadAdapter = it
                             },
-                            penColor = penColor,
                             onSigned = {
                                 signed = true
                             })
@@ -140,6 +142,7 @@ fun Signature(
                             enabled = signed,
                             onClick = {
                                 signatureSvg = signaturePadAdapter?.getSignatureSvg() ?: ""
+                                navController.navigate(Screens.RegisterScreen.route)
                             },
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
@@ -151,7 +154,7 @@ fun Signature(
                                 .padding(top = 10.dp)
                         ) {
                             androidx.compose.material.Text(
-                                text = "Next",
+                                text = stringResource(R.string.next),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 30.dp)
                             )
@@ -174,7 +177,7 @@ fun Signature(
                                 .padding(top = 10.dp)
                         ) {
                             androidx.compose.material.Text(
-                                text = "Clear",
+                                text = stringResource(R.string.clear),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 30.dp)
                             )
