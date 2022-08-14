@@ -1,7 +1,10 @@
 package edu.stanford.cardinalkit.presentation.main.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.CheckBox
+import androidx.compose.material.icons.filled.Contacts
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 object TabBarItems {

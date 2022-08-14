@@ -2,7 +2,6 @@ package edu.stanford.cardinalkit.domain.use_cases.tasks.data.repository
 
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
-import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.domain.repositories.TasksRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

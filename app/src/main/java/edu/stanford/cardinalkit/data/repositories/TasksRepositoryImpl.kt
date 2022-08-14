@@ -8,14 +8,11 @@ import com.google.gson.reflect.TypeToken
 import edu.stanford.cardinalkit.common.Config
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
-import edu.stanford.cardinalkit.domain.models.SurveyResult
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
-import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.domain.repositories.TasksRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.tasks.await
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Named

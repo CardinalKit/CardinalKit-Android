@@ -5,11 +5,6 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import edu.stanford.cardinalkit.presentation.login.LoginScreen
-import edu.stanford.cardinalkit.presentation.Onboarding.ReviewScreen
-import edu.stanford.cardinalkit.presentation.home.HomeScreen
-import edu.stanford.cardinalkit.presentation.tasks.TasksScreen
-import edu.stanford.cardinalkit.presentation.profile.ProfileScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -17,11 +12,15 @@ import edu.stanford.cardinalkit.presentation.Onboarding.OnboardingScreen
 import edu.stanford.cardinalkit.presentation.Onboarding.Review
 import edu.stanford.cardinalkit.presentation.Onboarding.WelcomeScreen
 import edu.stanford.cardinalkit.presentation.RegisterScreen
-import edu.stanford.cardinalkit.presentation.main.MainScreen
 import edu.stanford.cardinalkit.presentation.contacts.ContactsScreen
+import edu.stanford.cardinalkit.presentation.home.HomeScreen
 import edu.stanford.cardinalkit.presentation.login.ForgotPassword
+import edu.stanford.cardinalkit.presentation.login.LoginScreen
 import edu.stanford.cardinalkit.presentation.login.SignInMethod
+import edu.stanford.cardinalkit.presentation.main.MainScreen
+import edu.stanford.cardinalkit.presentation.profile.ProfileScreen
 import edu.stanford.cardinalkit.presentation.profile.ReviewConsent
+import edu.stanford.cardinalkit.presentation.tasks.TasksScreen
 import edu.stanford.cardinalkit.presentation.welcome.JoinStudyScreen
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
