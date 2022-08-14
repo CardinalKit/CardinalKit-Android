@@ -1,5 +1,6 @@
 package edu.stanford.cardinalkit.presentation.Onboarding
 
+import android.graphics.pdf.PdfDocument
 import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -74,9 +75,10 @@ fun Signature(
                         .padding(top = 10.dp)
                 ) {
                     Text(
-                        text = "Please enter your first and last name.",
+                        text = "Please enter your first and last name, then sign using your finger in the box below.",
                         fontSize = 18.sp
                     )
+                    Spacer(modifier = Modifier.height(5.dp))
                     OutlinedTextField(
                         value = firstName,
                         onValueChange = { newText ->
@@ -112,10 +114,7 @@ fun Signature(
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    Text(
-                        text = "Please sign using your finger in the box below.",
-                        fontSize = 18.sp
-                    )
+                    Text(text = "Signature", fontSize = 18.sp)
                     Spacer(modifier = Modifier.height(5.dp))
                     Box(
                         modifier = Modifier
