@@ -3,7 +3,7 @@ package edu.stanford.cardinalkit.domain.models.tasks
 import java.util.*
 
 data class CKTask(
-    val id: String = "",
+    val id: String = UUID.randomUUID().toString(),
     val title: String = "",
     val description: String = "",
     val context: CKTaskContext = CKTaskContext(),

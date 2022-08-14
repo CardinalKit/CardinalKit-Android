@@ -18,15 +18,16 @@ class ContactsViewModel @Inject constructor(
     @Named(Constants.CONTACTS_USE_CASES)
     private val useCases: ContactsUseCases
 ) : ViewModel() {
-
-    private val _contactsState = mutableStateOf<Response<List<Contact>>>(Response.Loading)
-    val contactsState: State<Response<List<Contact>>> = _contactsState
+    var contactsState = mutableStateOf<Response<List<Contact>>>(Response.Loading)
+        private set
 
     init {
         getContacts()
     }
 
     private fun getContacts() = viewModelScope.launch {
-        _contactsState.value = useCases.getContacts()
+        useCases.getContacts().collect { response ->
+            contactsState.value = response
+        }
     }
 }

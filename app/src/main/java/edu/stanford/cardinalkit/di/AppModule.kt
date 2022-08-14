@@ -97,6 +97,20 @@ class AppModule {
     }
 
     @Provides
+    @Named(Constants.CONTACTS_REF)
+    fun provideContactsRef(
+        db: FirebaseFirestore
+    ): CollectionReference? {
+        val user = Firebase.auth.currentUser
+        user?.let {
+            return db.collection(
+                "${Constants.FIRESTORE_BASE_DOCUMENT}/${Constants.FIRESTORE_CONTACTS_COLLECTION}"
+            )
+        }
+        return null
+    }
+
+    @Provides
     fun provideOneTapClient(context: Context) = Identity.getSignInClient(context)
 
     @Provides
@@ -184,8 +198,10 @@ class AppModule {
     @Provides
     @Named(Constants.CONTACTS_REPOSITORY)
     fun provideContactsRepository(
+        @Named(Constants.CONTACTS_REF)
+        contactsRef: CollectionReference?,
         context: Context
-    ): ContactsRepository = ContactsRepositoryImpl(context)
+    ): ContactsRepository = ContactsRepositoryImpl(contactsRef, context)
 
     @Provides
     @Named(Constants.SURVEYS_USE_CASES)

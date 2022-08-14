@@ -12,6 +12,7 @@ object Constants {
     const val FIRESTORE_SURVEYS_COLLECTION = "surveys"
     const val FIRESTORE_TASKS_COLLECTION = "tasks"
     const val FIRESTORE_TASKLOG_COLLECTION = "tasklogs"
+    const val FIRESTORE_CONTACTS_COLLECTION = "contacts"
 
     // Screens
     const val MAIN_SCREEN = "Main"
@@ -35,6 +36,7 @@ object Constants {
     const val SURVEYS_REF = "surveysRef"
     const val TASKS_REF = "tasksRef"
     const val TASKLOG_REF = "taskLogRef"
+    const val CONTACTS_REF = "contactsRef"
 
     const val SIGN_IN_REQUEST = "signInRequest"
     const val SIGN_UP_REQUEST = "signUpRequest"
