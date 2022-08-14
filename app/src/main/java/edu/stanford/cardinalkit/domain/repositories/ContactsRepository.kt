@@ -5,5 +5,5 @@ import edu.stanford.cardinalkit.domain.models.Response
 import kotlinx.coroutines.flow.Flow
 
 interface ContactsRepository {
-    fun getContacts(): Response<List<Contact>>
+    fun getContacts(): Flow<Response<List<Contact>>>
 }
