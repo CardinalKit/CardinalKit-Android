@@ -34,43 +34,20 @@ import java.time.LocalDate
 fun TaskCardUI(
     viewModel: TasksViewModel = hiltViewModel(),
 ) {
-
-    val totalTasksCompleteToday = remember {
-        mutableStateOf(0)
-    }
-
-    when (val response = viewModel.taskLogsState.value) {
-        is Response.Success -> {
-            response.data?.let { taskLogs ->
-                totalTasksCompleteToday.value = taskLogs.filter {
-                    it.date.toLocalDate() == LocalDate.now()
-                }.distinctBy { it.taskID }.count()
-            }
-        }
-    }
-
-    var totalTasksToday = remember {
-        mutableStateOf(0)
-    }
-
-    when (val response = viewModel.tasksState.value) {
-        is Response.Success -> {
-            response.data?.let { tasks ->
-                totalTasksToday.value = tasks.count {
-                    it.schedule.isScheduledOn(LocalDate.now())
-                }
-            }
-        }
-    }
-
-    if (totalTasksToday.value > 0) {
+    if (viewModel.totalTasksToday.value > 0) {
         val annotatedString1 =
-            AnnotatedString.Builder("${totalTasksCompleteToday.value}/${totalTasksToday.value} ${stringResource(R.string.complete)}")
+            AnnotatedString.Builder(
+                "${viewModel.totalTasksCompleteToday.value} of ${viewModel.totalTasksToday.value} ${
+                    stringResource(
+                        R.string.complete
+                    )
+                }"
+            )
                 .apply {
                     addStyle(
                         SpanStyle(
                             color = PrimaryTheme,
-                        ), 0, 3
+                        ), 0, 6
                     )
                 }
         Card(
@@ -84,7 +61,7 @@ fun TaskCardUI(
                 modifier = Modifier.padding(20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column() {
+                Column {
                     Text(
                         text = stringResource(R.string.task_progress),
                         fontSize = 15.sp,
@@ -110,8 +87,9 @@ fun TaskCardUI(
                         fontWeight = FontWeight.Normal
                     )
                 }
-                var num = totalTasksCompleteToday.value / totalTasksToday.value
-                TaskProgressBar(percentage = num * 100f)
+                val num =
+                    viewModel.totalTasksCompleteToday.value.toFloat() / viewModel.totalTasksToday.value.toFloat()
+                TaskProgressBar(percentage = num * 100)
             }
         }
     }
@@ -137,7 +115,7 @@ fun TaskProgressBar(percentage: Float) {
             val convertedValue = (percentage / 100) * 360
             drawArc(
                 brush = Brush.linearGradient(
-                    colors = listOf(PrimaryTheme, Color.White)
+                    colors = listOf(PrimaryTheme, PrimaryTheme)
                 ),
                 startAngle = -90f,
                 sweepAngle = convertedValue.toFloat(),
@@ -146,11 +124,12 @@ fun TaskProgressBar(percentage: Float) {
             )
         }
 
-        val annotatedString2 = AnnotatedString.Builder("${percentage}%\n${stringResource(R.string.done)}")
+        val annotatedString2 =
+            AnnotatedString.Builder("${percentage.toInt()}%\n${stringResource(R.string.done)}")
 
         Text(
             text = annotatedString2.toAnnotatedString(),
-            fontSize = 12.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )

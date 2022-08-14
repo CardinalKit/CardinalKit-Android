@@ -3,22 +3,23 @@ package edu.stanford.cardinalkit.presentation.main.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import edu.stanford.cardinalkit.presentation.navigation.Screens
+import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @Composable
 fun BottomNavigationBar(
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier,
+    tasksViewModel: TasksViewModel = hiltViewModel()
 ) {
     BottomNavigation {
         val COLOR_NORMAL = Color.Gray
@@ -39,10 +40,23 @@ fun BottomNavigationBar(
                         }
                     },
                     icon = {
-                        Icon(
-                            imageVector = navItem.image,
-                            contentDescription = navItem.title,
-                        )
+                        BadgedBox(badge = {
+                            if (navItem.route == Screens.TasksScreen.route) {
+                                val pendingTasks = tasksViewModel.totalTasksToday.value - tasksViewModel.totalTasksCompleteToday.value
+                                if (pendingTasks > 0) {
+                                    Badge {
+                                        Text(
+                                            text = pendingTasks.toString()
+                                        )
+                                    }
+                                }
+                            }
+                        }) {
+                            Icon(
+                                imageVector = navItem.image,
+                                contentDescription = navItem.title,
+                            )
+                        }
                     },
                     label = {
                         Text(text = navItem.title, color = Color.Gray)

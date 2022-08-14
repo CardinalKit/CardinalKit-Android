@@ -1,12 +1,11 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
-import android.util.Log
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
+import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
@@ -31,6 +30,13 @@ class TasksViewModel @Inject constructor(
     var taskLogsState = mutableStateOf<Response<List<CKTaskLog>>>(Response.Loading)
         private set
 
+    var totalTasksToday = mutableStateOf(0)
+        private set
+
+    var totalTasksCompleteToday = mutableStateOf(0)
+        private set
+
+    // Stores the date that is active on the tasks calendar
     var currentDate = mutableStateOf<LocalDate>(LocalDate.now())
         private set
 
@@ -38,22 +44,31 @@ class TasksViewModel @Inject constructor(
         private set
 
     init {
-        // Sets up listeners for realtime updates from DB
         getTasks()
         getTaskLogs()
     }
 
-
     private fun getTasks() = viewModelScope.launch {
         tasksUseCases.getTasks().collect { response ->
             tasksState.value = response
+
+            if (response is Response.Success) {
+                response.data?.let { tasks ->
+                    totalTasksToday.value = tasks.countTasksOnDate(LocalDate.now())
+                }
+            }
         }
     }
-
 
     private fun getTaskLogs() = viewModelScope.launch {
         taskLogUseCases.getTaskLogs().collect { response ->
             taskLogsState.value = response
+
+            if (response is Response.Success) {
+                response.data?.let { taskLogs ->
+                    totalTasksCompleteToday.value = taskLogs.countTasksCompletedOnDate(LocalDate.now())
+                }
+            }
         }
     }
 
@@ -67,4 +82,17 @@ class TasksViewModel @Inject constructor(
         currentDate.value = date
     }
 
+    // Extensions for task metrics
+
+    fun List<CKTask>.countTasksOnDate(date: LocalDate): Int {
+        return this.count {
+            it.schedule.isScheduledOn(date)
+        }
+    }
+
+    fun List<CKTaskLog>.countTasksCompletedOnDate(date: LocalDate): Int {
+        return this.filter {
+            it.date.toLocalDate() == date
+        }.distinctBy { it.taskID }.count()
+    }
 }
