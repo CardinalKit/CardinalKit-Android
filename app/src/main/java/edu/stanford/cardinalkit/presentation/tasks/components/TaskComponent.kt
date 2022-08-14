@@ -18,11 +18,10 @@ import edu.stanford.cardinalkit.presentation.tasks.components.TaskCard
 @Composable
 fun TaskComponent(
     viewModel: TasksViewModel = hiltViewModel()
-)
-{
+) {
     val context = LocalContext.current
 
-    when(val tasksResponse = viewModel.tasksState.value) {
+    when (val tasksResponse = viewModel.tasksState.value) {
         is Response.Error -> {
             Log.d(Constants.TAG, tasksResponse.e?.message.toString())
             Toast.makeText(context, tasksResponse.e?.message, Toast.LENGTH_SHORT).show()
