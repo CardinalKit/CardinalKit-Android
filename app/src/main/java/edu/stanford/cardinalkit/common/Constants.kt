@@ -24,6 +24,7 @@ object Constants {
     const val ONBOARDING_SCREEN = "Onboarding"
     const val WELCOME_SCREEN = "Welcome"
     const val REVIEW_SCREEN = "Review"
+    const val SIGNATURE_SCREEN = "Signature"
     const val REGISTER_SCREEN = "Register"
     const val REVIEW_CONSENT="Review Consent"
     const val SIGN_IN_METHOD = "Sign In"

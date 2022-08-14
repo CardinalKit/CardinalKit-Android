@@ -6,16 +6,13 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.presentation.login.LoginScreen
-import edu.stanford.cardinalkit.presentation.Onboarding.ReviewScreen
 import edu.stanford.cardinalkit.presentation.home.HomeScreen
 import edu.stanford.cardinalkit.presentation.tasks.TasksScreen
 import edu.stanford.cardinalkit.presentation.profile.ProfileScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
-import edu.stanford.cardinalkit.presentation.Onboarding.OnboardingScreen
-import edu.stanford.cardinalkit.presentation.Onboarding.Review
-import edu.stanford.cardinalkit.presentation.Onboarding.WelcomeScreen
+import edu.stanford.cardinalkit.presentation.Onboarding.*
 import edu.stanford.cardinalkit.presentation.RegisterScreen
 import edu.stanford.cardinalkit.presentation.main.MainScreen
 import edu.stanford.cardinalkit.presentation.contacts.ContactsScreen
@@ -65,6 +62,9 @@ fun CKNavHost(navController: NavHostController, startDestination: String) {
         }
         composable(Screens.ReviewConsent.route) {
             ReviewConsent(navController = navController)
+        }
+        composable(Screens.SignatureScreen.route){
+            Signature(navController = navController)
         }
         composable(Screens.SignInMethod.route) {
             SignInMethod(navController = navController)

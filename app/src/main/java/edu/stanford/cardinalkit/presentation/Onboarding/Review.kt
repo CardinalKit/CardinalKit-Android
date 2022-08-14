@@ -67,7 +67,7 @@ fun Review(
                     GetStartedButton(
                         modifier = Modifier,
                     ) {
-                        navController.navigate(Screens.RegisterScreen.route)
+                        navController.navigate(Screens.SignatureScreen.route)
                     }
                 }
             }
