@@ -4,6 +4,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -22,6 +24,7 @@ import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
@@ -44,7 +47,7 @@ fun TaskCard(
         mutableStateOf(false)
     }
 
-    when(val response = viewModel.taskLogsState.value) {
+    when (val response = viewModel.taskLogsState.value) {
         is Response.Success -> {
             response.data?.let { taskLogs ->
                 completed.value = taskLogs.any { log ->
@@ -56,7 +59,7 @@ fun TaskCard(
         else -> completed.value = false
     }
 
-    fun launchSurvey(surveyName: String, taskID: String){
+    fun launchSurvey(surveyName: String, taskID: String) {
         val intent = Intent(context, SurveyActivity::class.java).apply {
             putExtra(Constants.SURVEY_NAME, surveyName)
             putExtra(Constants.TASK_ID, taskID)
@@ -66,33 +69,48 @@ fun TaskCard(
 
     Card(
         shape = MaterialTheme.shapes.small,
-        modifier = Modifier.padding(8.dp).fillMaxWidth().clickable {
-            if(viewModel.currentDate.value == LocalDate.now()) {
-                when (category) {
-                    CKTaskCategory.SURVEY -> {
-                        if (!completed.value) {
-                            launchSurvey(surveyName = uri, taskID = id)
-                        } else {
-                            Toast.makeText(context, R.string.task_already_completed, Toast.LENGTH_SHORT).show()
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .shadow(elevation = 1.dp, shape = RoundedCornerShape(5.dp))
+            .clickable {
+                if (viewModel.currentDate.value == LocalDate.now()) {
+                    when (category) {
+                        CKTaskCategory.SURVEY -> {
+                            if (!completed.value) {
+                                launchSurvey(surveyName = uri, taskID = id)
+                            } else {
+                                Toast
+                                    .makeText(
+                                        context,
+                                        R.string.task_already_completed,
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    .show()
+                            }
                         }
+                        CKTaskCategory.MISC -> viewModel.uploadTaskLog(CKTaskLog(id))
                     }
+                } else {
+                    Toast
+                        .makeText(context, R.string.task_not_scheduled_today, Toast.LENGTH_SHORT)
+                        .show()
                 }
-            } else {
-                Toast.makeText(context, R.string.task_not_scheduled_today, Toast.LENGTH_SHORT).show()
-            }
-        },
+            },
         colors = CardDefaults.cardColors(Color.White)
-    ){
+    ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(vertical=5.dp)
-        ){
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 5.dp)
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
                     verticalArrangement = Arrangement.Center
-                ){
-                    if(completed.value){
+                ) {
+                    if (completed.value) {
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
                             tint = PrimaryTheme,
@@ -113,14 +131,26 @@ fun TaskCard(
                 ) {
                     Text(
                         text = title,
-                        modifier = Modifier.padding(horizontal=7.dp),
+                        modifier = Modifier.padding(horizontal = 7.dp),
                         fontSize = 20.sp
                     )
                     Text(
                         text = description,
-                        modifier = Modifier.padding(horizontal=7.dp),
+                        modifier = Modifier.padding(horizontal = 7.dp),
                         fontSize = 14.sp
                     )
+                    /**
+                     * Additional widgets with information for specific task types
+                     * can be inserted below here.
+                     */
+                    when (category) {
+                        CKTaskCategory.STEPS -> {
+                            // The progress should only be shown if the task is active today
+                            if(viewModel.currentDate.value == LocalDate.now()) {
+                                StepGoalProgress()
+                            }
+                        }
+                    }
                 }
             }
         }
