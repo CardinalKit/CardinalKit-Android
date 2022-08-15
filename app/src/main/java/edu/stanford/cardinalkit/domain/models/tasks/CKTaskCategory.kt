@@ -1,6 +1,7 @@
 package edu.stanford.cardinalkit.domain.models.tasks
 
-public enum class CKTaskCategory {
+enum class CKTaskCategory {
     SURVEY,
+    STEPS,
     MISC
 }

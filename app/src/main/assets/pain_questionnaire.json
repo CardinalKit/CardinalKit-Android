@@ -1,0 +1,100 @@
+{
+  "resourceType": "Questionnaire",
+  "language": "en-US",
+  "status": "draft",
+  "publisher": "CardinalKit",
+  "meta": {
+    "profile": [
+      "http://cardinalkit.org/fhir/StructureDefinition/sdf-Questionnaire"
+    ],
+    "tag": [
+      {
+        "system": "urn:ietf:bcp:47",
+        "code": "en-US",
+        "display": "English"
+      }
+    ]
+  },
+  "useContext": [
+    {
+      "code": {
+        "system": "http://hl7.org/fhir/ValueSet/usage-context-type",
+        "code": "focus",
+        "display": "Clinical Focus"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "urn:oid:2.16.578.1.12.4.1.1.8655"
+          }
+        ]
+      }
+    }
+  ],
+  "contact": [
+    {
+      "name": "http://cardinalkit.org"
+    }
+  ],
+  "subjectType": [
+    "Patient"
+  ],
+  "item": [
+    {
+      "linkId": "7dc30cee-ad2d-4e6d-e375-fcca6ea78bf7",
+      "type": "choice",
+      "text": "Are you experiencing pain today?",
+      "required": false,
+      "answerOption": [
+        {
+          "valueCoding": {
+            "id": "36a17795-62b7-41b4-bb64-c30657cf468a",
+            "code": "yes",
+            "system": "urn:uuid:bb1abf64-0538-4997-bc2b-0a642d6f69b3",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "id": "965760c3-7ecc-4bc4-8956-251afbf28133",
+            "code": "no",
+            "system": "urn:uuid:bb1abf64-0538-4997-bc2b-0a642d6f69b3",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "1e30457d-c180-4fa2-8105-a496cd21d406",
+      "type": "string",
+      "text": "Describe the pain.",
+      "required": false,
+      "enableWhen": [
+        {
+          "question": "7dc30cee-ad2d-4e6d-e375-fcca6ea78bf7",
+          "operator": "=",
+          "answerCoding": {
+            "system": "urn:uuid:bb1abf64-0538-4997-bc2b-0a642d6f69b3",
+            "code": "yes"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "d8f4f952-fd37-4eb5-971a-8c7613c6c2b9",
+      "type": "integer",
+      "text": "Rate the pain on a scale of 1-10.",
+      "required": false,
+      "enableWhen": [
+        {
+          "question": "7dc30cee-ad2d-4e6d-e375-fcca6ea78bf7",
+          "operator": "=",
+          "answerCoding": {
+            "system": "urn:uuid:bb1abf64-0538-4997-bc2b-0a642d6f69b3",
+            "code": "yes"
+          }
+        }
+      ]
+    }
+  ]
+}
