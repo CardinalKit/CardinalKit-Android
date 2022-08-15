@@ -26,6 +26,7 @@ object Constants {
     const val REVIEW_SCREEN = "Review"
     const val SIGNATURE_SCREEN = "Signature"
     const val REGISTER_SCREEN = "Register"
+    const val REGISTER_METHOD = "Register Method"
     const val REVIEW_CONSENT="Review Consent"
     const val SIGN_IN_METHOD = "Sign In"
     const val JOIN_STUDY_SCREEN="Join Study"

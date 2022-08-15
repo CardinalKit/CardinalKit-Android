@@ -46,7 +46,7 @@ fun RegisterScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate(Screens.SignInMethod.route)
+                        navController.navigate(Screens.RegisterMethod.route)
                     }) {
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
