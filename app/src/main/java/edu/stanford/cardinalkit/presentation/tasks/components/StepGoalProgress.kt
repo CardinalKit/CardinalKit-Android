@@ -26,7 +26,10 @@ fun StepGoalProgress(
     healthViewModel.getTotalStepsToday()
     val goal = task.context.integerGoal
     val totalStepsToday = healthViewModel.totalStepsToday.value
-    val progress = healthViewModel.totalStepsToday.value.toFloat() / goal
+    var progress = healthViewModel.totalStepsToday.value.toFloat() / goal
+    if (progress > 1.0F) {
+        progress = 1.0F
+    }
 
     // Autocomplete the task if goal is met
     // and the task isn't already marked as complete
@@ -53,7 +56,7 @@ fun StepGoalProgress(
     }
     LinearProgressIndicator(
         progress = progress,
-        modifier = Modifier.fillMaxWidth().padding(bottom = 5.dp),
+        modifier = Modifier.fillMaxWidth().padding(5.dp),
         color = PrimaryTheme
     )
 }
