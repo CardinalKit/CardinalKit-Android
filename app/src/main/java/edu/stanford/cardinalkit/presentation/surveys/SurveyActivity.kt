@@ -3,7 +3,6 @@ package edu.stanford.cardinalkit.presentation.surveys
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -32,9 +31,7 @@ class SurveyActivity : AppCompatActivity() {
 
         val context = applicationContext
 
-        // Adds a listener to the submit button
-        val submitButton: Button = findViewById(R.id.button_submit)
-        submitButton.setOnClickListener {
+        supportFragmentManager.setFragmentResultListener(QuestionnaireFragment.SUBMIT_REQUEST_KEY, this) { _, _ ->
             submitSurvey()
         }
 
@@ -114,4 +111,5 @@ class SurveyActivity : AppCompatActivity() {
         val questionnaireResponse = fragment.getQuestionnaireResponse()
         surveyName?.let { surveyViewModel.uploadSurveyResult(it, questionnaireResponse) }
     }
+
 }

@@ -39,7 +39,7 @@
 
         <activity
             android:name=".presentation.surveys.SurveyActivity"
-            android:theme="@style/Theme.Material3.Light">
+            android:theme="@style/Theme.CardinalKit">
         </activity>
     </application>
 
