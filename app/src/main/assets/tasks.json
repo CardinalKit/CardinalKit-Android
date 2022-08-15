@@ -5,7 +5,8 @@
     "description": "Take 10,000 steps daily.",
     "isActive": "true",
     "context": {
-      "category": "STEPS"
+      "category": "STEPS",
+      "integerGoal": 10000
     },
     "schedule": {
       "interval": 1,

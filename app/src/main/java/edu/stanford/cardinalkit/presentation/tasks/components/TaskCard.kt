@@ -23,6 +23,7 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
+import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
@@ -33,11 +34,7 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskCard(
-    id: String,
-    title: String,
-    description: String,
-    category: CKTaskCategory,
-    uri: String,
+    task: CKTask,
     viewModel: TasksViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -51,7 +48,7 @@ fun TaskCard(
         is Response.Success -> {
             response.data?.let { taskLogs ->
                 completed.value = taskLogs.any { log ->
-                    log.taskID == id
+                    log.taskID == task.id
                             && log.date.toLocalDate() == viewModel.currentDate.value
                 }
             }
@@ -75,10 +72,10 @@ fun TaskCard(
             .shadow(elevation = 1.dp, shape = RoundedCornerShape(5.dp))
             .clickable {
                 if (viewModel.currentDate.value == LocalDate.now()) {
-                    when (category) {
+                    when (task.context.category) {
                         CKTaskCategory.SURVEY -> {
                             if (!completed.value) {
-                                launchSurvey(surveyName = uri, taskID = id)
+                                launchSurvey(surveyName = task.context.uri, taskID = task.id)
                             } else {
                                 Toast
                                     .makeText(
@@ -89,7 +86,7 @@ fun TaskCard(
                                     .show()
                             }
                         }
-                        CKTaskCategory.MISC -> viewModel.uploadTaskLog(CKTaskLog(id))
+                        CKTaskCategory.MISC -> viewModel.uploadTaskLog(CKTaskLog(task.id))
                     }
                 } else {
                     Toast
@@ -130,12 +127,12 @@ fun TaskCard(
                     modifier = Modifier.fillMaxWidth(0.9f)
                 ) {
                     Text(
-                        text = title,
+                        text = task.title,
                         modifier = Modifier.padding(horizontal = 7.dp),
                         fontSize = 20.sp
                     )
                     Text(
-                        text = description,
+                        text = task.description,
                         modifier = Modifier.padding(horizontal = 7.dp),
                         fontSize = 14.sp
                     )
@@ -143,11 +140,14 @@ fun TaskCard(
                      * Additional widgets with information for specific task types
                      * can be inserted below here.
                      */
-                    when (category) {
+                    when (task.context.category) {
                         CKTaskCategory.STEPS -> {
                             // The progress should only be shown if the task is active today
                             if(viewModel.currentDate.value == LocalDate.now()) {
-                                StepGoalProgress()
+                                StepGoalProgress(
+                                    task,
+                                    completed.value
+                                )
                             }
                         }
                     }

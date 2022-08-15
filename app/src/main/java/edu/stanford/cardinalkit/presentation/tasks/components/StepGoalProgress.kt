@@ -9,16 +9,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import edu.stanford.cardinalkit.domain.models.tasks.CKTask
+import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.health.HealthViewModel
+import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @Composable
 fun StepGoalProgress(
-    healthViewModel: HealthViewModel = hiltViewModel()
+    task: CKTask,
+    completed: Boolean,
+    healthViewModel: HealthViewModel = hiltViewModel(),
+    tasksViewModel: TasksViewModel = hiltViewModel()
 ){
-    val totalStepsToday = healthViewModel.totalStepsToday.value.toString()
-    val stepsGoal = 10000
-    val progress = healthViewModel.totalStepsToday.value.toFloat() / stepsGoal
+    // Fetch total step count and calculate metrics
+    healthViewModel.getTotalStepsToday()
+    val goal = task.context.integerGoal
+    val totalStepsToday = healthViewModel.totalStepsToday.value
+    val progress = healthViewModel.totalStepsToday.value.toFloat() / goal
+
+    // Autocomplete the task if goal is met
+    // and the task isn't already marked as complete
+    if (!completed && totalStepsToday >= goal) {
+        tasksViewModel.uploadTaskLog(CKTaskLog(task.id))
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,14 +46,14 @@ fun StepGoalProgress(
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
-            text = "/ $stepsGoal",
+            text = "/ $goal",
             fontSize = 30.sp,
             color = Color.DarkGray
         )
     }
     LinearProgressIndicator(
         progress = progress,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(bottom = 5.dp),
         color = PrimaryTheme
     )
 }

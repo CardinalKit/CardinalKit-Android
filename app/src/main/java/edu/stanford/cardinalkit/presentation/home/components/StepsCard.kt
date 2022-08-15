@@ -19,6 +19,7 @@ fun StepsCard(
     viewModel: HealthViewModel = hiltViewModel()
 ){
     viewModel.getTotalStepsToday()
+
     Card(
         modifier = Modifier
             .width(165.dp)
@@ -36,7 +37,7 @@ fun StepsCard(
 
         ) {
             Text(
-                text= "Steps",
+                text = "Steps",
                 fontSize = 25.sp
             )
             Text(
