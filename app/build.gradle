@@ -48,6 +48,22 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    lintOptions {
+        abortOnError false
+        textReport true
+        textOutput 'stderr'
+        checkReleaseBuilds true
+        warningsAsErrors false
+        explainIssues false
+        checkGeneratedSources false
+        checkDependencies true
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def lintTask = tasks["lint${variant.name.capitalize()}"]
+            assembleProvider.get().dependsOn.add(lintTask)
+        }
+    }
 }
 
 dependencies {
