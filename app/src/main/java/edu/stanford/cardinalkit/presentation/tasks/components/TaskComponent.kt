@@ -36,11 +36,7 @@ fun TaskComponent(
                     ) { task ->
                         if (task.schedule.isScheduledOn(viewModel.currentDate.value)) {
                             TaskCard(
-                                id = task.id,
-                                title = task.title,
-                                description = task.description,
-                                category = task.context.category,
-                                uri = task.context.uri
+                                task = task
                             )
                         }
                     }
