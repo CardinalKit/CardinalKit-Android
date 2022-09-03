@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregationResult
-import androidx.health.connect.client.permission.Permission
+import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.request.AggregateRequest
@@ -27,7 +27,7 @@ class HealthConnectManager @Inject constructor(
     /**
      * Determines if all requested permissions are granted.
      */
-    suspend fun hasAllPermissions(permissions: Set<Permission>): Boolean {
+    suspend fun hasAllPermissions(permissions: Set<HealthPermission>): Boolean {
         return permissions == healthConnectClient.permissionController.getGrantedPermissions(permissions)
     }
 

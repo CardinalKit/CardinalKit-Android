@@ -1,7 +1,7 @@
 package edu.stanford.cardinalkit.presentation.health
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.health.connect.client.permission.Permission
+import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.StepsRecord
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +23,7 @@ class HealthViewModel @Inject constructor(
     private var permissionsGranted = mutableStateOf<Boolean>(false)
 
     val permissions = setOf(
-        Permission.createReadPermission(StepsRecord::class)
+        HealthPermission.createReadPermission(StepsRecord::class)
     )
 
     init {
