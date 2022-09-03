@@ -8,6 +8,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
@@ -45,12 +46,12 @@ fun TaskCardUI(
                 .apply {
                     addStyle(
                         SpanStyle(
-                            color = PrimaryTheme,
+                            color = MaterialTheme.colorScheme.primary,
                         ), 0, 6
                     )
                 }
         Card(
-            backgroundColor = Color.White,
+            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
             modifier = Modifier
                 .fillMaxWidth(),
             elevation = 0.dp,
@@ -105,7 +106,6 @@ fun TaskProgressBar(percentage: Float) {
                 .size(100.dp)
                 .padding(6.dp)
         ) {
-
             drawCircle(
                 SolidColor(Color(0xFFE3E5E7)),
                 size.width / 2,

@@ -2,6 +2,7 @@
   "resourceType": "Questionnaire",
   "language": "en-US",
   "status": "draft",
+  "url": "http://cardinalkit.org/fhir/questionnaires/pain-questionnaire",
   "publisher": "CardinalKit",
   "meta": {
     "profile": [

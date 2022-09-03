@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,14 +19,13 @@ fun StepsCard(
     viewModel: HealthViewModel = hiltViewModel()
 ){
     viewModel.getTotalStepsToday()
-
     Card(
         modifier = Modifier
             .width(165.dp)
             .height(165.dp)
             .clickable { },
-        backgroundColor = Color.LightGray,
-        shape= RoundedCornerShape(18),
+        backgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
+        shape = RoundedCornerShape(18),
     ){
         Column(
             modifier = Modifier
@@ -38,12 +37,13 @@ fun StepsCard(
         ) {
             Text(
                 text = "Steps",
-                fontSize = 25.sp
+                fontSize = 25.sp,
+                color = MaterialTheme.colorScheme.onTertiaryContainer
             )
             Text(
                 text= viewModel.totalStepsToday.value.toString(),
                 fontSize = 40.sp,
-                color = Color.DarkGray
+                color = MaterialTheme.colorScheme.onTertiaryContainer
             )
         }
     }

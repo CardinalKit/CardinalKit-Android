@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.CardinalKit" parent="Theme.Material3.Light">
+    <style name="Theme.CardinalKit" parent="Theme.Material3.Light.NoActionBar">
         <item name="questionnaire_theme">@style/Theme.MyQuestionnaire</item>
         <item name="colorPrimary">@color/second_primary</item>
-    </style>
-
-    <style name="Theme.CardinalKit.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:background">@color/second_primary</item>
     </style>
 
     <style name="Theme.MyQuestionnaire" parent="Theme.Questionnaire">
@@ -21,8 +14,5 @@
     <style name="App.Component.SubmitButtonStyle" parent="Questionnaire.SubmitButtonStyle">
         <item name="android:visibility">visible</item>
     </style>
-
-    <style name="Theme.CardinalKit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.CardinalKit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
