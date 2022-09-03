@@ -18,12 +18,15 @@
     <string name="existing_user_button">I am an Existing User</string>
     <string name="sign_in_with_google_button">Sign In With Google</string>
     <string name="create_account_button">Create an Account</string>
+    <string name="get_started_button">Get Started</string>
     <string name="register_button">Register</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
     <string name="clear">Clear</string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
     <string name="forgot_password_button">Forgot Password?</string>
     <string name="upload_health_data_button">Upload Health Data</string>
     <string name="report_issue_button">Report an Issue</string>
@@ -53,6 +56,21 @@
     <string name="sms">SMS</string>
 
     <!-- Onboarding -->
+    <string name="welcome_title">Welcome to CardinalKit</string>
+    <string name="welcome_description">This is a template that you can customize to build your own clinical or research study app.</string>
+
+    <string name="data_gathering_title">Data Gathering</string>
+    <string name="data_gathering_description">Explain the types of data your app will gather.</string>
+
+    <string name="privacy_title">Privacy</string>
+    <string name="privacy_description">Explain how your app will protect your user\'s privacy.</string>
+
+    <string name="data_use_title">Data Use</string>
+    <string name="data_use_description">Explain how you will use your user\'s data.</string>
+
+    <string name="withdrawing_title">Withdrawing</string>
+    <string name="withdrawing_description">Explain how users can withdraw from your study or program.</string>
+
     <string name="signature_screen_title">Signature</string>
     <string name="signature_instructions">Please enter your first and last name, then sign using your finger in the box below.</string>
     <string name="signature">Signature</string>

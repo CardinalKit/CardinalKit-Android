@@ -1,4 +1,4 @@
-package edu.stanford.cardinalkit.presentation.Onboarding
+package edu.stanford.cardinalkit.presentation.onboarding
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -34,10 +34,10 @@ fun OnboardingScreen(
     navController: NavHostController,
 ) {
     val pages = listOf(
-        OnBoardingPage.First,
-        OnBoardingPage.Second,
-        OnBoardingPage.Third,
-        OnBoardingPage.Fourth
+        OnboardingPage.First,
+        OnboardingPage.Second,
+        OnboardingPage.Third,
+        OnboardingPage.Fourth
     )
 
     val pagerState = rememberPagerState()
@@ -50,7 +50,7 @@ fun OnboardingScreen(
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.navigate(Screens.WelcomeScreen.route)
-                    }){
+                    }) {
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
@@ -71,7 +71,7 @@ fun OnboardingScreen(
                     state = pagerState,
                     verticalAlignment = Alignment.Top
                 ) { position ->
-                    PagerScreen(onBoardingPage = pages[position])
+                    PagerScreen(onboardingPage = pages[position])
                 }
                 HorizontalPagerIndicator(
                     modifier = Modifier
@@ -79,9 +79,10 @@ fun OnboardingScreen(
                         .weight(2f),
                     pagerState = pagerState
                 )
-                Box(modifier = Modifier
-                    .fillMaxHeight(0.13f)
-                ){
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight(0.13f)
+                ) {
                     BottomSection(
                         pagerState = pagerState
                     )
@@ -99,14 +100,14 @@ fun OnboardingScreen(
 
 
 @Composable
-fun PagerScreen(onBoardingPage: OnBoardingPage) {
+fun PagerScreen(onboardingPage: OnboardingPage) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        onBoardingPage.image?.let { painterResource(id = it) }?.let {
+        onboardingPage.image?.let { painterResource(id = it) }?.let {
             Image(
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
@@ -115,23 +116,27 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
                 contentDescription = "Pager Image"
             )
         }
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = onBoardingPage.title,
-            fontSize = MaterialTheme.typography.h4.fontSize,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 40.dp)
-                .padding(top = 10.dp),
-            text = onBoardingPage.description,
-            fontSize = MaterialTheme.typography.subtitle1.fontSize,
-            textAlign = TextAlign.Center
-        )
+        onboardingPage.title?.let { title ->
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(title),
+                fontSize = MaterialTheme.typography.h4.fontSize,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        }
+        onboardingPage.description?.let { description ->
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 40.dp)
+                    .padding(top = 10.dp),
+                text = stringResource(description),
+                fontSize = MaterialTheme.typography.subtitle1.fontSize,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
@@ -139,34 +144,33 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
 @Composable
 fun BottomSection(
     pagerState: PagerState,
-){
+) {
     val scope = rememberCoroutineScope()
     Row(
-        modifier= Modifier
+        modifier = Modifier
             .padding(bottom = 20.dp)
             .padding(horizontal = 20.dp)
             .fillMaxWidth(),
-            horizontalArrangement = if(pagerState.currentPage == 3) Arrangement.Center else Arrangement.SpaceBetween
-    ){
-        if(pagerState.currentPage != 3){
+        horizontalArrangement = if (pagerState.currentPage == 3) Arrangement.Center else Arrangement.SpaceBetween
+    ) {
+        if (pagerState.currentPage != 3) {
             PreviousButton(
                 modifier = Modifier.padding(start = 40.dp),
                 onClick = {
-                    scope.launch{
-                        if(pagerState.currentPage-1 == -1){
+                    scope.launch {
+                        if (pagerState.currentPage - 1 == -1) {
                             pagerState.scrollToPage(pagerState.currentPage)
+                        } else {
+                            pagerState.scrollToPage(pagerState.currentPage - 1)
                         }
-                        else{
-                            pagerState.scrollToPage(pagerState.currentPage-1)
-                        }
-                }
-            })
+                    }
+                })
             NextButton(modifier = Modifier.padding(end = 40.dp),
                 onClick = {
-                    scope.launch{
-                        pagerState.scrollToPage(pagerState.currentPage+1)
+                    scope.launch {
+                        pagerState.scrollToPage(pagerState.currentPage + 1)
                     }
-            })
+                })
         }
     }
 }
@@ -194,8 +198,8 @@ fun PreviousButton(
 
             ) {
             Text(
-                text = stringResource(R.string.previous), 
-                fontSize = 16.sp, 
+                text = stringResource(R.string.previous),
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Light
             )
         }
@@ -223,7 +227,11 @@ fun NextButton(
             ),
 
             ) {
-                Text(text = stringResource(R.string.next), fontSize = 16.sp,  fontWeight = FontWeight.Light)
+            Text(
+                text = stringResource(R.string.next),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Light
+            )
 
         }
     }
@@ -248,13 +256,17 @@ fun ReviewButton(
         ) {
             Button(
                 onClick = onClick,
-                shape= RoundedCornerShape(50),
+                shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Color.Gray,
                     backgroundColor = Color.LightGray
                 )
             ) {
-                Text(text = "Review", fontSize = 16.sp, modifier = Modifier.padding(vertical=6.dp, horizontal = 10.dp))
+                Text(
+                    text = "Review",
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(vertical = 6.dp, horizontal = 10.dp)
+                )
             }
         }
     }
@@ -264,7 +276,7 @@ fun ReviewButton(
 @Preview(showBackground = true)
 fun FirstOnBoardingScreenPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnBoardingPage.First)
+        PagerScreen(onboardingPage = OnboardingPage.First)
     }
 }
 
@@ -272,7 +284,7 @@ fun FirstOnBoardingScreenPreview() {
 @Preview(showBackground = true)
 fun SecondOnBoardingScreenPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnBoardingPage.Second)
+        PagerScreen(onboardingPage = OnboardingPage.Second)
     }
 }
 
@@ -280,7 +292,7 @@ fun SecondOnBoardingScreenPreview() {
 @Preview(showBackground = true)
 fun ThirdOnBoardingScreenPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnBoardingPage.Third)
+        PagerScreen(onboardingPage = OnboardingPage.Third)
     }
 }
 
@@ -288,6 +300,6 @@ fun ThirdOnBoardingScreenPreview() {
 @Preview(showBackground = true)
 fun FourthOnBoardingScreenPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnBoardingPage.Fourth)
+        PagerScreen(onboardingPage = OnboardingPage.Fourth)
     }
 }

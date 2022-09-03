@@ -13,8 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import edu.stanford.cardinalkit.presentation.Onboarding.DisplayList
-import edu.stanford.cardinalkit.presentation.Onboarding.data
+import edu.stanford.cardinalkit.presentation.onboarding.DisplayList
+import edu.stanford.cardinalkit.presentation.onboarding.data
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 

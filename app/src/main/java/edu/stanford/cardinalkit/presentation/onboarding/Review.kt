@@ -1,4 +1,4 @@
-package edu.stanford.cardinalkit.presentation.Onboarding
+package edu.stanford.cardinalkit.presentation.onboarding
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,18 +24,16 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 @Composable
 fun Review(
     navController: NavHostController,
-)
-{
+) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                },
-                navigationIcon={
-                    IconButton(onClick={
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = {
                         navController.navigate(Screens.OnboardingScreen.route)
-                    }){
-                        Icon(Icons.Filled.ArrowBack, "back Icon")
+                    }) {
+                        Icon(Icons.Filled.ArrowBack, "back arrow")
                     }
                 },
                 backgroundColor = Color.White,
@@ -45,11 +43,12 @@ fun Review(
         },
         content = { padding ->
             Column() {
-                Column(modifier= Modifier
-                    .fillMaxHeight(0.88f)
-                    .padding(horizontal = 20.dp)
-                    .padding(top = 10.dp)
-                ){
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight(0.88f)
+                        .padding(horizontal = 20.dp)
+                        .padding(top = 10.dp)
+                ) {
                     Text(
                         text = stringResource(R.string.review_screen_title),
                         fontSize = 25.sp,
@@ -61,19 +60,19 @@ fun Review(
                     modifier = Modifier
                         .padding(top = 6.dp),
                     verticalArrangement = Arrangement.Bottom
-                ){
+                ) {
                     Row(
                         modifier = Modifier.padding(10.dp)
                     ) {
                         RespondButton(
-                            label = "Disagree",
+                            label = stringResource(R.string.disagree),
                             modifier = Modifier,
                         ) {
                             navController.navigate(Screens.JoinStudyScreen.route)
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         RespondButton(
-                            label = "Agree",
+                            label = stringResource(R.string.agree),
                             modifier = Modifier,
                         ) {
                             navController.navigate(Screens.SignatureScreen.route)
@@ -86,74 +85,79 @@ fun Review(
 }
 
 @Composable
-fun ReviewScreen(onBoardingPage: OnBoardingPage) {
+fun ReviewScreen(onboardingPage: OnboardingPage) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 10.dp)
     ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = onBoardingPage.title,
-            fontSize=16.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Left
-        )
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = onBoardingPage.description,
-            fontSize=16.sp,
-            textAlign = TextAlign.Left
-        )
+        onboardingPage.title?.let { title ->
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(title),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Left
+            )
+        }
+        onboardingPage.description?.let { description ->
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(description),
+                fontSize = 16.sp,
+                textAlign = TextAlign.Left
+            )
+        }
     }
 }
 
 @Composable
-fun RespondButton (
+fun RespondButton(
     label: String,
     modifier: Modifier,
     onClick: () -> Unit
-){
+) {
     Row(
         modifier = modifier
             .padding(horizontal = 5.dp),
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.Center,
     ) {
-            Button(
-                onClick = onClick,
-                shape = RoundedCornerShape(50),
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.Gray,
-                    backgroundColor = Color.LightGray
-                )
-            ) {
-                Text(
-                    text = label,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
-            }
+        Button(
+            onClick = onClick,
+            shape = RoundedCornerShape(50),
+            colors = ButtonDefaults.buttonColors(
+                contentColor = Color.Gray,
+                backgroundColor = Color.LightGray
+            )
+        ) {
+            Text(
+                text = label,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
     }
 }
 
 val data = listOf(
-    OnBoardingPage.Content,
-    OnBoardingPage.First,
-    OnBoardingPage.Second,
-    OnBoardingPage.Third,
-    OnBoardingPage.Fourth
+    OnboardingPage.First,
+    OnboardingPage.Second,
+    OnboardingPage.Third,
+    OnboardingPage.Fourth
 )
+
 @Composable
-fun DisplayList(items: List<OnBoardingPage>) {
+fun DisplayList(items: List<OnboardingPage>) {
     val listState = rememberLazyListState()
     LazyColumn(
         modifier = Modifier,
-        state = listState) {
-        items(items){
-            item -> ReviewScreen(onBoardingPage = item)
+        state = listState
+    ) {
+        items(items) { item ->
+            ReviewScreen(onboardingPage = item)
         }
     }
 }
