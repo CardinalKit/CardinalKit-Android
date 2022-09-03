@@ -1,4 +1,4 @@
-package edu.stanford.cardinalkit.presentation.Onboarding
+package edu.stanford.cardinalkit.presentation.onboarding
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*

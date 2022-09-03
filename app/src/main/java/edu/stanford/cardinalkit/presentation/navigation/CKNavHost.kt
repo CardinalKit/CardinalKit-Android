@@ -8,10 +8,10 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
-import edu.stanford.cardinalkit.presentation.Onboarding.OnboardingScreen
-import edu.stanford.cardinalkit.presentation.Onboarding.Review
-import edu.stanford.cardinalkit.presentation.Onboarding.Signature
-import edu.stanford.cardinalkit.presentation.Onboarding.WelcomeScreen
+import edu.stanford.cardinalkit.presentation.onboarding.OnboardingScreen
+import edu.stanford.cardinalkit.presentation.onboarding.Review
+import edu.stanford.cardinalkit.presentation.onboarding.Signature
+import edu.stanford.cardinalkit.presentation.onboarding.WelcomeScreen
 import edu.stanford.cardinalkit.presentation.RegisterScreen
 import edu.stanford.cardinalkit.presentation.contacts.ContactsScreen
 import edu.stanford.cardinalkit.presentation.home.HomeScreen
