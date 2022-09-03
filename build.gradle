@@ -15,7 +15,7 @@ buildscript {
         play_services_auth_version = "20.2.0"
         accompanist_version = "0.24.10-beta"
         coil_compose_version = "2.1.0"
-        health_connect_version = '1.0.0-alpha03'
+        health_connect_version = '1.0.0-alpha04'
         android_fhir_version = '0.1.0-beta04'
     }
     dependencies {

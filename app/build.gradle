@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "edu.stanford.cardinalkit"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -72,7 +72,7 @@ dependencies {
     implementation "com.google.android.fhir:data-capture:$android_fhir_version"
 
     //Health Connect
-    implementation "androidx.health:health-connect-client:$health_connect_version"
+    implementation "androidx.health.connect:connect-client:$health_connect_version"
 
     //Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
