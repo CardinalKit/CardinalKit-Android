@@ -47,8 +47,9 @@ class SurveyActivity : AppCompatActivity() {
         // Observes result of survey submission
         surveyViewModel.surveyResultUploadedState.observe(this) {
             when(it){
+                is Response.Loading -> {}
                 is Response.Success -> {
-                    val log = taskID?.let { it -> CKTaskLog(it) }
+                    val log = taskID?.let { id -> CKTaskLog(id) }
                     if (log != null) {
                         tasksViewModel.uploadTaskLog(log)
                     }
@@ -63,6 +64,7 @@ class SurveyActivity : AppCompatActivity() {
         // Observes state of survey download
         surveyViewModel.surveyDownloadState.observe(this) {
             when(it){
+                is Response.Loading -> {}
                 is Response.Success -> {
                     val arguments =
                         bundleOf(QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to it.data)

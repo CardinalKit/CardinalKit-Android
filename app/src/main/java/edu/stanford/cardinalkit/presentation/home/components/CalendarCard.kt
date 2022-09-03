@@ -13,13 +13,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Preview
 @Composable
 
 fun CalendarCard(){
-    val day= SimpleDateFormat("dd")
-    val month=SimpleDateFormat("MMMM")
+    val day= SimpleDateFormat("dd", Locale.getDefault())
+    val month=SimpleDateFormat("MMMM", Locale.getDefault())
     val currentDay: String = day.format(java.util.Date())
     val currentMonth: String = month.format(java.util.Date())
     Card(

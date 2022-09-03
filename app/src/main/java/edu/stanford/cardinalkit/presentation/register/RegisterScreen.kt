@@ -251,6 +251,7 @@ fun RegisterScreen(
         is Response.Error -> signUpResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
+        is Response.Success -> {}
     }
 
     when(val saveUserResponse = viewModel.saveUserState.value) {
@@ -258,5 +259,6 @@ fun RegisterScreen(
         is Response.Error -> saveUserResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
+        is Response.Success -> {}
     }
 }

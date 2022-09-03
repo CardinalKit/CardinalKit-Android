@@ -40,7 +40,7 @@ fun ReviewConsent(
                 elevation = 0.dp
             )
         },
-        content = {
+        content = { padding ->
             Column() {
                 Column(
                     modifier = Modifier

@@ -43,7 +43,7 @@ fun Review(
                 elevation = 0.dp
             )
         },
-        content = {
+        content = { padding ->
             Column() {
                 Column(modifier= Modifier
                     .fillMaxHeight(0.88f)
@@ -117,7 +117,7 @@ fun RespondButton (
     onClick: () -> Unit
 ){
     Row(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 5.dp),
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.Center,

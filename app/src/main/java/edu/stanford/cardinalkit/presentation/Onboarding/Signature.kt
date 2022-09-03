@@ -42,7 +42,7 @@ fun Signature(
                 elevation = 0.dp
             )
         },
-        content = {
+        content = { padding ->
             var signaturePadAdapter: SignaturePadAdapter? = null
             var signatureSvg by remember {
                 mutableStateOf("")

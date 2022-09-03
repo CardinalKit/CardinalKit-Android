@@ -12,11 +12,13 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
+import edu.stanford.cardinalkit.BuildConfig
 import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 import edu.stanford.cardinalkit.presentation.login.LoginViewModel
 import edu.stanford.cardinalkit.presentation.navigation.CKNavHost
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,11 @@ class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().apply {}
 

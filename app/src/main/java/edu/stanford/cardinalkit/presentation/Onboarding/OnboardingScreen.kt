@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.*
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import kotlinx.coroutines.launch
 
@@ -57,8 +59,12 @@ fun OnboardingScreen(
                 elevation = 0.dp
             )
         },
-        content = {
-            Column(modifier = Modifier.fillMaxSize()) {
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
                 HorizontalPager(
                     modifier = Modifier.weight(9f),
                     count = 4,
@@ -134,33 +140,33 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
 fun BottomSection(
     pagerState: PagerState,
 ){
-    val scope=rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     Row(
         modifier= Modifier
             .padding(bottom = 20.dp)
             .padding(horizontal = 20.dp)
             .fillMaxWidth(),
-        horizontalArrangement= if(pagerState.currentPage==3) Arrangement.Center else Arrangement.SpaceBetween){
-
-        if(pagerState.currentPage==3){
-        }
-        else{
-            BackButton(modifier = Modifier.padding(start=40.dp), onClick = {
-                scope.launch{
-                    if(pagerState.currentPage-1==-1){
-                        pagerState.scrollToPage(pagerState.currentPage)
-                    }
-                    else{
-                        pagerState.scrollToPage(pagerState.currentPage-1)
-                    }
+            horizontalArrangement = if(pagerState.currentPage == 3) Arrangement.Center else Arrangement.SpaceBetween
+    ){
+        if(pagerState.currentPage != 3){
+            PreviousButton(
+                modifier = Modifier.padding(start = 40.dp),
+                onClick = {
+                    scope.launch{
+                        if(pagerState.currentPage-1 == -1){
+                            pagerState.scrollToPage(pagerState.currentPage)
+                        }
+                        else{
+                            pagerState.scrollToPage(pagerState.currentPage-1)
+                        }
                 }
             })
-            NextButton(modifier = Modifier.padding(end=40.dp), onClick = {
-                scope.launch{
-                    pagerState.scrollToPage(pagerState.currentPage+1)
-                }
+            NextButton(modifier = Modifier.padding(end = 40.dp),
+                onClick = {
+                    scope.launch{
+                        pagerState.scrollToPage(pagerState.currentPage+1)
+                    }
             })
-
         }
     }
 }
@@ -169,12 +175,12 @@ fun BottomSection(
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
-fun BackButton(
+fun PreviousButton(
     modifier: Modifier,
     onClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -187,8 +193,11 @@ fun BackButton(
             ),
 
             ) {
-            Text(text = "Back", fontSize = 16.sp, fontWeight = FontWeight.Light)
-
+            Text(
+                text = stringResource(R.string.previous), 
+                fontSize = 16.sp, 
+                fontWeight = FontWeight.Light
+            )
         }
     }
 }
@@ -201,7 +210,7 @@ fun NextButton(
     onClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -214,7 +223,7 @@ fun NextButton(
             ),
 
             ) {
-                Text(text = "Next", fontSize = 16.sp,  fontWeight = FontWeight.Light)
+                Text(text = stringResource(R.string.next), fontSize = 16.sp,  fontWeight = FontWeight.Light)
 
         }
     }

@@ -32,7 +32,7 @@ fun JoinStudyScreen(
 
     Scaffold(
         backgroundColor = PrimaryTheme,
-        content = { contentPadding ->
+        content = { padding ->
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

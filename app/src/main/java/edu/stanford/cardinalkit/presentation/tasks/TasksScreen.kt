@@ -49,8 +49,8 @@ fun TasksScreen(
 
         },
         containerColor =  Color(0xFFF5F5F5),
-        content = {
-            Column(modifier = Modifier.padding(top = 55.dp)){
+        content = { padding ->
+            Column(modifier = Modifier.padding(padding)){
                 DatePickerTimeline(
                     modifier = Modifier,
                     onDateSelected = {selectedDate: LocalDate->
@@ -76,7 +76,7 @@ fun TasksScreen(
                             viewModel.setDate(today)
                         },
                     ) {
-                        Text("Today", color = PrimaryTheme)
+                        Text(stringResource(R.string.today), color = PrimaryTheme)
                     }
                 }
                 Box(modifier= Modifier

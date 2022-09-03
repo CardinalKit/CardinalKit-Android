@@ -1,5 +1,6 @@
 package edu.stanford.cardinalkit.presentation.main
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -14,6 +15,7 @@ import edu.stanford.cardinalkit.presentation.main.components.BottomNavigationBar
 import edu.stanford.cardinalkit.presentation.navigation.CKNavHost
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
