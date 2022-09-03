@@ -45,7 +45,7 @@ fun WelcomeScreen(
                 elevation = 0.dp
             )
         },
-        content = {
+        content = { padding ->
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()

@@ -51,8 +51,7 @@ fun HomeScreen(
 
         },
         containerColor = Color(0xFFF5F5F5),
-        content = {
-
+        content = { padding ->
             Column(
                 modifier = Modifier
                     .padding(top = 50.dp)

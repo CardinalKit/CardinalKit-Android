@@ -48,12 +48,11 @@ fun ForgotPassword(
             )
         },
         containerColor = Color(0xFFFFFFFF),
-        content ={
-
+        content = { padding ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(horizontal = 60.dp)
+                    .padding(padding)
                     .fillMaxHeight()){
                 Spacer(modifier = Modifier.height(150.dp))
                 Image(
@@ -124,6 +123,7 @@ fun ForgotPassword(
         is Response.Error -> resetPassword.e?.let {
             Toast.makeText(context,"Email is invalid", Toast.LENGTH_SHORT).show()
         }
+        is Response.Success -> {}
     }
 
 }

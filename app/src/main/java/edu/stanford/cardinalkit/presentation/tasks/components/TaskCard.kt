@@ -87,6 +87,7 @@ fun TaskCard(
                             }
                         }
                         CKTaskCategory.MISC -> viewModel.uploadTaskLog(CKTaskLog(task.id))
+                        CKTaskCategory.STEPS -> {}
                     }
                 } else {
                     Toast
@@ -150,6 +151,7 @@ fun TaskCard(
                                 )
                             }
                         }
+                        else -> {}
                     }
                 }
             }

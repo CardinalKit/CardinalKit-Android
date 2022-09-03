@@ -3,13 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="edu.stanford.cardinalkit">
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+
     <application
         android:name=".CardinalKitApp"
+        android:label="CardinalKit"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CardinalKit.NoActionBar"
@@ -42,10 +46,6 @@
             android:theme="@style/Theme.CardinalKit">
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
 
     <queries>
         <package android:name="com.google.android.apps.healthdata" />

@@ -57,8 +57,12 @@ fun OnboardingScreen(
                 elevation = 0.dp
             )
         },
-        content = {
-            Column(modifier = Modifier.fillMaxSize()) {
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
                 HorizontalPager(
                     modifier = Modifier.weight(9f),
                     count = 4,
@@ -174,7 +178,7 @@ fun BackButton(
     onClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -201,7 +205,7 @@ fun NextButton(
     onClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center,
     ) {

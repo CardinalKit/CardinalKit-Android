@@ -260,6 +260,7 @@ fun LoginScreen(
         is Response.Error -> signInResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
+        is Response.Success -> {}
     }
 
     when(val saveUserResponse = viewModel.saveUserState.value) {
@@ -267,6 +268,7 @@ fun LoginScreen(
         is Response.Error -> saveUserResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
+        is Response.Success -> {}
     }
 
 }
