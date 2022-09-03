@@ -18,11 +18,11 @@
     <string name="existing_user_button">I am an Existing User</string>
     <string name="sign_in_with_google_button">Sign In With Google</string>
     <string name="create_account_button">Create an Account</string>
-    <string name="continue_to_sign_in_button">Continue to Sign In</string>
     <string name="register_button">Register</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
     <string name="clear">Clear</string>
     <string name="forgot_password_button">Forgot Password?</string>
     <string name="upload_health_data_button">Upload Health Data</string>
@@ -59,8 +59,6 @@
 
     <!-- Error messages -->
     <string name="error_loading_survey_message">Error Loading Survey</string>
-    <string name="error_uploading_survey_results_message">Error Uploading Survey Results</string>
-    <string name="error_loading_tasks">Error loading tasks</string>
     <string name="task_not_scheduled_today">This task is not scheduled today.</string>
     <string name="task_already_completed">You have already completed this task.</string>
 

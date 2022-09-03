@@ -76,7 +76,7 @@ fun TasksScreen(
                             viewModel.setDate(today)
                         },
                     ) {
-                        Text("Today", color = PrimaryTheme)
+                        Text(stringResource(R.string.today), color = PrimaryTheme)
                     }
                 }
                 Box(modifier= Modifier

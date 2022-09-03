@@ -1,6 +1,5 @@
 package edu.stanford.cardinalkit.presentation.contacts
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +21,7 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.contacts.components.ContactCard
+import timber.log.Timber
 
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +48,7 @@ fun ContactsScreen(
         content = { padding ->
            Column(modifier=Modifier.padding(bottom=50.dp)){
                when(val contactsResponse = viewModel.contactsState.value) {
-                   is Response.Error -> Log.d("ContactsScreen", contactsResponse.e?.message.toString())
+                   is Response.Error -> Timber.d(contactsResponse.e?.message.toString())
                    is Response.Loading -> ProgressIndicator()
                    is Response.Success -> LazyColumn(
                        modifier = Modifier
