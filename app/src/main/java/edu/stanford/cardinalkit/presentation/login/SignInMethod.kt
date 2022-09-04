@@ -7,7 +7,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -15,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,7 +39,7 @@ fun SignInMethod(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                 },
                 navigationIcon = {
@@ -51,12 +49,10 @@ fun SignInMethod(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
-        containerColor = Color(0xFFFFFFFF),
+        containerColor = MaterialTheme.colorScheme.surface,
         content = { contentPadding ->
             Column(
                 modifier = Modifier
@@ -82,7 +78,7 @@ fun SignInMethod(
                 Text(
                     text = stringResource(R.string.login_screen_title),
                     fontSize = 26.sp,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
@@ -90,6 +86,7 @@ fun SignInMethod(
                     text = stringResource(R.string.choose_your_sign_in_method),
                     modifier = Modifier.padding(bottom = 20.dp),
                     fontSize = 13.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center
                 )
 
@@ -130,7 +127,7 @@ fun SignInMethod(
                                 text = stringResource(R.string.sign_in_with_google_button),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = MaterialTheme.colorScheme.secondary,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 modifier = Modifier
                                     .padding(vertical = 8.dp)
                                     .padding(end = 40.dp)

@@ -4,7 +4,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -32,7 +31,7 @@ fun WelcomeScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                 },
                 navigationIcon = {
@@ -42,9 +41,7 @@ fun WelcomeScreen(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         content = { padding ->

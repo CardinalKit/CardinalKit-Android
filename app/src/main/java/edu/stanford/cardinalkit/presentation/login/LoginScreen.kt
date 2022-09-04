@@ -8,7 +8,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
@@ -18,7 +17,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -49,7 +47,7 @@ fun LoginScreen(
     val context = LocalContext.current
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                 },
                 navigationIcon = {
@@ -59,9 +57,7 @@ fun LoginScreen(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         containerColor = MaterialTheme.colorScheme.surface,
@@ -90,7 +86,7 @@ fun LoginScreen(
                 Text(
                     text = stringResource(R.string.login_screen_title),
                     fontSize = 26.sp,
-                    color = Color(0xFF790224),
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
@@ -117,8 +113,8 @@ fun LoginScreen(
                     label = { Text(text = stringResource(R.string.email)) },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
                     )
                 )
 

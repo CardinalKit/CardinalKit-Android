@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -28,7 +27,7 @@ fun Review(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {},
                 navigationIcon = {
                     IconButton(onClick = {
@@ -37,18 +36,16 @@ fun Review(
                         Icon(Icons.Filled.ArrowBack, "back arrow")
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         content = { padding ->
-            Column() {
+            Column {
                 Column(
                     modifier = Modifier
                         .fillMaxHeight(0.88f)
                         .padding(horizontal = 20.dp)
-                        .padding(top = 10.dp)
+                        .padding(padding)
                 ) {
                     Text(
                         text = stringResource(R.string.review_screen_title),

@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
@@ -41,7 +40,7 @@ fun RegisterScreen(
     val context = LocalContext.current
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                 },
                 navigationIcon = {
@@ -51,9 +50,7 @@ fun RegisterScreen(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         content = { contentPadding ->
@@ -74,6 +71,7 @@ fun RegisterScreen(
                     text = stringResource(R.string.biodesign),
                     modifier = Modifier.padding(bottom = 30.dp),
                     fontSize = 13.sp,
+                    color = MaterialTheme.colorScheme.primary,
                     textAlign = TextAlign.Center
                 )
                 var firstName by remember {

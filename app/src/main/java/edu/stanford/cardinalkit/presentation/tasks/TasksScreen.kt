@@ -1,7 +1,6 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.TopAppBar
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +25,7 @@ fun TasksScreen(
     val datePickerState = rememberDatePickerState(initialDate = LocalDate.now())
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                     Row {
                         Text(
@@ -38,8 +37,8 @@ fun TasksScreen(
                         )
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant)
+                colors = TopAppBarDefaults.smallTopAppBarColors()
+            )
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         content = { padding ->

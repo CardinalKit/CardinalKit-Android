@@ -3,7 +3,6 @@ package edu.stanford.cardinalkit.presentation.onboarding
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -25,7 +24,7 @@ fun Signature(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {},
                 navigationIcon = {
                     IconButton(onClick = {
@@ -34,9 +33,7 @@ fun Signature(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         content = { padding ->
@@ -58,7 +55,7 @@ fun Signature(
                 modifier = Modifier
                     .fillMaxHeight(0.88f)
                     .padding(horizontal = 20.dp)
-                    .padding(top = 10.dp),
+                    .padding(padding),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
