@@ -7,12 +7,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -53,76 +51,88 @@ fun SignInMethod(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 elevation = 0.dp
             )
         },
         containerColor = Color(0xFFFFFFFF),
-        content = {contentPadding ->
+        content = { contentPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(modifier = Modifier
-                    .padding(top = 10.dp)
-                    .fillMaxWidth(0.5f)
-                    .fillMaxHeight(0.16f),
+                Image(
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .fillMaxWidth(0.5f)
+                        .fillMaxHeight(0.16f),
                     painter = painterResource(R.drawable.branding_light),
-                    contentDescription = "branding" )
-                Image(modifier = Modifier
-                    .fillMaxWidth(0.55f)
-                    .fillMaxHeight(0.3f),
+                    contentDescription = "branding"
+                )
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth(0.55f)
+                        .fillMaxHeight(0.3f),
                     painter = painterResource(R.drawable.login),
-                    contentDescription = "branding" )
+                    contentDescription = "branding"
+                )
                 Text(
                     text = stringResource(R.string.login_screen_title),
                     fontSize = 26.sp,
-                    color= Color(0xFF790224),
-                    fontWeight=FontWeight.SemiBold,
-                    textAlign = TextAlign.Center)
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
+                )
                 Text(
                     text = stringResource(R.string.choose_your_sign_in_method),
                     modifier = Modifier.padding(bottom = 20.dp),
                     fontSize = 13.sp,
-                    textAlign = TextAlign.Center)
+                    textAlign = TextAlign.Center
+                )
 
                 Spacer(modifier = Modifier.height(60.dp))
 
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 40.dp)
+                ) {
                     SignIn(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = {navController.navigate(Screens.LoginScreen.route)})
+                        onClick = { navController.navigate(Screens.LoginScreen.route) })
                     Spacer(modifier = Modifier.height(10.dp))
 
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
                         modifier = Modifier.padding(top = 7.dp)
-                    )  {
-
+                    ) {
                         OutlinedButton(
-                            onClick = {viewModel.oneTapSignIn()},
+                            onClick = { viewModel.oneTapSignIn() },
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White,
+                                containerColor = MaterialTheme.colorScheme.primary,
                             ),
                             modifier = Modifier
                                 .fillMaxWidth(),
                             shape = RoundedCornerShape(50.dp)
-
-
                         ) {
-                            Image(modifier = Modifier.fillMaxHeight(.2f).fillMaxWidth(.25f),painter = painterResource(R.drawable.btn_google), contentDescription ="google" )
+                            Image(
+                                modifier = Modifier
+                                    .fillMaxHeight(.2f)
+                                    .fillMaxWidth(.25f),
+                                painter = painterResource(R.drawable.btn_google),
+                                contentDescription = "google"
+                            )
                             Text(
                                 text = stringResource(R.string.sign_in_with_google_button),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = Color.Gray,
-                                modifier = Modifier.padding(vertical = 8.dp)
+                                color = MaterialTheme.colorScheme.secondary,
+                                modifier = Modifier
+                                    .padding(vertical = 8.dp)
                                     .padding(end = 40.dp)
                             )
                         }
@@ -135,25 +145,26 @@ fun SignInMethod(
 
     )
 
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            try {
-                val credentials = viewModel.client.getSignInCredentialFromIntent(result.data)
-                val googleIdToken = credentials.googleIdToken
-                val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
-                viewModel.signInWithGoogle(googleCredentials)
-            } catch (it: ApiException) {
-                print(it)
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                try {
+                    val credentials = viewModel.client.getSignInCredentialFromIntent(result.data)
+                    val googleIdToken = credentials.googleIdToken
+                    val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
+                    viewModel.signInWithGoogle(googleCredentials)
+                } catch (it: ApiException) {
+                    print(it)
+                }
             }
         }
-    }
 
     fun launch(signInResult: BeginSignInResult) {
         val intent = IntentSenderRequest.Builder(signInResult.pendingIntent.intentSender).build()
         launcher.launch(intent)
     }
 
-    when(val oneTapSignInResponse = viewModel.oneTapSignInState.value) {
+    when (val oneTapSignInResponse = viewModel.oneTapSignInState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Success -> {
             oneTapSignInResponse.data?.let {
@@ -174,7 +185,7 @@ fun SignInMethod(
         }
     }
 
-    when(val signInResponse = viewModel.signInState.value) {
+    when (val signInResponse = viewModel.signInState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Success -> {
             signInResponse.data?.let { isNewUser ->
@@ -194,7 +205,7 @@ fun SignInMethod(
         }
     }
 
-    when(val saveUserResponse = viewModel.saveUserState.value) {
+    when (val saveUserResponse = viewModel.saveUserState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Success -> {
             saveUserResponse.data?.let { isUserCreated ->
@@ -221,13 +232,13 @@ fun SignIn(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center,
-    )  {
+    ) {
         Button(
             onClick = onClick,
-            shape= RoundedCornerShape(50),
+            shape = RoundedCornerShape(50),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Gray,
-                backgroundColor = Color.LightGray
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary
             ),
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -235,11 +246,12 @@ fun SignIn(
                 text = stringResource(R.string.sign_in_with_email),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(vertical = 8.dp).padding(horizontal = 20.dp)
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .padding(horizontal = 20.dp)
             )
         }
     }
-
 }
 
 

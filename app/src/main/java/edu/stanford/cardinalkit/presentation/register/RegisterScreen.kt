@@ -4,17 +4,16 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,6 +32,7 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.register.RegisterViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     navController: NavHostController,
@@ -51,47 +51,51 @@ fun RegisterScreen(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 elevation = 0.dp
             )
         },
-        content = {contentPadding ->
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(contentPadding),
-                horizontalAlignment = Alignment.CenterHorizontally){
+        content = { contentPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(
                     text = stringResource(R.string.app_name),
                     fontSize = 26.sp,
-                    color= Color(0xFF790224),
-                    fontWeight= FontWeight.SemiBold,
-                    textAlign = TextAlign.Center)
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
+                )
                 Text(
                     text = stringResource(R.string.biodesign),
                     modifier = Modifier.padding(bottom = 30.dp),
                     fontSize = 13.sp,
-                    textAlign = TextAlign.Center)
-                var firstName by remember{
+                    textAlign = TextAlign.Center
+                )
+                var firstName by remember {
                     mutableStateOf("")
                 }
-                var lastName by remember{
+                var lastName by remember {
                     mutableStateOf("")
                 }
-                var email by remember{
+                var email by remember {
                     mutableStateOf("")
                 }
-                var password by remember{
+                var password by remember {
                     mutableStateOf("")
                 }
-                var confirm by remember{
+                var confirm by remember {
                     mutableStateOf("")
                 }
                 var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
                 OutlinedTextField(
                     value = firstName,
-                    onValueChange ={ newText->
+                    onValueChange = { newText ->
                         firstName = newText
                     },
                     label = {
@@ -99,12 +103,13 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
+                    ),
                 )
                 OutlinedTextField(
                     value = lastName,
-                    onValueChange ={ newText->
+                    onValueChange = { newText ->
                         lastName = newText
                     },
                     label = {
@@ -112,12 +117,13 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
+                    ),
                 )
                 OutlinedTextField(
                     value = email,
-                    onValueChange ={ newText->
+                    onValueChange = { newText ->
                         email = newText
                     },
                     label = {
@@ -125,22 +131,24 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
+                    ),
                 )
                 Row(
-                    modifier=Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(horizontal = 60.dp)
-                        .padding(vertical=10.dp),
+                        .padding(vertical = 10.dp),
                     horizontalArrangement = Arrangement.Start
-                ){
+                ) {
                     Text(
-                        text="Your password should contain:\n- a minimum of 8 characters\n- at least 1 uppercase\n- at least 1 lowercase\n- 1 digit\n- 1 special character"
+                        text = "Your password should contain:\n- a minimum of 8 characters\n- at least 1 uppercase\n- at least 1 lowercase\n- 1 digit\n- 1 special character"
                     )
                 }
                 OutlinedTextField(
                     value = password,
-                    onValueChange ={ newText->
+                    onValueChange = { newText ->
                         password = newText
                     },
                     label = {
@@ -148,8 +156,9 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
+                    ),
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
@@ -166,7 +175,7 @@ fun RegisterScreen(
                 )
                 OutlinedTextField(
                     value = confirm,
-                    onValueChange ={ newText->
+                    onValueChange = { newText ->
                         confirm = newText
                     },
                     label = {
@@ -174,8 +183,9 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
+                    ),
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
@@ -192,61 +202,82 @@ fun RegisterScreen(
                 )
 
                 Row(
-                    Modifier.padding(top=25.dp),
+                    Modifier.padding(top = 25.dp),
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Center,
-                )  {
+                ) {
                     Button(
                         onClick = {
-                            if(email.isEmpty() or password.isEmpty() or confirm.isEmpty()){
-                                Toast.makeText(context, R.string.required_field_empty, Toast.LENGTH_SHORT).show()
-                            } else if(!viewModel.isValidEmail(email)){
-                                Toast.makeText(context, "Enter valid email", Toast.LENGTH_SHORT).show()
-
-                            }
-                            else if(password != confirm) {
-                                Toast.makeText(context, R.string.passwords_unmatched, Toast.LENGTH_SHORT).show()
-                            } else if(!viewModel.isValidPassword(password)){
-                                if(password.length<8){
-                                    Toast.makeText(context,"Password has to be at least 8 characters",Toast.LENGTH_SHORT).show()
+                            if (email.isEmpty() or password.isEmpty() or confirm.isEmpty()) {
+                                Toast.makeText(
+                                    context,
+                                    R.string.required_field_empty,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (!viewModel.isValidEmail(email)) {
+                                Toast.makeText(context, "Enter valid email", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else if (password != confirm) {
+                                Toast.makeText(
+                                    context,
+                                    R.string.passwords_unmatched,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (!viewModel.isValidPassword(password)) {
+                                if (password.length < 8) {
+                                    Toast.makeText(
+                                        context,
+                                        "Password has to be at least 8 characters",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else if (password.firstOrNull { it.isDigit() } == null) {
+                                    Toast.makeText(
+                                        context,
+                                        "Password has to contain 1 digit",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else if (password.filter { it.isLetter() }
+                                        .filter { it.isUpperCase() }.firstOrNull() == null) {
+                                    Toast.makeText(
+                                        context,
+                                        "Password has to contain 1 uppercase",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else if (password.filter { it.isLetter() }
+                                        .filter { it.isLowerCase() }.firstOrNull() == null) {
+                                    Toast.makeText(
+                                        context,
+                                        "Password has to contain 1 lowercase",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else if (password.firstOrNull { !it.isLetterOrDigit() } == null) {
+                                    Toast.makeText(
+                                        context,
+                                        "Password has to contain a special character",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
-                                else if(password.firstOrNull { it.isDigit() } == null){
-                                    Toast.makeText(context,"Password has to contain 1 digit",Toast.LENGTH_SHORT).show()
-                                }
-                                else if(password.filter { it.isLetter() }.filter { it.isUpperCase() }.firstOrNull() == null){
-                                    Toast.makeText(context,"Password has to contain 1 uppercase",Toast.LENGTH_SHORT).show()
-
-                                }
-                                else if(password.filter { it.isLetter() }.filter { it.isLowerCase() }.firstOrNull() == null){
-                                    Toast.makeText(context,"Password has to contain 1 lowercase",Toast.LENGTH_SHORT).show()
-
-                                }
-                                else if(password.firstOrNull { !it.isLetterOrDigit() } == null){
-                                    Toast.makeText(context,"Password has to contain a special character",Toast.LENGTH_SHORT).show()
-
-                                }
-
-                            }
-                            else {
+                            } else {
                                 viewModel.signUp(email, password)
                             }
                         },
-                        shape= RoundedCornerShape(50),
+                        shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.LightGray,
-                            backgroundColor = Color.DarkGray
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                            containerColor = MaterialTheme.colorScheme.primary
                         )
                     ) {
                         androidx.compose.material.Text(
                             text = stringResource(R.string.register_button),
                             fontSize = 16.sp,
-                            modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
+                            modifier = Modifier.padding(vertical = 9.dp, horizontal = 70.dp)
+                        )
                     }
                 }
             }
         })
 
-    when(val signUpResponse = viewModel.signUpState.value) {
+    when (val signUpResponse = viewModel.signUpState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Error -> signUpResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
@@ -254,7 +285,7 @@ fun RegisterScreen(
         is Response.Success -> {}
     }
 
-    when(val saveUserResponse = viewModel.saveUserState.value) {
+    when (val saveUserResponse = viewModel.saveUserState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Error -> saveUserResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
