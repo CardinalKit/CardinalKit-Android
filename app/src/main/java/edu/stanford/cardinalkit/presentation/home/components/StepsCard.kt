@@ -24,7 +24,7 @@ fun StepsCard(
             .width(165.dp)
             .height(165.dp)
             .clickable { },
-        backgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
+        backgroundColor = MaterialTheme.colorScheme.tertiary,
         shape = RoundedCornerShape(18),
     ){
         Column(
@@ -38,12 +38,12 @@ fun StepsCard(
             Text(
                 text = "Steps",
                 fontSize = 25.sp,
-                color = MaterialTheme.colorScheme.onTertiaryContainer
+                color = MaterialTheme.colorScheme.onTertiary
             )
             Text(
                 text= viewModel.totalStepsToday.value.toString(),
                 fontSize = 40.sp,
-                color = MaterialTheme.colorScheme.onTertiaryContainer
+                color = MaterialTheme.colorScheme.onTertiary
             )
         }
     }

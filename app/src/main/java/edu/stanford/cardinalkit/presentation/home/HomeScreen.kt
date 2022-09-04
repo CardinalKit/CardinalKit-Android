@@ -42,15 +42,16 @@ fun HomeScreen(
                         text = stringResource(R.string.home_screen_title),
                         modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
-                        fontWeight = FontWeight.Light
+                        fontWeight = FontWeight.Light,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
-                backgroundColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
         },
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
         content = { padding ->
             Column(
                 modifier = Modifier

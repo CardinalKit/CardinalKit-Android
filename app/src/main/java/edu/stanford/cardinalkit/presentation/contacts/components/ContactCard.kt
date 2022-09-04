@@ -35,7 +35,7 @@ fun ContactCard(
             .fillMaxWidth()
             .padding(20.dp)
             .clickable { },
-        colors = cardColors(MaterialTheme.colorScheme.primaryContainer)
+        colors = cardColors(MaterialTheme.colorScheme.surface)
     ) {
         Column(
             modifier = Modifier
@@ -46,7 +46,7 @@ fun ContactCard(
                 Icon(imageVector = Icons.Filled.AccountCircle , modifier = Modifier
                     .padding(end = 10.dp)
                     .height(50.dp)
-                    .width(45.dp), contentDescription = "profile", tint = MaterialTheme.colorScheme.onPrimaryContainer)
+                    .width(45.dp), contentDescription = "profile", tint = MaterialTheme.colorScheme.primary)
                 Column {
                     Text(
                         text = "${contact.title} ${contact.firstName} ${contact.lastName}",
@@ -82,7 +82,7 @@ fun ContactCard(
                     }
                     .fillMaxWidth()
                     .padding(10.dp),
-                colors = cardColors(MaterialTheme.colorScheme.secondaryContainer)) {
+                colors = cardColors(MaterialTheme.colorScheme.surface)) {
                 Column(
                     modifier = Modifier
                         .padding(15.dp)
@@ -121,7 +121,7 @@ fun ContactSection(
             Text(
                 text = stringResource(R.string.call),
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
@@ -136,7 +136,7 @@ fun ContactSection(
             Text(
                 text = stringResource(R.string.sms),
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
@@ -148,7 +148,7 @@ fun ContactSection(
             Text(
                 text = stringResource(R.string.email),
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .padding(vertical = 5.dp)

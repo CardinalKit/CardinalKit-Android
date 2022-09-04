@@ -21,7 +21,7 @@ fun UserCard(
             .fillMaxWidth()
             .padding(vertical = 5.dp)
             .clickable { },
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column()
         {

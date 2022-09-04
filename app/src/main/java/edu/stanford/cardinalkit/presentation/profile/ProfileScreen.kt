@@ -53,14 +53,15 @@ fun ProfileScreen(
                         text = stringResource(R.string.profile_screen_title),
                         modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
-                        fontWeight = FontWeight.Light
+                        fontWeight = FontWeight.Light,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
-                backgroundColor = MaterialTheme.colorScheme.surface,
-                contentColor = MaterialTheme.colorScheme.onSurface)
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant)
 
         },
-        containerColor =  MaterialTheme.colorScheme.background,
+        containerColor =  MaterialTheme.colorScheme.surfaceVariant,
         content = { padding ->
             Column(
                 modifier = Modifier

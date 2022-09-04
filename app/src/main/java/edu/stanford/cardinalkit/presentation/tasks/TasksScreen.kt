@@ -33,14 +33,15 @@ fun TasksScreen(
                             text = stringResource(R.string.tasks_screen_title),
                             modifier = Modifier.padding(5.dp),
                             fontSize = 22.sp,
-                            fontWeight = FontWeight.Light
+                            fontWeight = FontWeight.Light,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
-                backgroundColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground)
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant)
         },
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
         content = { padding ->
             Column(modifier = Modifier.padding(padding)){
                 DatePickerTimeline(
@@ -49,7 +50,9 @@ fun TasksScreen(
                         viewModel.setDate(selectedDate)
                     },
                     selectedBackgroundColor = MaterialTheme.colorScheme.secondary,
-                    backgroundColor = MaterialTheme.colorScheme.primary,
+                    backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                    selectedTextColor = MaterialTheme.colorScheme.onSecondary,
+                    dateTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                     state = datePickerState
                 )
                 Row(modifier= Modifier

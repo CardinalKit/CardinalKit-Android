@@ -23,7 +23,7 @@ fun CKSurveyCard(){
         modifier = Modifier
             .width(165.dp)
             .height(165.dp),
-        backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+        backgroundColor = MaterialTheme.colorScheme.secondary,
         shape = RoundedCornerShape(18),
     ){
         Column(
@@ -37,20 +37,20 @@ fun CKSurveyCard(){
                     text= "Edit Card",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                    color = MaterialTheme.colorScheme.onSecondary
                 )
             }
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 fontSize = 13.sp,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onSecondary
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 "See More",
                 fontSize = 13.sp,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onSecondary
             )
         }
     }

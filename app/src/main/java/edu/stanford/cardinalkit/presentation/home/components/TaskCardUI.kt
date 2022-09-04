@@ -51,7 +51,7 @@ fun TaskCardUI(
                     )
                 }
         Card(
-            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+            backgroundColor = MaterialTheme.colorScheme.surface,
             modifier = Modifier
                 .fillMaxWidth(),
             elevation = 0.dp,
@@ -65,26 +65,29 @@ fun TaskCardUI(
                     Text(
                         text = stringResource(R.string.task_progress),
                         fontSize = 15.sp,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Row {
                         androidx.compose.material3.Icon(
                             imageVector = Icons.Filled.Assignment,
-                            contentDescription = "Complete a survey"
+                            contentDescription = "Complete a survey",
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = annotatedString1.toAnnotatedString(),
                             fontSize = 18.sp,
-                            fontWeight = FontWeight.ExtraBold
+                            fontWeight = FontWeight.ExtraBold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
                         text = stringResource(R.string.motivational_message),
                         fontSize = 14.sp,
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Normal,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 val num =
@@ -123,14 +126,15 @@ fun TaskProgressBar(percentage: Float) {
             )
         }
 
-        val annotatedString2 =
+        val percentDoneString =
             AnnotatedString.Builder("${percentage.toInt()}%\n${stringResource(R.string.done)}")
 
         Text(
-            text = annotatedString2.toAnnotatedString(),
+            text = percentDoneString.toAnnotatedString(),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }

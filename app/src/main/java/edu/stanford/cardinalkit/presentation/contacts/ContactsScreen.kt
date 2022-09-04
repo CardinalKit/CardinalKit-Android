@@ -37,15 +37,16 @@ fun ContactsScreen(
                         text = stringResource(R.string.contacts_screen_title),
                         modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
-                        fontWeight = FontWeight.Light
+                        fontWeight = FontWeight.Light,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
-                backgroundColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
         },
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
         content = { padding ->
             Column(modifier = Modifier.padding(bottom = 50.dp)) {
                 when (val contactsResponse = viewModel.contactsState.value) {
