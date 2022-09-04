@@ -11,11 +11,12 @@ An Android application for the CardinalKit framework, developed with [Jetpack Co
 ![App Screenshots](https://user-images.githubusercontent.com/1212163/187117428-e063f8ba-8cbc-40ee-9ded-b51d2d3f26f6.png)
 
 ## Features
-- Create and deploy surveys using HL7® FHIR®
-- Schedule daily tasks for your users to complete
-- Collect and upload health data using Health Connect
-- Simple Jetpack Compose templates that you can customize
-- Pre-integrated with Google Cloud Firebase backend
+- Create and deploy healthcare surveys using [HL7® FHIR®](https://hl7.org/fhir/) and a [drag-and-drop survey builder](https://cardinalkit.org/builder)
+- Schedule daily tasks for your users to complete including surveys, medication doses, activity goals, etc.
+- Collect and upload health data using [Health Connect](https://developer.android.com/guide/health-and-fitness/health-connect)
+- Simple [Jetpack Compose](https://developer.android.com/jetpack/compose) templates that you can customize
+- Supports [Dynamic Colors](https://m3.material.io/styles/color/dynamic-color/overview) based on the user's wallpaper or color choices
+- Pre-integrated with [Google Cloud Firebase](https://firebase.google.com/) backend
 
 ## Requirements
 This application supports Android 26 (Oreo) and above. Developers should use Android Studio Chipmunk 2021.2.1 or later.
@@ -24,7 +25,7 @@ This application supports Android 26 (Oreo) and above. Developers should use And
 Instructions can be found in our [official documentation](https://cardinalkit.org/cardinalkit-docs/android-app/).
 
 ## Contributing
-Visit https://cardinalkit.org/ to join our open-source community.
+Visit [cardinalkit.org](https://cardinalkit.org) to join our open-source community.
 
 ## Feedback & Help
 Bug reports, feature requests, etc. can be submitted via [Github issues](https://github.com/CardinalKit/CardinalKit-Android/issues).
