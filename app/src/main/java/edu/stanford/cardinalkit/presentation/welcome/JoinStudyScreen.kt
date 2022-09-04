@@ -8,11 +8,10 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,16 +21,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JoinStudyScreen(
     navController: NavHostController
 ){
-
     Scaffold(
-        backgroundColor = PrimaryTheme,
+        backgroundColor = MaterialTheme.colorScheme.background,
         content = { padding ->
             Column(
                 modifier = Modifier
@@ -47,21 +44,20 @@ fun JoinStudyScreen(
                         painter = painterResource(R.drawable.logo),
                         contentDescription = "logo"
                     )
-
                 }
                 Spacer(modifier = Modifier.height(30.dp))
-                androidx.compose.material3.Text(
+                Text(
                     text = stringResource(R.string.app_name),
                     fontSize = 26.sp,
-                    color = White,
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
-                androidx.compose.material3.Text(
+                Text(
                     text = stringResource(R.string.biodesign),
                     modifier = Modifier.padding(bottom = 20.dp),
                     fontSize = 13.sp,
-                    color = White,
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(30.dp))
@@ -90,8 +86,8 @@ fun JoinStudyButton(
             onClick = onClick,
             shape= RoundedCornerShape(50),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.LightGray,
-                backgroundColor = Color.DarkGray
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                backgroundColor = MaterialTheme.colorScheme.primary
             ),
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -117,8 +113,8 @@ fun ReturningUser(
             onClick = onClick,
             shape= RoundedCornerShape(50),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Gray,
-                backgroundColor = Color.LightGray
+                contentColor = MaterialTheme.colorScheme.onSecondary,
+                backgroundColor = MaterialTheme.colorScheme.secondary
             ),
             modifier = Modifier.fillMaxWidth()
         ) {

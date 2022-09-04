@@ -5,13 +5,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -21,13 +20,14 @@ import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Review(
     navController: NavHostController,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {},
                 navigationIcon = {
                     IconButton(onClick = {
@@ -36,18 +36,16 @@ fun Review(
                         Icon(Icons.Filled.ArrowBack, "back arrow")
                     }
                 },
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         content = { padding ->
-            Column() {
+            Column {
                 Column(
                     modifier = Modifier
                         .fillMaxHeight(0.88f)
                         .padding(horizontal = 20.dp)
-                        .padding(top = 10.dp)
+                        .padding(padding)
                 ) {
                     Text(
                         text = stringResource(R.string.review_screen_title),
@@ -129,8 +127,8 @@ fun RespondButton(
             onClick = onClick,
             shape = RoundedCornerShape(50),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Gray,
-                backgroundColor = Color.LightGray
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary
             )
         ) {
             Text(

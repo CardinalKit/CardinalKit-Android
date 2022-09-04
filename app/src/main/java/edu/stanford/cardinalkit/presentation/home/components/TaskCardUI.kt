@@ -8,11 +8,11 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 
 @Composable
@@ -45,12 +44,12 @@ fun TaskCardUI(
                 .apply {
                     addStyle(
                         SpanStyle(
-                            color = PrimaryTheme,
+                            color = MaterialTheme.colorScheme.onPrimary,
                         ), 0, 6
                     )
                 }
         Card(
-            backgroundColor = Color.White,
+            backgroundColor = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .fillMaxWidth(),
             elevation = 0.dp,
@@ -64,26 +63,30 @@ fun TaskCardUI(
                     Text(
                         text = stringResource(R.string.task_progress),
                         fontSize = 15.sp,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Row {
                         androidx.compose.material3.Icon(
                             imageVector = Icons.Filled.Assignment,
-                            contentDescription = "Complete a survey"
+                            contentDescription = "Complete a survey",
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = annotatedString1.toAnnotatedString(),
                             fontSize = 18.sp,
-                            fontWeight = FontWeight.ExtraBold
+                            fontWeight = FontWeight.ExtraBold,
+                            color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
                         text = stringResource(R.string.motivational_message),
                         fontSize = 14.sp,
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Normal,
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
                 val num =
@@ -100,21 +103,22 @@ fun TaskProgressBar(percentage: Float) {
         modifier = Modifier.size(120.dp),
         contentAlignment = Center
     ) {
+        val onPrimaryColor = MaterialTheme.colorScheme.onPrimary
+        val tertiaryColor = MaterialTheme.colorScheme.tertiary
         Canvas(
             modifier = Modifier
                 .size(100.dp)
                 .padding(6.dp)
         ) {
-
             drawCircle(
-                SolidColor(Color(0xFFE3E5E7)),
+                SolidColor(onPrimaryColor),
                 size.width / 2,
                 style = Stroke(26f)
             )
             val convertedValue = (percentage / 100) * 360
             drawArc(
                 brush = Brush.linearGradient(
-                    colors = listOf(PrimaryTheme, PrimaryTheme)
+                    colors = listOf(tertiaryColor, tertiaryColor)
                 ),
                 startAngle = -90f,
                 sweepAngle = convertedValue.toFloat(),
@@ -123,14 +127,15 @@ fun TaskProgressBar(percentage: Float) {
             )
         }
 
-        val annotatedString2 =
+        val percentDoneString =
             AnnotatedString.Builder("${percentage.toInt()}%\n${stringResource(R.string.done)}")
 
         Text(
-            text = annotatedString2.toAnnotatedString(),
+            text = percentDoneString.toAnnotatedString(),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onPrimary
         )
     }
 }

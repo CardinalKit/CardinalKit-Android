@@ -8,19 +8,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -51,7 +47,7 @@ fun LoginScreen(
     val context = LocalContext.current
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                 },
                 navigationIcon = {
@@ -61,12 +57,10 @@ fun LoginScreen(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
-        containerColor = Color(0xFFFFFFFF),
+        containerColor = MaterialTheme.colorScheme.surface,
         content = { contentPadding ->
             Column(
                 modifier = Modifier
@@ -74,7 +68,8 @@ fun LoginScreen(
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
+                // TODO: Add Dark Mode support for these images
+                 Image(
                     modifier = Modifier
                         .padding(top = 10.dp)
                         .fillMaxWidth(0.5f)
@@ -92,7 +87,7 @@ fun LoginScreen(
                 Text(
                     text = stringResource(R.string.login_screen_title),
                     fontSize = 26.sp,
-                    color = Color(0xFF790224),
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
@@ -119,8 +114,8 @@ fun LoginScreen(
                     label = { Text(text = stringResource(R.string.email)) },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
                     )
                 )
 
@@ -132,8 +127,8 @@ fun LoginScreen(
                     label = { Text(text = stringResource(R.string.password)) },
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary
                     ),
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -160,52 +155,56 @@ fun LoginScreen(
                     TextButton(
                         onClick = { navController.navigate(Screens.ForgotPasswordScreen.route) },
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.DarkGray,
-                            backgroundColor = Color.White
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                            containerColor = MaterialTheme.colorScheme.primary
                         ),
-
-                        ) {
+                    ) {
                         Text(
                             text = stringResource(R.string.forgot_password_button),
                             fontSize = 13.sp,
-                            color = Color.DarkGray
+                            color = MaterialTheme.colorScheme.onPrimary
                         )
-
                     }
                     TextButton(
                         onClick = {
                             val email = emailAuthCredential.trim()
-                            if(email.isEmpty() and password.isNotEmpty()){
-                                Toast.makeText(context, R.string.email_empty, Toast.LENGTH_SHORT).show()
-                            } else if(password.isEmpty() and email.isNotEmpty()){
-                                Toast.makeText(context, R.string.password_empty, Toast.LENGTH_SHORT).show()
-                            } else if(email.isEmpty() and password.isEmpty()){
-                                Toast.makeText(context, R.string.email_and_password_empty, Toast.LENGTH_SHORT).show()
+                            if (email.isEmpty() and password.isNotEmpty()) {
+                                Toast.makeText(context, R.string.email_empty, Toast.LENGTH_SHORT)
+                                    .show()
+                            } else if (password.isEmpty() and email.isNotEmpty()) {
+                                Toast.makeText(context, R.string.password_empty, Toast.LENGTH_SHORT)
+                                    .show()
+                            } else if (email.isEmpty() and password.isEmpty()) {
+                                Toast.makeText(
+                                    context,
+                                    R.string.email_and_password_empty,
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             } else {
                                 viewModel.signIn(email, password)
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.Gray,
-                            backgroundColor = Color.LightGray,
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                            containerColor = MaterialTheme.colorScheme.onPrimary,
                         )
                     ) {
                         Text(
                             text = stringResource(R.string.sign_in_button),
                             fontSize = 15.sp,
                             modifier = Modifier.padding(horizontal = 5.dp),
-                            color = Color.Gray
+                            color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 TextButton(
-                    onClick = {navController.navigate(Screens.RegisterScreen.route)},
+                    onClick = { navController.navigate(Screens.RegisterScreen.route) },
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = Color.Gray,
-                        backgroundColor = Color.White
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        containerColor = MaterialTheme.colorScheme.primary
                     ),
-                    ) {
+                ) {
                     Text(
                         text = stringResource(R.string.create_account_button),
                         fontSize = 13.sp
@@ -215,25 +214,26 @@ fun LoginScreen(
         }
     )
 
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            try {
-                val credentials = viewModel.client.getSignInCredentialFromIntent(result.data)
-                val googleIdToken = credentials.googleIdToken
-                val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
-                viewModel.signInWithGoogle(googleCredentials)
-            } catch (it: ApiException) {
-                print(it)
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                try {
+                    val credentials = viewModel.client.getSignInCredentialFromIntent(result.data)
+                    val googleIdToken = credentials.googleIdToken
+                    val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
+                    viewModel.signInWithGoogle(googleCredentials)
+                } catch (it: ApiException) {
+                    print(it)
+                }
             }
         }
-    }
 
     fun launch(signInResult: BeginSignInResult) {
         val intent = IntentSenderRequest.Builder(signInResult.pendingIntent.intentSender).build()
         launcher.launch(intent)
     }
 
-    when(val oneTapSignInResponse = viewModel.oneTapSignInState.value) {
+    when (val oneTapSignInResponse = viewModel.oneTapSignInState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Success -> {
             oneTapSignInResponse.data?.let {
@@ -255,7 +255,7 @@ fun LoginScreen(
         }
     }
 
-    when(val signInResponse = viewModel.signInState.value) {
+    when (val signInResponse = viewModel.signInState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Error -> signInResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
@@ -263,14 +263,13 @@ fun LoginScreen(
         is Response.Success -> {}
     }
 
-    when(val saveUserResponse = viewModel.saveUserState.value) {
+    when (val saveUserResponse = viewModel.saveUserState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Error -> saveUserResponse.e?.let {
             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
         is Response.Success -> {}
     }
-
 }
 
 

@@ -43,7 +43,8 @@
 
         <activity
             android:name=".presentation.surveys.SurveyActivity"
-            android:theme="@style/Theme.CardinalKit">
+            android:theme="@style/Theme.CardinalKit"
+            android:label="Survey">
         </activity>
     </application>
 

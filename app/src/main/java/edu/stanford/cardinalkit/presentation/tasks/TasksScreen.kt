@@ -1,16 +1,11 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.TopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,7 +15,6 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.home.components.TaskComponent
 import edu.stanford.cardinalkit.presentation.tasks.components.DatePickerTimeline
 import edu.stanford.cardinalkit.presentation.tasks.components.rememberDatePickerState
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -29,26 +23,24 @@ fun TasksScreen(
     viewModel: TasksViewModel = hiltViewModel()
 ) {
     val datePickerState = rememberDatePickerState(initialDate = LocalDate.now())
-
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                     Row {
                         Text(
                             text = stringResource(R.string.tasks_screen_title),
                             modifier = Modifier.padding(5.dp),
                             fontSize = 22.sp,
-                            fontWeight = FontWeight.Light
+                            fontWeight = FontWeight.Light,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-
                     }
                 },
-                backgroundColor = Color(0xFFF1F1F1),
-                contentColor = Color.Black)
-
+                colors = TopAppBarDefaults.smallTopAppBarColors()
+            )
         },
-        containerColor =  Color(0xFFF5F5F5),
+        containerColor = MaterialTheme.colorScheme.surface,
         content = { padding ->
             Column(modifier = Modifier.padding(padding)){
                 DatePickerTimeline(
@@ -56,7 +48,10 @@ fun TasksScreen(
                     onDateSelected = {selectedDate: LocalDate->
                         viewModel.setDate(selectedDate)
                     },
-                    selectedBackgroundColor = Color.LightGray,
+                    selectedBackgroundColor = MaterialTheme.colorScheme.secondary,
+                    backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                    selectedTextColor = MaterialTheme.colorScheme.onSecondary,
+                    dateTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                     state = datePickerState
                 )
                 Row(modifier= Modifier
@@ -76,7 +71,7 @@ fun TasksScreen(
                             viewModel.setDate(today)
                         },
                     ) {
-                        Text(stringResource(R.string.today), color = PrimaryTheme)
+                        Text(stringResource(R.string.today), color = MaterialTheme.colorScheme.primary)
                     }
                 }
                 Box(modifier= Modifier

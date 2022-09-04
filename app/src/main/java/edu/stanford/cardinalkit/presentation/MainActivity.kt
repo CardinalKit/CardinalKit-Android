@@ -17,6 +17,7 @@ import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 import edu.stanford.cardinalkit.presentation.login.LoginViewModel
 import edu.stanford.cardinalkit.presentation.navigation.CKNavHost
 import edu.stanford.cardinalkit.presentation.navigation.Screens
+import edu.stanford.cardinalkit.ui.theme.CardinalKitTheme
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -65,35 +66,37 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            val navController = rememberAnimatedNavController()
-            val isAuthenticated = remember { mutableStateOf(false) }
+            CardinalKitTheme {
+                val navController = rememberAnimatedNavController()
+                val isAuthenticated = remember { mutableStateOf(false) }
 
-            /**
-             * Observe authentication status - redirect to register/login screen
-             * if not authenticated, or main screen if authenticated.
-             */
+                /**
+                 * Observe authentication status - redirect to register/login screen
+                 * if not authenticated, or main screen if authenticated.
+                 */
 
-            loginViewModel.getAuthStatus().observe(this) {
-                isAuthenticated.value = it
-            }
+                loginViewModel.getAuthStatus().observe(this) {
+                    isAuthenticated.value = it
+                }
 
-            if(isAuthenticated.value) {
-                // Get health data permissions if needed
-                checkPermissionsAndRun()
+                if (isAuthenticated.value) {
+                    // Get health data permissions if needed
+                    checkPermissionsAndRun()
 
-                // Update user's last active date
-                loginViewModel.updateLastActive()
+                    // Update user's last active date
+                    loginViewModel.updateLastActive()
 
-                // Navigate to main screen
-                CKNavHost(
-                    navController = navController,
-                    startDestination = Screens.MainScreen.route
-                )
-            } else {
-                CKNavHost(
-                    navController = navController,
-                    startDestination = Screens.JoinStudyScreen.route
-                )
+                    // Navigate to main screen
+                    CKNavHost(
+                        navController = navController,
+                        startDestination = Screens.MainScreen.route
+                    )
+                } else {
+                    CKNavHost(
+                        navController = navController,
+                        startDestination = Screens.JoinStudyScreen.route
+                    )
+                }
             }
         }
     }

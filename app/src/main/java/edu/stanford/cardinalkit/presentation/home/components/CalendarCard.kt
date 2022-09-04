@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -18,9 +18,9 @@ import java.util.*
 @Preview
 @Composable
 
-fun CalendarCard(){
-    val day= SimpleDateFormat("dd", Locale.getDefault())
-    val month=SimpleDateFormat("MMMM", Locale.getDefault())
+fun CalendarCard() {
+    val day = SimpleDateFormat("dd", Locale.getDefault())
+    val month = SimpleDateFormat("MMMM", Locale.getDefault())
     val currentDay: String = day.format(java.util.Date())
     val currentMonth: String = month.format(java.util.Date())
     Card(
@@ -28,9 +28,9 @@ fun CalendarCard(){
             .width(165.dp)
             .height(165.dp)
             .clickable { },
-        backgroundColor = Color.LightGray,
-        shape= RoundedCornerShape(18),
-    ){
+        backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+        shape = RoundedCornerShape(18),
+    ) {
         Column(
             modifier = Modifier
                 .padding(15.dp)
@@ -40,15 +40,15 @@ fun CalendarCard(){
 
         ) {
             Text(
-                text= currentMonth,
-                fontSize = 18.sp
+                text = currentMonth,
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Text(
-                text= currentDay,
-                fontSize = 65.sp
+                text = currentDay,
+                fontSize = 65.sp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
-
         }
-
     }
 }

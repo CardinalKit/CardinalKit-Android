@@ -1,11 +1,9 @@
 package edu.stanford.cardinalkit.presentation.main.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -13,22 +11,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
     navController: NavHostController,
-    modifier: Modifier,
     tasksViewModel: TasksViewModel = hiltViewModel()
 ) {
-    BottomNavigation {
-        val COLOR_NORMAL = Color.Gray
-        val COLOR_SELECTED = PrimaryTheme
+    NavigationBar {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backStackEntry?.destination?.route
-        Row(modifier = modifier.background(Color.White)) {
+        Row() {
             TabBarItems.BarItems.forEach { navItem ->
-                BottomNavigationItem(
+                NavigationBarItem(
                     selected = currentRoute == navItem.route,
                     onClick = {
                         navController.navigate(navItem.route) {
@@ -60,9 +55,7 @@ fun BottomNavigationBar(
                     },
                     label = {
                         Text(text = navItem.title, color = Color.Gray)
-                    },
-                    selectedContentColor = COLOR_SELECTED,
-                    unselectedContentColor = COLOR_NORMAL
+                    }
                 )
             }
         }

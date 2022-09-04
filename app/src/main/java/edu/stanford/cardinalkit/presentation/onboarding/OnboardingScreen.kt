@@ -5,14 +5,13 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,6 +26,7 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
@@ -44,7 +44,7 @@ fun OnboardingScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                 },
                 navigationIcon = {
@@ -54,9 +54,7 @@ fun OnboardingScreen(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         content = { padding ->
@@ -118,12 +116,10 @@ fun PagerScreen(onboardingPage: OnboardingPage) {
         }
         onboardingPage.title?.let { title ->
             Text(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 text = stringResource(title),
-                fontSize = MaterialTheme.typography.h4.fontSize,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displaySmall
             )
         }
         onboardingPage.description?.let { description ->
@@ -133,8 +129,8 @@ fun PagerScreen(onboardingPage: OnboardingPage) {
                     .padding(horizontal = 40.dp)
                     .padding(top = 10.dp),
                 text = stringResource(description),
-                fontSize = MaterialTheme.typography.subtitle1.fontSize,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -192,8 +188,8 @@ fun PreviousButton(
         TextButton(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Black,
-                backgroundColor = Color.White
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary
             ),
 
             ) {
@@ -222,8 +218,8 @@ fun NextButton(
         TextButton(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Black,
-                backgroundColor = Color.White
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary
             ),
 
             ) {
@@ -258,8 +254,8 @@ fun ReviewButton(
                 onClick = onClick,
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.Gray,
-                    backgroundColor = Color.LightGray
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(

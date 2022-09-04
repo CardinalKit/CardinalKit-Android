@@ -3,15 +3,11 @@ package edu.stanford.cardinalkit.presentation.onboarding
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +24,7 @@ fun Signature(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {},
                 navigationIcon = {
                     IconButton(onClick = {
@@ -37,9 +33,7 @@ fun Signature(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         content = { padding ->
@@ -61,7 +55,7 @@ fun Signature(
                 modifier = Modifier
                     .fillMaxHeight(0.88f)
                     .padding(horizontal = 20.dp)
-                    .padding(top = 10.dp),
+                    .padding(padding),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
@@ -89,8 +83,8 @@ fun Signature(
                         },
                         singleLine = true,
                         colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = Color.Gray,
-                            cursorColor = Color.LightGray
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -104,8 +98,8 @@ fun Signature(
                         },
                         singleLine = true,
                         colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = Color.Gray,
-                            cursorColor = Color.LightGray
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -122,7 +116,7 @@ fun Signature(
                             .fillMaxWidth()
                             .border(
                                 width = 2.dp,
-                                color = Color.LightGray,
+                                color = MaterialTheme.colorScheme.primary,
                             )
                     ) {
                         SignaturePadView(
@@ -144,8 +138,8 @@ fun Signature(
                             },
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
-                                contentColor = Color.Gray,
-                                backgroundColor = Color.LightGray
+                                contentColor = MaterialTheme.colorScheme.onPrimary,
+                                containerColor = MaterialTheme.colorScheme.primary
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -167,8 +161,8 @@ fun Signature(
                             },
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
-                                contentColor = Color.Black,
-                                backgroundColor = Color.White
+                                contentColor = MaterialTheme.colorScheme.onSecondary,
+                                containerColor = MaterialTheme.colorScheme.secondary
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -177,6 +171,7 @@ fun Signature(
                             androidx.compose.material.Text(
                                 text = stringResource(R.string.clear),
                                 fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.onSecondary,
                                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 30.dp)
                             )
                         }
