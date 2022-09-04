@@ -6,11 +6,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,29 +40,31 @@ fun ContactsScreen(
                         fontWeight = FontWeight.Light
                     )
                 },
-                backgroundColor = Color(0xFFF1F1F1),
-                contentColor = Color.Black)
+                backgroundColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onBackground
+            )
 
         },
-        containerColor =  Color(0xFFF5F5F5),
+        containerColor = MaterialTheme.colorScheme.background,
         content = { padding ->
-           Column(modifier=Modifier.padding(bottom=50.dp)){
-               when(val contactsResponse = viewModel.contactsState.value) {
-                   is Response.Error -> Timber.d(contactsResponse.e?.message.toString())
-                   is Response.Loading -> ProgressIndicator()
-                   is Response.Success -> LazyColumn(
-                       modifier = Modifier
-                           .padding(top = 60.dp)
-                   ) { if(contactsResponse.data != null) {
-                       items(
-                           items = contactsResponse.data
-                       ) { contact ->
-                           ContactCard(contact)
-                       }
-                   }
-                   }
-               }
-           }
+            Column(modifier = Modifier.padding(bottom = 50.dp)) {
+                when (val contactsResponse = viewModel.contactsState.value) {
+                    is Response.Error -> Timber.d(contactsResponse.e?.message.toString())
+                    is Response.Loading -> ProgressIndicator()
+                    is Response.Success -> LazyColumn(
+                        modifier = Modifier
+                            .padding(top = 60.dp)
+                    ) {
+                        if (contactsResponse.data != null) {
+                            items(
+                                items = contactsResponse.data
+                            ) { contact ->
+                                ContactCard(contact)
+                            }
+                        }
+                    }
+                }
+            }
         }
     )
 }

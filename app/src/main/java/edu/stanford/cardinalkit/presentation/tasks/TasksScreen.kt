@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,7 +24,6 @@ fun TasksScreen(
     viewModel: TasksViewModel = hiltViewModel()
 ) {
     val datePickerState = rememberDatePickerState(initialDate = LocalDate.now())
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -37,14 +35,12 @@ fun TasksScreen(
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Light
                         )
-
                     }
                 },
                 backgroundColor = MaterialTheme.colorScheme.background,
                 contentColor = MaterialTheme.colorScheme.onBackground)
-
         },
-        containerColor =  Color(0xFFF5F5F5),
+        containerColor = MaterialTheme.colorScheme.background,
         content = { padding ->
             Column(modifier = Modifier.padding(padding)){
                 DatePickerTimeline(
@@ -53,6 +49,7 @@ fun TasksScreen(
                         viewModel.setDate(selectedDate)
                     },
                     selectedBackgroundColor = MaterialTheme.colorScheme.secondary,
+                    backgroundColor = MaterialTheme.colorScheme.primary,
                     state = datePickerState
                 )
                 Row(modifier= Modifier

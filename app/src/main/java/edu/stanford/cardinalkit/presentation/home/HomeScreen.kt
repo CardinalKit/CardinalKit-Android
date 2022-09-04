@@ -62,12 +62,14 @@ fun HomeScreen(
                     text = stringResource(R.string.welcome),
                     fontSize = 25.sp,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 3.dp)
+                    modifier = Modifier.padding(bottom = 3.dp),
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
                     text = stringResource(R.string.welcome_message),
                     fontSize = 15.sp,
-                    modifier = Modifier.padding(bottom = 10.dp)
+                    modifier = Modifier.padding(bottom = 10.dp),
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -77,7 +79,8 @@ fun HomeScreen(
                     Text(
                         text = stringResource(R.string.task_summary),
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp
+                        fontSize = 18.sp,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                     IconButton(onClick = {
                         navController.navigate(Screens.TasksScreen.route) {

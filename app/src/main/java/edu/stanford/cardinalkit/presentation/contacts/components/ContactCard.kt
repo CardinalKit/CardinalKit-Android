@@ -14,7 +14,6 @@ import androidx.compose.material3.CardDefaults.cardColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -25,7 +24,6 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.domain.models.Contact
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +35,7 @@ fun ContactCard(
             .fillMaxWidth()
             .padding(20.dp)
             .clickable { },
-        colors = cardColors(Color.White)
+        colors = cardColors(MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column(
             modifier = Modifier
@@ -48,7 +46,7 @@ fun ContactCard(
                 Icon(imageVector = Icons.Filled.AccountCircle , modifier = Modifier
                     .padding(end = 10.dp)
                     .height(50.dp)
-                    .width(45.dp), contentDescription = "profile", tint = PrimaryTheme)
+                    .width(45.dp), contentDescription = "profile", tint = MaterialTheme.colorScheme.onPrimaryContainer)
                 Column {
                     Text(
                         text = "${contact.title} ${contact.firstName} ${contact.lastName}",
@@ -84,7 +82,7 @@ fun ContactCard(
                     }
                     .fillMaxWidth()
                     .padding(10.dp),
-                colors = cardColors(Color.White)) {
+                colors = cardColors(MaterialTheme.colorScheme.secondaryContainer)) {
                 Column(
                     modifier = Modifier
                         .padding(15.dp)
@@ -123,7 +121,7 @@ fun ContactSection(
             Text(
                 text = stringResource(R.string.call),
                 fontSize = 14.sp,
-                color = PrimaryTheme,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
@@ -138,7 +136,7 @@ fun ContactSection(
             Text(
                 text = stringResource(R.string.sms),
                 fontSize = 14.sp,
-                color = PrimaryTheme,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
@@ -150,7 +148,7 @@ fun ContactSection(
             Text(
                 text = stringResource(R.string.email),
                 fontSize = 14.sp,
-                color = PrimaryTheme,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .padding(vertical = 5.dp)

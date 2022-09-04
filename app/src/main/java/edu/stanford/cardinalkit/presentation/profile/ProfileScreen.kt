@@ -14,13 +14,13 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -36,7 +36,6 @@ import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.profile.components.ProfileCard
 import edu.stanford.cardinalkit.presentation.profile.components.UserCard
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,11 +56,11 @@ fun ProfileScreen(
                         fontWeight = FontWeight.Light
                     )
                 },
-                backgroundColor = Color(0xFFF1F1F1),
-                contentColor = Color.Black)
+                backgroundColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface)
 
         },
-        containerColor =  Color(0xFFF5F5F5),
+        containerColor =  MaterialTheme.colorScheme.background,
         content = { padding ->
             Column(
                 modifier = Modifier
@@ -79,13 +78,14 @@ fun ProfileScreen(
                             .height(100.dp)
                             .width(100.dp)
                             .align(Alignment.CenterHorizontally),
-                        colorFilter = ColorFilter.tint(PrimaryTheme)
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
                     )
                     Text(
                         modifier = Modifier.padding(top = 20.dp),
                         text = stringResource(R.string.user_id),
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                     UserCard(
                         userID = viewModel.userID
@@ -105,8 +105,8 @@ fun ProfileScreen(
                         onClick = {viewModel.signOut()},
                         shape= RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.Gray,
-                            backgroundColor = Color.LightGray
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                            backgroundColor = MaterialTheme.colorScheme.primary
                         )
                     ) {
                         androidx.compose.material.Text(
@@ -138,27 +138,29 @@ fun ScreenContent(
 ){
     Column() {
         val context = LocalContext.current
-        Row(Modifier.background(Color.White)){
-            ProfileCard(title = stringResource(R.string.upload_health_data_button),
-            onClick={},
+        Row(Modifier.background(MaterialTheme.colorScheme.primary)){
+            ProfileCard(
+                title = stringResource(R.string.upload_health_data_button),
+                onClick = {},
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(Color.White)){
-            ProfileCard(title = stringResource(R.string.report_issue_button),
-                onClick={
+        Row(Modifier.background(MaterialTheme.colorScheme.primary)){
+            ProfileCard(
+                title = stringResource(R.string.report_issue_button),
+                onClick = {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse("https://github.com/CardinalKit/CardinalKit/issues")
                     }
                     context.startActivity(intent, bundleOf())
-
                 }
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(Color.White)){
-            ProfileCard(title = stringResource(R.string.support_button),
-                onClick={
+        Row(Modifier.background(MaterialTheme.colorScheme.primary)){
+            ProfileCard(
+                title = stringResource(R.string.support_button),
+                onClick = {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse("https://cardinalkit.org/")
                     }
@@ -167,10 +169,10 @@ fun ScreenContent(
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(Color.White)) {
+        Row(Modifier.background(MaterialTheme.colorScheme.primary)) {
             ProfileCard(
                 title = stringResource(R.string.view_consent_button),
-                onClick={navController.navigate(Screens.ReviewConsent.route)})
+                onClick = {navController.navigate(Screens.ReviewConsent.route)})
         }
     }
 }

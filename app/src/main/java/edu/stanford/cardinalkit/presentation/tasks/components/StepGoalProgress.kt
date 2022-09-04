@@ -2,10 +2,10 @@ package edu.stanford.cardinalkit.presentation.tasks.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -13,7 +13,6 @@ import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 
 @Composable
 fun StepGoalProgress(
@@ -45,18 +44,18 @@ fun StepGoalProgress(
         Text(
             text = "$totalStepsToday",
             fontSize = 30.sp,
-            color = PrimaryTheme
+            color = MaterialTheme.colorScheme.onPrimary
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = "/ $goal",
             fontSize = 30.sp,
-            color = Color.DarkGray
+            color = MaterialTheme.colorScheme.onPrimary
         )
     }
     LinearProgressIndicator(
         progress = progress,
         modifier = Modifier.fillMaxWidth().padding(5.dp),
-        color = PrimaryTheme
+        color = MaterialTheme.colorScheme.onPrimary
     )
 }

@@ -14,7 +14,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +27,6 @@ import edu.stanford.cardinalkit.domain.models.tasks.CKTaskCategory
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
 import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
-import edu.stanford.cardinalkit.ui.theme.PrimaryTheme
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,7 +93,7 @@ fun TaskCard(
                         .show()
                 }
             },
-        colors = CardDefaults.cardColors(Color.White)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column(
             modifier = Modifier
@@ -111,14 +109,14 @@ fun TaskCard(
                     if (completed.value) {
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
-                            tint = PrimaryTheme,
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             contentDescription = "Task Completed",
                             modifier = Modifier.padding(15.dp)
                         )
                     } else {
                         Icon(
                             imageVector = Icons.Outlined.Circle,
-                            tint = PrimaryTheme,
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             contentDescription = "Complete a task",
                             modifier = Modifier.padding(15.dp)
                         )
@@ -130,12 +128,14 @@ fun TaskCard(
                     Text(
                         text = task.title,
                         modifier = Modifier.padding(horizontal = 7.dp),
-                        fontSize = 20.sp
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Text(
                         text = task.description,
                         modifier = Modifier.padding(horizontal = 7.dp),
-                        fontSize = 14.sp
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     /**
                      * Additional widgets with information for specific task types
