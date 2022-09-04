@@ -68,7 +68,8 @@ fun LoginScreen(
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
+                // TODO: Add Dark Mode support for these images
+                 Image(
                     modifier = Modifier
                         .padding(top = 10.dp)
                         .fillMaxWidth(0.5f)

@@ -34,13 +34,13 @@ fun ContactsScreen(
                         modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Light,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        containerColor = MaterialTheme.colorScheme.surface,
         content = { padding ->
             Column(modifier = Modifier.padding(bottom = 50.dp)) {
                 when (val contactsResponse = viewModel.contactsState.value) {

@@ -67,6 +67,7 @@ fun RegisterMethod(
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // TODO: Add Dark Mode support for these images
                 Image(
                     modifier = Modifier
                         .padding(top = 10.dp)

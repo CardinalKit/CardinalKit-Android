@@ -93,7 +93,7 @@ fun TaskCard(
                         .show()
                 }
             },
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(
             modifier = Modifier
@@ -109,14 +109,14 @@ fun TaskCard(
                     if (completed.value) {
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
-                            tint = MaterialTheme.colorScheme.onSurface,
+                            tint = MaterialTheme.colorScheme.primary,
                             contentDescription = "Task Completed",
                             modifier = Modifier.padding(15.dp)
                         )
                     } else {
                         Icon(
                             imageVector = Icons.Outlined.Circle,
-                            tint = MaterialTheme.colorScheme.onSurface,
+                            tint = MaterialTheme.colorScheme.primary,
                             contentDescription = "Complete a task",
                             modifier = Modifier.padding(15.dp)
                         )
@@ -129,13 +129,13 @@ fun TaskCard(
                         text = task.title,
                         modifier = Modifier.padding(horizontal = 7.dp),
                         fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = task.description,
                         modifier = Modifier.padding(horizontal = 7.dp),
                         fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     /**
                      * Additional widgets with information for specific task types

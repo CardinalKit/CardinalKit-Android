@@ -39,13 +39,13 @@ fun HomeScreen(
                         modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Light,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        containerColor = MaterialTheme.colorScheme.surface,
         content = { padding ->
             Column(
                 modifier = Modifier
@@ -86,7 +86,11 @@ fun HomeScreen(
                             restoreState = true
                         }
                     }) {
-                        Icon(Icons.Filled.ArrowForward, "forward icon")
+                        Icon(
+                            Icons.Filled.ArrowForward,
+                            "forward icon",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
                 TaskCardUI()

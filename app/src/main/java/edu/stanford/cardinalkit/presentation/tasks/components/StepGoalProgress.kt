@@ -44,18 +44,17 @@ fun StepGoalProgress(
         Text(
             text = "$totalStepsToday",
             fontSize = 30.sp,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = "/ $goal",
             fontSize = 30.sp,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
     LinearProgressIndicator(
         progress = progress,
-        modifier = Modifier.fillMaxWidth().padding(5.dp),
-        color = MaterialTheme.colorScheme.onSurface
+        modifier = Modifier.fillMaxWidth().padding(5.dp)
     )
 }

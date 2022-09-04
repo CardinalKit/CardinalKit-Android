@@ -171,6 +171,7 @@ fun Signature(
                             androidx.compose.material.Text(
                                 text = stringResource(R.string.clear),
                                 fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.onSecondary,
                                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 30.dp)
                             )
                         }

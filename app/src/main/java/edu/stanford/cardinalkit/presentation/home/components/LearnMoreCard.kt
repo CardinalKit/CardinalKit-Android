@@ -32,7 +32,7 @@ fun LearnMoreCard(){
         modifier = Modifier
             .fillMaxWidth()
             .clickable { },
-        backgroundColor = MaterialTheme.colorScheme.primary,
+        backgroundColor = MaterialTheme.colorScheme.secondary,
         shape = RoundedCornerShape(18)
     ){
         Column(
@@ -42,19 +42,19 @@ fun LearnMoreCard(){
         ) {
             Text(
                 text= "Learn About CardinalKit",
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontWeight= FontWeight.SemiBold,
                 modifier = Modifier.padding(bottom = 5.dp),
                 fontSize = 20.sp
             )
             Text(
                 text= "Visit Cardinalkit.org",
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onSecondary
             )
             Spacer(modifier = Modifier.height(40.dp))
             Text(
                 text= "See More",
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onSecondary,
                 fontWeight = FontWeight.SemiBold
             )
         }

@@ -20,7 +20,7 @@ fun ProfileCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant),
     ) {
         Column(
             modifier = Modifier.padding(15.dp)
@@ -28,7 +28,7 @@ fun ProfileCard(
             Text(
                 text = title,
                 fontSize = 15.sp,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

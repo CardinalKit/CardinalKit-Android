@@ -60,6 +60,7 @@ fun SignInMethod(
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // TODO: Add Dark Mode Support for these images
                 Image(
                     modifier = Modifier
                         .padding(top = 10.dp)
@@ -243,6 +244,7 @@ fun SignIn(
                 text = stringResource(R.string.sign_in_with_email),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier
                     .padding(vertical = 8.dp)
                     .padding(horizontal = 20.dp)

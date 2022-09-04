@@ -35,7 +35,7 @@ fun ContactCard(
             .fillMaxWidth()
             .padding(20.dp)
             .clickable { },
-        colors = cardColors(MaterialTheme.colorScheme.surface)
+        colors = cardColors(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(
             modifier = Modifier
@@ -43,10 +43,15 @@ fun ContactCard(
                 .fillMaxWidth()
         ) {
             Row {
-                Icon(imageVector = Icons.Filled.AccountCircle , modifier = Modifier
-                    .padding(end = 10.dp)
-                    .height(50.dp)
-                    .width(45.dp), contentDescription = "profile", tint = MaterialTheme.colorScheme.primary)
+                Icon(
+                    imageVector = Icons.Filled.AccountCircle,
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .height(50.dp)
+                        .width(45.dp),
+                    contentDescription = "profile",
+                    tint = MaterialTheme.colorScheme.primary
+                )
                 Column {
                     Text(
                         text = "${contact.title} ${contact.firstName} ${contact.lastName}",
@@ -82,7 +87,7 @@ fun ContactCard(
                     }
                     .fillMaxWidth()
                     .padding(10.dp),
-                colors = cardColors(MaterialTheme.colorScheme.surface)) {
+                colors = cardColors(MaterialTheme.colorScheme.surfaceVariant)) {
                 Column(
                     modifier = Modifier
                         .padding(15.dp)
@@ -111,17 +116,17 @@ fun ContactSection(
     phoneNumber: String,
     smsNumber: String,
     email: String
-){
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
+) {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         val context = LocalContext.current
         OutlinedButton(
             onClick = { makeACall(context = context, phoneNumber = phoneNumber) },
-            modifier= Modifier.padding(5.dp)
+            modifier = Modifier.padding(5.dp)
         ) {
             Text(
                 text = stringResource(R.string.call),
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
@@ -131,24 +136,25 @@ fun ContactSection(
             onClick = {
                 sendAText(context = context, smsNumber = smsNumber)
             },
-            modifier= Modifier.padding(5.dp)
+            modifier = Modifier.padding(5.dp)
         ) {
             Text(
                 text = stringResource(R.string.sms),
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .padding(vertical = 5.dp)
             )
         }
-        OutlinedButton(onClick = { sendEmail(context = context, recipientMail = email) },
-            modifier= Modifier.padding(5.dp)
+        OutlinedButton(
+            onClick = { sendEmail(context = context, recipientMail = email) },
+            modifier = Modifier.padding(5.dp)
         ) {
             Text(
                 text = stringResource(R.string.email),
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .padding(vertical = 5.dp)
@@ -158,7 +164,7 @@ fun ContactSection(
 }
 
 fun makeACall(context: Context, phoneNumber: String) {
-    if (ContextCompat.checkSelfPermission(context,android.Manifest.permission.CALL_PHONE ) ==
+    if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) ==
         PackageManager.PERMISSION_GRANTED
     ) {
         val intent = Intent(Intent.ACTION_CALL)
@@ -172,7 +178,7 @@ fun makeACall(context: Context, phoneNumber: String) {
 }
 
 fun sendAText(context: Context, smsNumber: String) {
-    if (ContextCompat.checkSelfPermission(context,android.Manifest.permission.SEND_SMS ) ==
+    if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.SEND_SMS) ==
         PackageManager.PERMISSION_GRANTED
     ) {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -186,14 +192,18 @@ fun sendAText(context: Context, smsNumber: String) {
 }
 
 fun sendEmail(context: Context, recipientMail: String) {
-    val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-        "mailto", recipientMail, null))
+    val emailIntent = Intent(
+        Intent.ACTION_SENDTO, Uri.fromParts(
+            "mailto", recipientMail, null
+        )
+    )
     startActivity(context, Intent.createChooser(emailIntent, "Choose an email client:"), bundleOf())
 }
 
-fun openMaps(context: Context, contact: Contact){
-    val gmmIntentUri = Uri.parse("geo:0,0?q=${contact.streetAddress}, ${contact.city}, ${contact.state}, ${contact.country}")
+fun openMaps(context: Context, contact: Contact) {
+    val gmmIntentUri =
+        Uri.parse("geo:0,0?q=${contact.streetAddress}, ${contact.city}, ${contact.state}, ${contact.country}")
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
     mapIntent.setPackage("com.google.android.apps.maps")
-    startActivity(context, mapIntent,bundleOf())
+    startActivity(context, mapIntent, bundleOf())
 }

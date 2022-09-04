@@ -50,13 +50,13 @@ fun ProfileScreen(
                         modifier = Modifier.padding(5.dp),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Light,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
-        containerColor =  MaterialTheme.colorScheme.surfaceVariant,
+        containerColor =  MaterialTheme.colorScheme.surface,
         content = { padding ->
             Column(
                 modifier = Modifier
@@ -81,7 +81,7 @@ fun ProfileScreen(
                         text = stringResource(R.string.user_id),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     UserCard(
                         userID = viewModel.userID
@@ -101,8 +101,8 @@ fun ProfileScreen(
                         onClick = {viewModel.signOut()},
                         shape= RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                            backgroundColor = MaterialTheme.colorScheme.primary
+                            contentColor = MaterialTheme.colorScheme.onTertiary,
+                            backgroundColor = MaterialTheme.colorScheme.tertiary
                         )
                     ) {
                         androidx.compose.material.Text(
@@ -134,14 +134,14 @@ fun ScreenContent(
 ){
     Column() {
         val context = LocalContext.current
-        Row(Modifier.background(MaterialTheme.colorScheme.primary)){
+        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)){
             ProfileCard(
                 title = stringResource(R.string.upload_health_data_button),
                 onClick = {},
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(MaterialTheme.colorScheme.primary)){
+        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)){
             ProfileCard(
                 title = stringResource(R.string.report_issue_button),
                 onClick = {
@@ -153,7 +153,7 @@ fun ScreenContent(
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(MaterialTheme.colorScheme.primary)){
+        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)){
             ProfileCard(
                 title = stringResource(R.string.support_button),
                 onClick = {
@@ -165,7 +165,7 @@ fun ScreenContent(
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(MaterialTheme.colorScheme.primary)) {
+        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
             ProfileCard(
                 title = stringResource(R.string.view_consent_button),
                 onClick = {navController.navigate(Screens.ReviewConsent.route)})

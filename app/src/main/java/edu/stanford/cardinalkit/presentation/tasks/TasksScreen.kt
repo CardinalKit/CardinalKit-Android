@@ -40,7 +40,7 @@ fun TasksScreen(
                 colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        containerColor = MaterialTheme.colorScheme.surface,
         content = { padding ->
             Column(modifier = Modifier.padding(padding)){
                 DatePickerTimeline(
