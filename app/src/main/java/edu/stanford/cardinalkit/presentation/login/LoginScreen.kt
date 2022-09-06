@@ -155,14 +155,14 @@ fun LoginScreen(
                     TextButton(
                         onClick = { navController.navigate(Screens.ForgotPasswordScreen.route) },
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                            containerColor = MaterialTheme.colorScheme.primary
+                            contentColor = MaterialTheme.colorScheme.onSurface,
+                            containerColor = MaterialTheme.colorScheme.surface
                         ),
                     ) {
                         Text(
                             text = stringResource(R.string.forgot_password_button),
                             fontSize = 13.sp,
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     TextButton(
