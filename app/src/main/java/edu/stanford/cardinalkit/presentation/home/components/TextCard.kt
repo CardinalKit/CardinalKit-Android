@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 @Preview
 @Composable
 
-fun CKSurveyCard(){
+fun TextCard(){
     Card(
         onClick = {},
         modifier = Modifier

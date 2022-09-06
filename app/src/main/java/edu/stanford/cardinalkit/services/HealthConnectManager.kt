@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class HealthConnectManager @Inject constructor(
     private val context: Context
-    ){
+) {
     val healthConnectClient by lazy { HealthConnectClient.getOrCreate(context) }
 
     var isAvailable = mutableStateOf(false); private set
@@ -28,7 +28,9 @@ class HealthConnectManager @Inject constructor(
      * Determines if all requested permissions are granted.
      */
     suspend fun hasAllPermissions(permissions: Set<HealthPermission>): Boolean {
-        return permissions == healthConnectClient.permissionController.getGrantedPermissions(permissions)
+        return permissions == healthConnectClient.permissionController.getGrantedPermissions(
+            permissions
+        )
     }
 
     /**
@@ -37,7 +39,7 @@ class HealthConnectManager @Inject constructor(
     suspend fun readStepsByTimeRange(
         startTime: Instant,
         endTime: Instant
-    ): List<StepsRecord>  {
+    ): List<StepsRecord> {
         val response =
             healthConnectClient.readRecords(
                 ReadRecordsRequest(

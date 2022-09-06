@@ -17,6 +17,7 @@
     <string name="new_user_button">I am a New User</string>
     <string name="existing_user_button">I am an Existing User</string>
     <string name="sign_in_with_google_button">Sign In With Google</string>
+    <string name="sign_up_with_google">Sign Up With Google</string>
     <string name="create_account_button">Create an Account</string>
     <string name="get_started_button">Get Started</string>
     <string name="register_button">Register</string>
@@ -57,6 +58,7 @@
     <string name="location">Location</string>
     <string name="call">Call</string>
     <string name="sms">SMS</string>
+    <string name="create_a_new_account">Create a New Account</string>
 
     <!-- Onboarding -->
     <string name="welcome_title">Welcome to CardinalKit</string>

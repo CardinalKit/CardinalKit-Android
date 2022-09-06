@@ -29,7 +29,6 @@ import edu.stanford.cardinalkit.presentation.surveys.SurveyActivity
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 import java.time.LocalDate
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskCard(
     task: CKTask,
@@ -110,7 +109,7 @@ fun TaskCard(
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
                             tint = MaterialTheme.colorScheme.primary,
-                            contentDescription = "Task Completed",
+                            contentDescription = "Task completed",
                             modifier = Modifier.padding(15.dp)
                         )
                     } else {

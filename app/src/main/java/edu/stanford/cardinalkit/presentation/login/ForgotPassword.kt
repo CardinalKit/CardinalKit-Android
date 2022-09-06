@@ -75,13 +75,15 @@ fun ForgotPassword(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = if(emailSent) stringResource(R.string.reset_password_email_message) else stringResource(R.string.reset_password_instructions)
+                    text = if (emailSent) stringResource(R.string.reset_password_email_message) else stringResource(
+                        R.string.reset_password_instructions
+                    )
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 var emailPassword by remember {
                     mutableStateOf("")
                 }
-                if(!emailSent) {
+                if (!emailSent) {
                     OutlinedTextField(
                         value = emailPassword,
                         onValueChange = { newText ->
@@ -124,7 +126,7 @@ fun ForgotPassword(
                     Row(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
-                    ){
+                    ) {
                         TextButton(
                             onClick = {
                                 emailSent = false
@@ -133,7 +135,7 @@ fun ForgotPassword(
                                 contentColor = MaterialTheme.colorScheme.onPrimary,
                                 containerColor = MaterialTheme.colorScheme.primary
                             )
-                        ){
+                        ) {
                             Text(
                                 text = stringResource(R.string.resend_email),
                                 fontSize = 15.sp,
@@ -156,7 +158,7 @@ fun ForgotPassword(
             }
         }
         is Response.Success -> resetPassword.data?.let { success ->
-            if(success) {
+            if (success) {
                 emailSent = true
             }
         }

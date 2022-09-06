@@ -20,32 +20,35 @@ import javax.inject.Named
 @HiltViewModel
 class SurveyViewModel @Inject constructor(
     @Named(Constants.SURVEYS_USE_CASES) private val useCases: SurveysUseCases
-): ViewModel() {
+) : ViewModel() {
 
-    private val _surveyDownloadState: MutableLiveData<Response<String?>> = MutableLiveData(Response.Loading)
+    private val _surveyDownloadState: MutableLiveData<Response<String?>> =
+        MutableLiveData(Response.Loading)
     val surveyDownloadState: LiveData<Response<String?>> = _surveyDownloadState
 
-    private val _surveyResultUploadedState: MutableLiveData<Response<Void?>> = MutableLiveData(Response.Loading)
+    private val _surveyResultUploadedState: MutableLiveData<Response<Void?>> =
+        MutableLiveData(Response.Loading)
     val surveyResultUploadedState: LiveData<Response<Void?>> = _surveyResultUploadedState
 
-    fun uploadSurveyResult(surveyName: String, questionnaireResponse: QuestionnaireResponse) = viewModelScope.launch {
-        // Serialize the results from QuestionnaireResponse to JSON
-        val jsonParser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
-        val questionnaireResponseString =
-            jsonParser.encodeResourceToString(questionnaireResponse)
+    fun uploadSurveyResult(surveyName: String, questionnaireResponse: QuestionnaireResponse) =
+        viewModelScope.launch {
+            // Serialize the results from QuestionnaireResponse to JSON
+            val jsonParser = FhirContext.forCached(FhirVersionEnum.R4).newJsonParser()
+            val questionnaireResponseString =
+                jsonParser.encodeResourceToString(questionnaireResponse)
 
-        // Upload results to the database
-        val surveyResult = SurveyResult(
-            id = UUID.randomUUID().toString(),
-            name = surveyName,
-            data = questionnaireResponseString,
-            date = Date()
-        )
+            // Upload results to the database
+            val surveyResult = SurveyResult(
+                id = UUID.randomUUID().toString(),
+                name = surveyName,
+                data = questionnaireResponseString,
+                date = Date()
+            )
 
-        useCases.uploadSurveyResult(surveyResult).collect { response ->
-            _surveyResultUploadedState.value = response
+            useCases.uploadSurveyResult(surveyResult).collect { response ->
+                _surveyResultUploadedState.value = response
+            }
         }
-    }
 
     fun getSurvey(name: String) = viewModelScope.launch {
         useCases.getSurvey(name).collect { response ->

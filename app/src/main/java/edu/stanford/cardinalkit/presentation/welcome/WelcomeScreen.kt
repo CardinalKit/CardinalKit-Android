@@ -38,7 +38,7 @@ fun WelcomeScreen(
                     IconButton(onClick = {
                         navController.navigate(Screens.JoinStudyScreen.route)
                     }) {
-                        Icon(Icons.Filled.ArrowBack, "back Icon")
+                        Icon(Icons.Filled.ArrowBack, "back icon")
                     }
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors()

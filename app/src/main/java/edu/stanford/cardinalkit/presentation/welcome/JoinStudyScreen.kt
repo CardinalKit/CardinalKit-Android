@@ -22,11 +22,10 @@ import androidx.navigation.NavHostController
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JoinStudyScreen(
     navController: NavHostController
-){
+) {
     Scaffold(
         backgroundColor = MaterialTheme.colorScheme.background,
         content = { padding ->
@@ -34,6 +33,7 @@ fun JoinStudyScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
+                    .padding(padding)
                     .padding(horizontal = 40.dp)
                     .padding(top = 100.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -63,13 +63,13 @@ fun JoinStudyScreen(
                 Spacer(modifier = Modifier.height(30.dp))
                 JoinStudyButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigate(Screens.WelcomeScreen.route)})
+                    onClick = { navController.navigate(Screens.WelcomeScreen.route) })
                 Spacer(modifier = Modifier.height(15.dp))
                 ReturningUser(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = {navController.navigate(Screens.SignInMethod.route)})
+                    onClick = { navController.navigate(Screens.SignInMethod.route) })
             }
-    })
+        })
 }
 
 @Composable
@@ -81,10 +81,10 @@ fun JoinStudyButton(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center,
-    )  {
+    ) {
         Button(
             onClick = onClick,
-            shape= RoundedCornerShape(50),
+            shape = RoundedCornerShape(50),
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 backgroundColor = MaterialTheme.colorScheme.primary
@@ -94,7 +94,8 @@ fun JoinStudyButton(
             Text(
                 text = stringResource(R.string.new_user_button),
                 fontSize = 16.sp,
-                modifier = Modifier.padding(vertical=8.dp))
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
     }
 }
@@ -108,10 +109,10 @@ fun ReturningUser(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center,
-    )  {
+    ) {
         Button(
             onClick = onClick,
-            shape= RoundedCornerShape(50),
+            shape = RoundedCornerShape(50),
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onSecondary,
                 backgroundColor = MaterialTheme.colorScheme.secondary
@@ -121,7 +122,8 @@ fun ReturningUser(
             Text(
                 text = stringResource(R.string.existing_user_button),
                 fontSize = 16.sp,
-                modifier = Modifier.padding(vertical=8.dp))
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
     }
 }

@@ -67,15 +67,6 @@ fun RegisterMethod(
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // TODO: Add Dark Mode support for these images
-                Image(
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth(0.5f)
-                        .fillMaxHeight(0.16f),
-                    painter = painterResource(R.drawable.branding_light),
-                    contentDescription = "branding"
-                )
                 Image(
                     modifier = Modifier
                         .fillMaxWidth(0.55f)
@@ -84,7 +75,7 @@ fun RegisterMethod(
                     contentDescription = "branding"
                 )
                 Text(
-                    text = "Create a New Account",
+                    text = stringResource(R.string.create_a_new_account),
                     fontSize = 26.sp,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold,
@@ -132,7 +123,7 @@ fun RegisterMethod(
                                 contentDescription = "google"
                             )
                             Text(
-                                text = "Sign Up With Google",
+                                text = stringResource(R.string.sign_in_with_google_button),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
                                 color = MaterialTheme.colorScheme.onPrimary,

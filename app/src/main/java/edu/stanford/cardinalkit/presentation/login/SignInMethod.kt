@@ -46,7 +46,7 @@ fun SignInMethod(
                     IconButton(onClick = {
                         navController.navigate(Screens.JoinStudyScreen.route)
                     }) {
-                        Icon(Icons.Filled.ArrowBack, "back Icon")
+                        Icon(Icons.Filled.ArrowBack, "back icon")
                     }
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors()
@@ -60,15 +60,6 @@ fun SignInMethod(
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // TODO: Add Dark Mode Support for these images
-                Image(
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth(0.5f)
-                        .fillMaxHeight(0.16f),
-                    painter = painterResource(R.drawable.branding_light),
-                    contentDescription = "branding"
-                )
                 Image(
                     modifier = Modifier
                         .fillMaxWidth(0.55f)
