@@ -32,7 +32,7 @@ fun LearnMoreCard(){
         modifier = Modifier
             .fillMaxWidth()
             .clickable { },
-        backgroundColor = MaterialTheme.colorScheme.secondary,
+        backgroundColor = MaterialTheme.colorScheme.primaryContainer,
         shape = RoundedCornerShape(18)
     ){
         Column(
@@ -41,20 +41,20 @@ fun LearnMoreCard(){
                 .fillMaxWidth()
         ) {
             Text(
-                text= "Learn About CardinalKit",
-                color = MaterialTheme.colorScheme.onSecondary,
+                text= "Customize Your App",
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight= FontWeight.SemiBold,
                 modifier = Modifier.padding(bottom = 5.dp),
                 fontSize = 20.sp
             )
             Text(
-                text= "Visit Cardinalkit.org",
-                color = MaterialTheme.colorScheme.onSecondary
+                text= "This is a template app that you can customize to create your own digital health experience.",
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.height(40.dp))
             Text(
-                text= "See More",
-                color = MaterialTheme.colorScheme.onSecondary,
+                text= "Learn how at cardinalkit.org",
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.SemiBold
             )
         }

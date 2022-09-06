@@ -75,7 +75,9 @@ fun OnboardingScreen(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .weight(2f),
-                    pagerState = pagerState
+                    pagerState = pagerState,
+                    activeColor = MaterialTheme.colorScheme.primary,
+                    inactiveColor = MaterialTheme.colorScheme.secondary
                 )
                 Box(
                     modifier = Modifier

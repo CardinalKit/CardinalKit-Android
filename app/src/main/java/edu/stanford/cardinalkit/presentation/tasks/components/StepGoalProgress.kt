@@ -55,6 +55,7 @@ fun StepGoalProgress(
     }
     LinearProgressIndicator(
         progress = progress,
-        modifier = Modifier.fillMaxWidth().padding(5.dp)
+        modifier = Modifier.fillMaxWidth().padding(5.dp),
+        color = MaterialTheme.colorScheme.onSurfaceVariant
     )
 }

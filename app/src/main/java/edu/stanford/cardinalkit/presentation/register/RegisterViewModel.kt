@@ -2,7 +2,6 @@ package edu.stanford.cardinalkit.presentation.register
 
 import android.text.TextUtils
 import android.util.Patterns
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,23 +20,23 @@ class RegisterViewModel @Inject constructor(
     private val useCases: AuthUseCases
 ): ViewModel() {
 
-    private val _signUpState = mutableStateOf<Response<Boolean>>(Response.Success(null))
-    val signUpState: State<Response<Boolean>> = _signUpState
+    var signUpState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+        private set
 
-    private val _saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
-    val saveUserState: State<Response<Boolean>> = _saveUserState
+    var saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+        private set
 
     fun signUp(email: String, password: String) {
         viewModelScope.launch {
             useCases.signUpWithEmail(email, password).collect() { result ->
-                _signUpState.value = result
+                signUpState.value = result
             }
         }
     }
 
     fun saveUser() = viewModelScope.launch {
         useCases.saveUser().collect { response ->
-            _saveUserState.value = response
+            saveUserState.value = response
         }
     }
     fun isValidPassword(password: String): Boolean {

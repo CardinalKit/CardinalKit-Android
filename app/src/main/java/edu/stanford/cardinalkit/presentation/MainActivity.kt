@@ -41,13 +41,15 @@ class MainActivity : AppCompatActivity() {
          * Gets permissions for accessing health data from Health Connect
          * if not already provided.
          */
-        val requestPermissionsActivityContract = healthViewModel.healthConnectManager.healthConnectClient
-            .permissionController
-            .createRequestPermissionActivityContract()
+        val requestPermissionsActivityContract =
+            healthViewModel.healthConnectManager.healthConnectClient
+                .permissionController
+                .createRequestPermissionActivityContract()
 
-        val requestPermissions = registerForActivityResult(requestPermissionsActivityContract){ granted ->
-            healthViewModel.updatePermissionsStatus(granted.containsAll(healthViewModel.permissions))
-        }
+        val requestPermissions =
+            registerForActivityResult(requestPermissionsActivityContract) { granted ->
+                healthViewModel.updatePermissionsStatus(granted.containsAll(healthViewModel.permissions))
+            }
 
         fun checkPermissionsAndRun() {
             val permissions = healthViewModel.permissions

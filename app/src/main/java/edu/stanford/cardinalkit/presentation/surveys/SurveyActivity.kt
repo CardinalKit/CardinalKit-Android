@@ -22,7 +22,7 @@ class SurveyActivity : AppCompatActivity() {
 
     private var surveyName: String? = null // filename of the survey
     private var taskID: String? = null // id of the task
-    val surveyViewModel by viewModels<SurveyViewModel>()
+    private val surveyViewModel by viewModels<SurveyViewModel>()
     private val tasksViewModel by viewModels<TasksViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,10 @@ class SurveyActivity : AppCompatActivity() {
 
         val context = applicationContext
 
-        supportFragmentManager.setFragmentResultListener(QuestionnaireFragment.SUBMIT_REQUEST_KEY, this) { _, _ ->
+        supportFragmentManager.setFragmentResultListener(
+            QuestionnaireFragment.SUBMIT_REQUEST_KEY,
+            this
+        ) { _, _ ->
             submitSurvey()
         }
 
@@ -46,7 +49,7 @@ class SurveyActivity : AppCompatActivity() {
 
         // Observes result of survey submission
         surveyViewModel.surveyResultUploadedState.observe(this) {
-            when(it){
+            when (it) {
                 is Response.Loading -> {}
                 is Response.Success -> {
                     val log = taskID?.let { id -> CKTaskLog(id) }
@@ -63,7 +66,7 @@ class SurveyActivity : AppCompatActivity() {
 
         // Observes state of survey download
         surveyViewModel.surveyDownloadState.observe(this) {
-            when(it){
+            when (it) {
                 is Response.Loading -> {}
                 is Response.Success -> {
                     val arguments =
@@ -79,7 +82,11 @@ class SurveyActivity : AppCompatActivity() {
                     }
                 }
                 is Response.Error -> {
-                    Toast.makeText(context, R.string.error_loading_survey_message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        R.string.error_loading_survey_message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                     finish()
                 }
             }

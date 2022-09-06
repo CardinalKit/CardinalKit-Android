@@ -8,10 +8,6 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
-import edu.stanford.cardinalkit.presentation.onboarding.OnboardingScreen
-import edu.stanford.cardinalkit.presentation.onboarding.Review
-import edu.stanford.cardinalkit.presentation.onboarding.Signature
-import edu.stanford.cardinalkit.presentation.onboarding.WelcomeScreen
 import edu.stanford.cardinalkit.presentation.RegisterScreen
 import edu.stanford.cardinalkit.presentation.contacts.ContactsScreen
 import edu.stanford.cardinalkit.presentation.home.HomeScreen
@@ -20,6 +16,10 @@ import edu.stanford.cardinalkit.presentation.login.LoginScreen
 import edu.stanford.cardinalkit.presentation.login.RegisterMethod
 import edu.stanford.cardinalkit.presentation.login.SignInMethod
 import edu.stanford.cardinalkit.presentation.main.MainScreen
+import edu.stanford.cardinalkit.presentation.onboarding.OnboardingScreen
+import edu.stanford.cardinalkit.presentation.onboarding.Review
+import edu.stanford.cardinalkit.presentation.onboarding.Signature
+import edu.stanford.cardinalkit.presentation.onboarding.WelcomeScreen
 import edu.stanford.cardinalkit.presentation.profile.ProfileScreen
 import edu.stanford.cardinalkit.presentation.profile.ReviewConsent
 import edu.stanford.cardinalkit.presentation.tasks.TasksScreen
@@ -70,7 +70,7 @@ fun CKNavHost(navController: NavHostController, startDestination: String) {
         composable(Screens.ReviewConsent.route) {
             ReviewConsent(navController = navController)
         }
-        composable(Screens.SignatureScreen.route){
+        composable(Screens.SignatureScreen.route) {
             Signature(navController = navController)
         }
         composable(Screens.SignInMethod.route) {

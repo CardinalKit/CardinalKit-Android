@@ -68,15 +68,6 @@ fun LoginScreen(
                     .padding(contentPadding),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // TODO: Add Dark Mode support for these images
-                 Image(
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth(0.5f)
-                        .fillMaxHeight(0.16f),
-                    painter = painterResource(R.drawable.branding_light),
-                    contentDescription = "branding"
-                )
                 Image(
                     modifier = Modifier
                         .fillMaxWidth(0.55f)
@@ -186,7 +177,7 @@ fun LoginScreen(
                         },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = MaterialTheme.colorScheme.onPrimary,
-                            containerColor = MaterialTheme.colorScheme.onPrimary,
+                            containerColor = MaterialTheme.colorScheme.primary,
                         )
                     ) {
                         Text(
