@@ -32,11 +32,14 @@
     <string name="report_issue_button">Report an Issue</string>
     <string name="support_button">Support</string>
     <string name="view_consent_button">View Consent Form</string>
+    <string name="resend_email">Resend Email</string>
 
     <!-- Labels -->
     <string name="email">Email</string>
+    <string name="email_address">Email Address</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="forgot_password">Forgot Password</string>
     <string name="choose_your_sign_in_method">Choose your sign in method</string>
     <string name="user_id">User ID</string>
     <string name="biodesign">Stanford Byers Center for Biodesign</string>
@@ -74,6 +77,11 @@
     <string name="signature_screen_title">Signature</string>
     <string name="signature_instructions">Please enter your first and last name, then sign using your finger in the box below.</string>
     <string name="signature">Signature</string>
+
+    <!-- Login/Register messages -->
+    <string name="reset_password_instructions">Enter your email address and a link will be sent to reset your password.</string>
+    <string name="email_invalid_message">The email you entered is invalid.</string>
+    <string name="reset_password_email_message">An email has been sent to you with instructions to reset your password.</string>
 
     <!-- Error messages -->
     <string name="error_loading_survey_message">Error Loading Survey</string>

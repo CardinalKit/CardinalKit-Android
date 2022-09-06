@@ -1,19 +1,17 @@
 package edu.stanford.cardinalkit.presentation.login
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,16 +21,23 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ForgotPassword(
     viewModel: LoginViewModel = hiltViewModel(),
-    navController : NavController
-){
+    navController: NavController
+) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
+    var emailSent by remember { mutableStateOf(false) }
+
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
-            TopAppBar(
+            SmallTopAppBar(
                 title = {
                 },
                 navigationIcon = {
@@ -42,9 +47,7 @@ fun ForgotPassword(
                         Icon(Icons.Filled.ArrowBack, "back Icon")
                     }
                 },
-                backgroundColor = Color.White,
-                contentColor = Color.Black,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
         containerColor = Color(0xFFFFFFFF),
@@ -53,77 +56,109 @@ fun ForgotPassword(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(padding)
-                    .fillMaxHeight()){
+                    .padding(horizontal = 60.dp)
+                    .fillMaxHeight()
+            ) {
                 Spacer(modifier = Modifier.height(150.dp))
                 Image(
                     modifier = Modifier
                         .fillMaxWidth(0.4f)
                         .fillMaxHeight(0.2f),
-                    painter=painterResource(id =R.drawable.second),
-                    contentDescription = "lock")
+                    painter = painterResource(id = R.drawable.second),
+                    contentDescription = "lock"
+                )
                 Text(
-                    text="Forgot Password",
+                    text = stringResource(R.string.forgot_password),
                     fontSize = 30.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text="Enter your email address and a link will be sent to reset your password"
+                    text = if(emailSent) stringResource(R.string.reset_password_email_message) else stringResource(R.string.reset_password_instructions)
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                var emailPassword by remember{
+                var emailPassword by remember {
                     mutableStateOf("")
                 }
-                OutlinedTextField(
-                    value = emailPassword,
-                    onValueChange ={ newText->
-                        emailPassword = newText
-                    },
-                    label = {
-                        androidx.compose.material3.Text(text = "Email Address")
-                    },
-                    singleLine = true,
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Gray,
-                        cursorColor = Color.LightGray),
-                )
-                Row(
-                    Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth(1f),
-                    horizontalArrangement = Arrangement.End
-
-                ) {
-                    TextButton(
-                        onClick = {
-                            viewModel.resetPassword(emailPassword)
+                if(!emailSent) {
+                    OutlinedTextField(
+                        value = emailPassword,
+                        onValueChange = { newText ->
+                            emailPassword = newText
                         },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = Color.Gray,
-                            backgroundColor = Color.LightGray,
-                        )
+                        label = {
+                            Text(text = stringResource(R.string.email_address))
+                        },
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        ),
+                    )
+
+                    Row(
+                        Modifier
+                            .padding(top = 10.dp)
+                            .fillMaxWidth(1f),
+                        horizontalArrangement = Arrangement.End
                     ) {
-                        androidx.compose.material3.Text(
-                            text = "Submit",
-                            fontSize = 15.sp,
-                            modifier = Modifier.padding(horizontal = 5.dp),
-                            color = Color.Gray
-                        )
+                        TextButton(
+                            onClick = {
+                                viewModel.resetPassword(emailPassword)
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                contentColor = MaterialTheme.colorScheme.onPrimary,
+                                containerColor = MaterialTheme.colorScheme.primary,
+                            )
+                        ) {
+                            Text(
+                                text = stringResource(R.string.submit),
+                                fontSize = 15.sp,
+                                modifier = Modifier.padding(horizontal = 5.dp),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
+                } else {
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ){
+                        TextButton(
+                            onClick = {
+                                emailSent = false
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                contentColor = MaterialTheme.colorScheme.onPrimary,
+                                containerColor = MaterialTheme.colorScheme.primary
+                            )
+                        ){
+                            Text(
+                                text = stringResource(R.string.resend_email),
+                                fontSize = 15.sp,
+                                modifier = Modifier.padding(horizontal = 5.dp),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
                     }
                 }
             }
-
         }
-
     )
+
     val context = LocalContext.current
-    when(val resetPassword = viewModel.signInState.value) {
+    when (val resetPassword = viewModel.resetPasswordState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Error -> resetPassword.e?.let {
-            Toast.makeText(context,"Email is invalid", Toast.LENGTH_SHORT).show()
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar(context.getString(R.string.email_invalid_message))
+            }
         }
-        is Response.Success -> {}
+        is Response.Success -> resetPassword.data?.let { success ->
+            if(success) {
+                emailSent = true
+            }
+        }
     }
-
 }
