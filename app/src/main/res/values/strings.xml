@@ -32,6 +32,7 @@
     <string name="report_issue_button">Report an Issue</string>
     <string name="support_button">Support</string>
     <string name="view_consent_button">View Consent Form</string>
+    <string name="resend_email">Resend Email</string>
 
     <!-- Labels -->
     <string name="email">Email</string>

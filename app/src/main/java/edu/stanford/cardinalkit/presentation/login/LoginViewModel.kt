@@ -1,6 +1,5 @@
 package edu.stanford.cardinalkit.presentation.login
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -23,22 +22,25 @@ class LoginViewModel @Inject constructor(
     private val useCases: AuthUseCases,
     val client: SignInClient
 ): ViewModel() {
-    private val _oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Response.Success(null))
-    val oneTapSignInState: State<Response<BeginSignInResult>> = _oneTapSignInState
+    var oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Response.Success(null))
+        private set
 
-    private val _signInState = mutableStateOf<Response<Boolean>>(Response.Success(null))
-    val signInState: State<Response<Boolean>> = _signInState
+    var signInState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+        private set
 
-    private val _saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
-    val saveUserState: State<Response<Boolean>> = _saveUserState
+    var saveUserState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+        private set
 
-    private val _updateLastActive = mutableStateOf<Response<Boolean>>(Response.Success(null))
-    val updateLastActive: State<Response<Boolean>> = _updateLastActive
+    var updateLastActive = mutableStateOf<Response<Boolean>>(Response.Success(null))
+        private set
+
+    var resetPasswordState = mutableStateOf<Response<Boolean>>(Response.Success(null))
+        private set
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             useCases.signInWithEmail(email, password).collect { result ->
-                _signInState.value = result
+                signInState.value = result
             }
         }
     }
@@ -46,7 +48,7 @@ class LoginViewModel @Inject constructor(
     fun oneTapSignIn() {
         viewModelScope.launch {
             useCases.oneTapSignIn().collect { result ->
-                _oneTapSignInState.value = result
+                oneTapSignInState.value = result
             }
         }
     }
@@ -54,7 +56,7 @@ class LoginViewModel @Inject constructor(
     fun signInWithGoogle(googleCredential: AuthCredential) {
         viewModelScope.launch {
             useCases.signInWithGoogle(googleCredential).collect { result ->
-                _signInState.value = result
+                signInState.value = result
             }
         }
     }
@@ -62,7 +64,7 @@ class LoginViewModel @Inject constructor(
     fun saveUser() {
         viewModelScope.launch {
             useCases.saveUser().collect { result ->
-                _saveUserState.value = result
+                saveUserState.value = result
             }
         }
     }
@@ -70,7 +72,7 @@ class LoginViewModel @Inject constructor(
     fun updateLastActive() {
         viewModelScope.launch {
             useCases.updateLastActive().collect { result ->
-                _updateLastActive.value = result
+                updateLastActive.value = result
             }
         }
     }
@@ -85,9 +87,8 @@ class LoginViewModel @Inject constructor(
     fun resetPassword(email: String){
         viewModelScope.launch {
             useCases.resetPassword(email).collect { result ->
-                _signInState.value = result
+                resetPasswordState.value = result
             }
         }
     }
-
 }

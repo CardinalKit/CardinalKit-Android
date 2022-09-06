@@ -32,6 +32,7 @@ fun ForgotPassword(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
+    var emailSent by remember { mutableStateOf(false) }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -74,66 +75,89 @@ fun ForgotPassword(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = stringResource(R.string.reset_password_instructions)
+                    text = if(emailSent) stringResource(R.string.reset_password_email_message) else stringResource(R.string.reset_password_instructions)
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 var emailPassword by remember {
                     mutableStateOf("")
                 }
-                OutlinedTextField(
-                    value = emailPassword,
-                    onValueChange = { newText ->
-                        emailPassword = newText
-                    },
-                    label = {
-                        Text(text = stringResource(R.string.email_address))
-                    },
-                    singleLine = true,
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        cursorColor = MaterialTheme.colorScheme.primary
-                    ),
-                )
-                Row(
-                    Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth(1f),
-                    horizontalArrangement = Arrangement.End
-
-                ) {
-                    TextButton(
-                        onClick = {
-                            viewModel.resetPassword(emailPassword)
+                if(!emailSent) {
+                    OutlinedTextField(
+                        value = emailPassword,
+                        onValueChange = { newText ->
+                            emailPassword = newText
                         },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                            containerColor = MaterialTheme.colorScheme.primary,
-                        )
+                        label = {
+                            Text(text = stringResource(R.string.email_address))
+                        },
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        ),
+                    )
+
+                    Row(
+                        Modifier
+                            .padding(top = 10.dp)
+                            .fillMaxWidth(1f),
+                        horizontalArrangement = Arrangement.End
                     ) {
-                        Text(
-                            text = stringResource(R.string.submit),
-                            fontSize = 15.sp,
-                            modifier = Modifier.padding(horizontal = 5.dp),
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
+                        TextButton(
+                            onClick = {
+                                viewModel.resetPassword(emailPassword)
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                contentColor = MaterialTheme.colorScheme.onPrimary,
+                                containerColor = MaterialTheme.colorScheme.primary,
+                            )
+                        ) {
+                            Text(
+                                text = stringResource(R.string.submit),
+                                fontSize = 15.sp,
+                                modifier = Modifier.padding(horizontal = 5.dp),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
+                } else {
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ){
+                        TextButton(
+                            onClick = {
+                                emailSent = false
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                contentColor = MaterialTheme.colorScheme.onPrimary,
+                                containerColor = MaterialTheme.colorScheme.primary
+                            )
+                        ){
+                            Text(
+                                text = stringResource(R.string.resend_email),
+                                fontSize = 15.sp,
+                                modifier = Modifier.padding(horizontal = 5.dp),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
                     }
                 }
             }
-
         }
-
     )
+
     val context = LocalContext.current
-    when (val resetPassword = viewModel.signInState.value) {
+    when (val resetPassword = viewModel.resetPasswordState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Error -> resetPassword.e?.let {
             coroutineScope.launch {
                 snackbarHostState.showSnackbar(context.getString(R.string.email_invalid_message))
             }
         }
-        is Response.Success -> {
-            coroutineScope.launch {
-                snackbarHostState.showSnackbar(context.getString(R.string.reset_password_email_message))
+        is Response.Success -> resetPassword.data?.let { success ->
+            if(success) {
+                emailSent = true
             }
         }
     }
