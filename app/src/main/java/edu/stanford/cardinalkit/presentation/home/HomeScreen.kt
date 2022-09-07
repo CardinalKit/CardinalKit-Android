@@ -21,7 +21,7 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.home.components.LearnMoreCard
 import edu.stanford.cardinalkit.presentation.home.components.StepsCard
 import edu.stanford.cardinalkit.presentation.home.components.TaskCardUI
-import edu.stanford.cardinalkit.presentation.home.components.TextCard
+import edu.stanford.cardinalkit.presentation.home.components.WeightCard
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
 
@@ -104,7 +104,7 @@ fun HomeScreen(
                     ) {
                         StepsCard()
                         Spacer(Modifier.width(5.dp))
-                        TextCard()
+                        WeightCard()
                     }
                     Spacer(modifier = Modifier.height(70.dp))
                 }
