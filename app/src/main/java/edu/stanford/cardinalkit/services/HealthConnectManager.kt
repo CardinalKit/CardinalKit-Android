@@ -7,9 +7,11 @@ import androidx.health.connect.client.aggregate.AggregationResult
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
+import androidx.health.connect.client.units.Mass
 import java.time.Instant
 import javax.inject.Inject
 
@@ -84,4 +86,31 @@ class HealthConnectManager @Inject constructor(
         return response
     }
 
+    /**
+     * Computes the average weight for a time period
+     */
+    suspend fun getAverageWeight(startTime: Instant, endTime: Instant): Mass? {
+        val response =
+            healthConnectClient.aggregate(
+                AggregateRequest(
+                    metrics = setOf(WeightRecord.WEIGHT_AVG),
+                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
+                )
+            )
+        return response[WeightRecord.WEIGHT_AVG]
+    }
+
+    /**
+     * Get all weight records for a certain time period
+     */
+    suspend fun getWeightRecords(startTime: Instant, endTime: Instant): List<WeightRecord> {
+        val response =
+            healthConnectClient.readRecords(
+                ReadRecordsRequest(
+                    recordType = WeightRecord::class,
+                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
+                )
+            )
+        return response.records
+    }
 }

@@ -15,16 +15,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 
 @Composable
-fun StepsCard(
+fun WeightCard(
     viewModel: HealthViewModel = hiltViewModel()
 ){
-    viewModel.getTotalStepsToday()
+    viewModel.getWeeklyAverageWeight()
+    val pounds = viewModel.weeklyAverageWeight.value?.inPounds?.toInt().toString() + " lbs"
+
     Card(
         modifier = Modifier
             .width(165.dp)
             .height(165.dp)
             .clickable { },
-        backgroundColor = MaterialTheme.colorScheme.tertiary,
+        backgroundColor = MaterialTheme.colorScheme.secondary,
         shape = RoundedCornerShape(18),
     ){
         Column(
@@ -41,20 +43,20 @@ fun StepsCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Steps",
+                    text = "Weight",
                     fontSize = 25.sp,
                     color = MaterialTheme.colorScheme.onSecondary
                 )
                 Text(
-                    text = "Total Today",
+                    text = "Average Weekly",
                     fontSize = 15.sp,
                     color = MaterialTheme.colorScheme.onSecondary
                 )
             }
             Text(
-                text= viewModel.totalStepsToday.value.toString(),
+                text = pounds,
                 fontSize = 40.sp,
-                color = MaterialTheme.colorScheme.onTertiary
+                color = MaterialTheme.colorScheme.onSecondary
             )
         }
     }
