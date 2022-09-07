@@ -37,25 +37,19 @@ fun WeightCard(
             verticalArrangement = Arrangement.SpaceEvenly
 
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Weight",
-                    fontSize = 25.sp,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Text(
-                    text = "Average Weekly",
-                    fontSize = 15.sp,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-            }
+            Text(
+                text = "Weight",
+                fontSize = 25.sp,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
             Text(
                 text = pounds,
                 fontSize = 40.sp,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+            Text(
+                text = "Average Weekly",
+                fontSize = 15.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )
         }

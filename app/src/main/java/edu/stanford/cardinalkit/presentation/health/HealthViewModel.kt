@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
@@ -51,7 +50,7 @@ class HealthViewModel @Inject constructor(
     }
 
     fun getWeeklyAverageWeight() = viewModelScope.launch {
-        val startOfWeek = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).toInstant()
+        val startOfWeek = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
         val endOfWeek = startOfWeek.plus(7, ChronoUnit.DAYS)
 
         if (permissionsGranted.value){

@@ -24,7 +24,7 @@ fun StepsCard(
             .width(165.dp)
             .height(165.dp)
             .clickable { },
-        backgroundColor = MaterialTheme.colorScheme.tertiary,
+        backgroundColor = MaterialTheme.colorScheme.secondary,
         shape = RoundedCornerShape(18),
     ){
         Column(
@@ -35,26 +35,20 @@ fun StepsCard(
             verticalArrangement = Arrangement.SpaceEvenly
 
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Steps",
-                    fontSize = 25.sp,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Text(
-                    text = "Total Today",
-                    fontSize = 15.sp,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-            }
+            Text(
+                text = "Steps",
+                fontSize = 25.sp,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
             Text(
                 text= viewModel.totalStepsToday.value.toString(),
                 fontSize = 40.sp,
-                color = MaterialTheme.colorScheme.onTertiary
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+            Text(
+                text = "Total Today",
+                fontSize = 15.sp,
+                color = MaterialTheme.colorScheme.onSecondary
             )
         }
     }
