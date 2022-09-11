@@ -6,11 +6,24 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults.cardColors
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -87,7 +100,8 @@ fun ContactCard(
                     }
                     .fillMaxWidth()
                     .padding(10.dp),
-                colors = cardColors(MaterialTheme.colorScheme.surfaceVariant)) {
+                colors = cardColors(MaterialTheme.colorScheme.surfaceVariant)
+            ) {
                 Column(
                     modifier = Modifier
                         .padding(15.dp)
@@ -172,7 +186,9 @@ fun makeACall(context: Context, phoneNumber: String) {
         startActivity(context, intent, bundleOf())
     } else {
         ActivityCompat.requestPermissions(
-            context as Activity, arrayOf(android.Manifest.permission.CALL_PHONE), 777
+            context as Activity,
+            arrayOf(android.Manifest.permission.CALL_PHONE),
+            777
         )
     }
 }
@@ -186,15 +202,20 @@ fun sendAText(context: Context, smsNumber: String) {
         startActivity(context, intent, bundleOf())
     } else {
         ActivityCompat.requestPermissions(
-            context as Activity, arrayOf(android.Manifest.permission.SEND_SMS), 777
+            context as Activity,
+            arrayOf(android.Manifest.permission.SEND_SMS),
+            777
         )
     }
 }
 
 fun sendEmail(context: Context, recipientMail: String) {
     val emailIntent = Intent(
-        Intent.ACTION_SENDTO, Uri.fromParts(
-            "mailto", recipientMail, null
+        Intent.ACTION_SENDTO,
+        Uri.fromParts(
+            "mailto",
+            recipientMail,
+            null
         )
     )
     startActivity(context, Intent.createChooser(emailIntent, "Choose an email client:"), bundleOf())

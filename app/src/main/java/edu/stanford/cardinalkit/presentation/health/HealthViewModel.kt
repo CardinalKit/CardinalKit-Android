@@ -53,7 +53,7 @@ class HealthViewModel @Inject constructor(
         val startOfWeek = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
         val endOfWeek = startOfWeek.plus(7, ChronoUnit.DAYS)
 
-        if (permissionsGranted.value){
+        if (permissionsGranted.value) {
             weeklyAverageWeight.value = healthConnectManager.getAverageWeight(
                 startTime = startOfWeek,
                 endTime = endOfWeek

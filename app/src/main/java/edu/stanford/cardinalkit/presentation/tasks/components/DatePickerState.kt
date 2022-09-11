@@ -24,10 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.structuralEqualityPolicy
 import java.time.LocalDate
 
 @Stable
@@ -78,7 +83,7 @@ internal class DatePickerStateImpl(
                     selectedDate = LocalDate.of(
                         it[0].toString().toInt(), // year
                         it[1].toString().toInt(), // month
-                        it[2].toString().toInt(), // day
+                        it[2].toString().toInt() // day
                     ),
 
                     shouldScrollToSelectedDate = it[3].toString()

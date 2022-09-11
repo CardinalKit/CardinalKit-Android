@@ -20,19 +20,35 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
-import edu.stanford.cardinalkit.data.repositories.*
-import edu.stanford.cardinalkit.domain.repositories.*
-import edu.stanford.cardinalkit.domain.use_cases.auth.*
-import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
-import edu.stanford.cardinalkit.domain.use_cases.contacts.GetContacts
-import edu.stanford.cardinalkit.domain.use_cases.surveys.GetSurvey
-import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
-import edu.stanford.cardinalkit.domain.use_cases.surveys.UploadSurveyResult
-import edu.stanford.cardinalkit.domain.use_cases.tasklogs.GetTaskLogs
-import edu.stanford.cardinalkit.domain.use_cases.tasklogs.TaskLogUseCases
-import edu.stanford.cardinalkit.domain.use_cases.tasklogs.UploadTaskLog
-import edu.stanford.cardinalkit.domain.use_cases.tasks.GetTasks
-import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
+import edu.stanford.cardinalkit.data.repositories.AuthRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.ContactsRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.SurveyRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.TaskLogRepositoryImpl
+import edu.stanford.cardinalkit.data.repositories.TasksRepositoryImpl
+import edu.stanford.cardinalkit.domain.repositories.AuthRepository
+import edu.stanford.cardinalkit.domain.repositories.ContactsRepository
+import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
+import edu.stanford.cardinalkit.domain.repositories.TaskLogRepository
+import edu.stanford.cardinalkit.domain.repositories.TasksRepository
+import edu.stanford.cardinalkit.domain.usecases.auth.AuthUseCases
+import edu.stanford.cardinalkit.domain.usecases.auth.GetAuthStatus
+import edu.stanford.cardinalkit.domain.usecases.auth.OneTapSignIn
+import edu.stanford.cardinalkit.domain.usecases.auth.ResetPassword
+import edu.stanford.cardinalkit.domain.usecases.auth.SaveUser
+import edu.stanford.cardinalkit.domain.usecases.auth.SignInWithEmail
+import edu.stanford.cardinalkit.domain.usecases.auth.SignInWithGoogle
+import edu.stanford.cardinalkit.domain.usecases.auth.SignUpWithEmail
+import edu.stanford.cardinalkit.domain.usecases.auth.UpdateLastActive
+import edu.stanford.cardinalkit.domain.usecases.contacts.ContactsUseCases
+import edu.stanford.cardinalkit.domain.usecases.contacts.GetContacts
+import edu.stanford.cardinalkit.domain.usecases.surveys.GetSurvey
+import edu.stanford.cardinalkit.domain.usecases.surveys.SurveysUseCases
+import edu.stanford.cardinalkit.domain.usecases.surveys.UploadSurveyResult
+import edu.stanford.cardinalkit.domain.usecases.tasklogs.GetTaskLogs
+import edu.stanford.cardinalkit.domain.usecases.tasklogs.TaskLogUseCases
+import edu.stanford.cardinalkit.domain.usecases.tasklogs.UploadTaskLog
+import edu.stanford.cardinalkit.domain.usecases.tasks.GetTasks
+import edu.stanford.cardinalkit.domain.usecases.tasks.TasksUseCases
 import edu.stanford.cardinalkit.services.HealthConnectManager
 import javax.inject.Named
 
@@ -123,7 +139,8 @@ class AppModule {
                 .setSupported(true)
                 .setServerClientId(app.getString(R.string.web_client_id))
                 .setFilterByAuthorizedAccounts(true)
-                .build())
+                .build()
+        )
         .setAutoSelectEnabled(true)
         .build()
 
@@ -137,7 +154,8 @@ class AppModule {
                 .setSupported(true)
                 .setServerClientId(app.getString(R.string.web_client_id))
                 .setFilterByAuthorizedAccounts(false)
-                .build())
+                .build()
+        )
         .build()
 
     @Provides
@@ -207,7 +225,7 @@ class AppModule {
     @Named(Constants.SURVEYS_USE_CASES)
     fun provideSurveysUseCases(
         @Named(Constants.SURVEY_REPOSITORY)
-        surveyRepository: SurveyRepository,
+        surveyRepository: SurveyRepository
     ) = SurveysUseCases(
         uploadSurveyResult = UploadSurveyResult(surveyRepository),
         getSurvey = GetSurvey(surveyRepository)
@@ -226,7 +244,7 @@ class AppModule {
     @Named(Constants.TASKS_USE_CASES)
     fun provideTasksUseCases(
         @Named(Constants.TASKS_REPOSITORY)
-        repository: TasksRepository,
+        repository: TasksRepository
     ) = TasksUseCases(
         getTasks = GetTasks(repository)
     )

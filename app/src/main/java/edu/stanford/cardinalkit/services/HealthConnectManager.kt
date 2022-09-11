@@ -63,7 +63,7 @@ class HealthConnectManager @Inject constructor(
             healthConnectClient.aggregate(
                 AggregateRequest(
                     metrics = setOf(StepsRecord.COUNT_TOTAL),
-                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime),
+                    timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                 )
             )
         return response[StepsRecord.COUNT_TOTAL] ?: 0

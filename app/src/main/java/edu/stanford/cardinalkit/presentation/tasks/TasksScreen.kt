@@ -1,7 +1,17 @@
 package edu.stanford.cardinalkit.presentation.tasks
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -42,10 +52,10 @@ fun TasksScreen(
         },
         containerColor = MaterialTheme.colorScheme.surface,
         content = { padding ->
-            Column(modifier = Modifier.padding(padding)){
+            Column(modifier = Modifier.padding(padding)) {
                 DatePickerTimeline(
                     modifier = Modifier,
-                    onDateSelected = {selectedDate: LocalDate->
+                    onDateSelected = { selectedDate: LocalDate ->
                         viewModel.setDate(selectedDate)
                     },
                     selectedBackgroundColor = MaterialTheme.colorScheme.secondary,
@@ -54,12 +64,14 @@ fun TasksScreen(
                     dateTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                     state = datePickerState
                 )
-                Row(modifier= Modifier
-                    .padding(horizontal = 20.dp)
-                    .padding(top = 15.dp),
-                verticalAlignment = Alignment.CenterVertically){
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .padding(top = 15.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text(
-                        text= stringResource(R.string.todo),
+                        text = stringResource(R.string.todo),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -69,18 +81,19 @@ fun TasksScreen(
                             val today = LocalDate.now()
                             datePickerState.smoothScrollToDate(today)
                             viewModel.setDate(today)
-                        },
+                        }
                     ) {
                         Text(stringResource(R.string.today), color = MaterialTheme.colorScheme.primary)
                     }
                 }
-                Box(modifier= Modifier
-                    .padding(horizontal = 20.dp)
-                    .padding(top = 5.dp)) {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .padding(top = 5.dp)
+                ) {
                     TaskComponent()
                 }
             }
         }
     )
 }
-

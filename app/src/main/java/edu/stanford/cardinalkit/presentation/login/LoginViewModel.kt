@@ -10,7 +10,7 @@ import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
-import edu.stanford.cardinalkit.domain.use_cases.auth.AuthUseCases
+import edu.stanford.cardinalkit.domain.usecases.auth.AuthUseCases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class LoginViewModel @Inject constructor(
     @Named(Constants.AUTH_USE_CASES)
     private val useCases: AuthUseCases,
     val client: SignInClient
-): ViewModel() {
+) : ViewModel() {
     var oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Response.Success(null))
         private set
 
@@ -77,14 +77,13 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-
     fun getAuthStatus() = liveData(Dispatchers.IO) {
         useCases.getAuthStatus().collect { result ->
             emit(result)
         }
     }
 
-    fun resetPassword(email: String){
+    fun resetPassword(email: String) {
         viewModelScope.launch {
             useCases.resetPassword(email).collect { result ->
                 resetPasswordState.value = result

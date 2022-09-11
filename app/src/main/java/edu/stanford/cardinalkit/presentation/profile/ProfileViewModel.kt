@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val repository: AuthRepository
-): ViewModel() {
+) : ViewModel() {
     val userID get() = repository.getUserID()
 
     var signOutState = mutableStateOf<Response<Boolean>>(Response.Success(false))

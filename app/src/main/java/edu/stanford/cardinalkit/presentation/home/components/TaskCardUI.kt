@@ -1,8 +1,16 @@
 package edu.stanford.cardinalkit.presentation.home.components
 
-
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -27,25 +35,26 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 
-
 @Composable
 fun TaskCardUI(
-    viewModel: TasksViewModel = hiltViewModel(),
+    viewModel: TasksViewModel = hiltViewModel()
 ) {
     if (viewModel.totalTasksToday.value > 0) {
         val annotatedString1 =
             AnnotatedString.Builder(
                 "${viewModel.totalTasksCompleteToday.value} of ${viewModel.totalTasksToday.value} ${
-                    stringResource(
-                        R.string.complete
-                    )
+                stringResource(
+                    R.string.complete
+                )
                 }"
             )
                 .apply {
                     addStyle(
                         SpanStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                        ), 0, 6
+                            color = MaterialTheme.colorScheme.onPrimary
+                        ),
+                        0,
+                        6
                     )
                 }
         Card(
@@ -139,6 +148,3 @@ fun TaskProgressBar(percentage: Float) {
         )
     }
 }
-
-
-

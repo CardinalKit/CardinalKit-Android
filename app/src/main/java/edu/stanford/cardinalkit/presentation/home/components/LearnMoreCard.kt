@@ -3,7 +3,11 @@ package edu.stanford.cardinalkit.presentation.home.components
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -17,10 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
 
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun LearnMoreCard(){
+fun LearnMoreCard() {
     val context = LocalContext.current
     Card(
         onClick = {
@@ -34,26 +37,26 @@ fun LearnMoreCard(){
             .clickable { },
         backgroundColor = MaterialTheme.colorScheme.primaryContainer,
         shape = RoundedCornerShape(18)
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxWidth()
         ) {
             Text(
-                text= "Customize Your App",
+                text = "Customize Your App",
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontWeight= FontWeight.SemiBold,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(bottom = 5.dp),
                 fontSize = 20.sp
             )
             Text(
-                text= "This is a template app that you can customize to create your own digital health experience.",
+                text = "This is a template app that you can customize to create your own digital health experience.",
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.height(40.dp))
             Text(
-                text= "Learn how at cardinalkit.org",
+                text = "Learn how at cardinalkit.org",
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.SemiBold
             )

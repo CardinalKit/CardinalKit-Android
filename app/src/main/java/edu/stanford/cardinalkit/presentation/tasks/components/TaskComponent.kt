@@ -27,8 +27,7 @@ fun TaskComponent(
         }
         is Response.Loading -> ProgressIndicator()
         is Response.Success ->
-            LazyColumn(
-            ) {
+            LazyColumn() {
                 if (tasksResponse.data != null) {
                     items(
                         items = tasksResponse.data

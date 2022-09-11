@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Contact
 import edu.stanford.cardinalkit.domain.models.Response
-import edu.stanford.cardinalkit.domain.use_cases.contacts.ContactsUseCases
+import edu.stanford.cardinalkit.domain.usecases.contacts.ContactsUseCases
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named

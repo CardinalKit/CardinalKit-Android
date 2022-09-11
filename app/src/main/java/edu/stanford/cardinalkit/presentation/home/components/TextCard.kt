@@ -1,6 +1,13 @@
 package edu.stanford.cardinalkit.presentation.home.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -16,25 +23,24 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
-
-fun TextCard(){
+fun TextCard() {
     Card(
         onClick = {},
         modifier = Modifier
             .width(165.dp)
             .height(165.dp),
         backgroundColor = MaterialTheme.colorScheme.secondary,
-        shape = RoundedCornerShape(18),
-    ){
+        shape = RoundedCornerShape(18)
+    ) {
         Column(
             modifier = Modifier
                 .padding(15.dp)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center
         ) {
-            Row(){
+            Row() {
                 Text(
-                    text= "Edit Card",
+                    text = "Edit Card",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSecondary

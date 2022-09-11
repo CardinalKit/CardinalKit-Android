@@ -1,16 +1,36 @@
 package edu.stanford.cardinalkit.presentation
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,7 +49,6 @@ import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.register.RegisterViewModel
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -103,7 +122,7 @@ fun RegisterScreen(
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary
-                    ),
+                    )
                 )
                 OutlinedTextField(
                     value = lastName,
@@ -117,7 +136,7 @@ fun RegisterScreen(
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary
-                    ),
+                    )
                 )
                 OutlinedTextField(
                     value = email,
@@ -131,7 +150,7 @@ fun RegisterScreen(
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary
-                    ),
+                    )
                 )
                 Row(
                     modifier = Modifier
@@ -141,7 +160,7 @@ fun RegisterScreen(
                     horizontalArrangement = Arrangement.Start
                 ) {
                     Text(
-                        text = "Your password should contain:\n- a minimum of 8 characters\n- at least 1 uppercase\n- at least 1 lowercase\n- 1 digit\n- 1 special character"
+                        text = stringResource(R.string.password_complexity_requirements)
                     )
                 }
                 OutlinedTextField(
@@ -160,9 +179,9 @@ fun RegisterScreen(
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
-                        val image = if (passwordVisible)
+                        val image = if (passwordVisible) {
                             Icons.Filled.Visibility
-                        else Icons.Filled.VisibilityOff
+                        } else Icons.Filled.VisibilityOff
 
                         val description = if (passwordVisible) "Hide password" else "Show password"
 
@@ -187,9 +206,9 @@ fun RegisterScreen(
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
-                        val image = if (passwordVisible)
+                        val image = if (passwordVisible) {
                             Icons.Filled.Visibility
-                        else Icons.Filled.VisibilityOff
+                        } else Icons.Filled.VisibilityOff
 
                         val description = if (passwordVisible) "Hide password" else "Show password"
 
@@ -202,7 +221,7 @@ fun RegisterScreen(
                 Row(
                     Modifier.padding(top = 25.dp),
                     verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Button(
                         onClick = {
@@ -235,14 +254,16 @@ fun RegisterScreen(
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 } else if (password.filter { it.isLetter() }
-                                        .filter { it.isUpperCase() }.firstOrNull() == null) {
+                                    .filter { it.isUpperCase() }.firstOrNull() == null
+                                ) {
                                     Toast.makeText(
                                         context,
                                         "Password has to contain 1 uppercase",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 } else if (password.filter { it.isLetter() }
-                                        .filter { it.isLowerCase() }.firstOrNull() == null) {
+                                    .filter { it.isLowerCase() }.firstOrNull() == null
+                                ) {
                                     Toast.makeText(
                                         context,
                                         "Password has to contain 1 lowercase",
@@ -273,7 +294,8 @@ fun RegisterScreen(
                     }
                 }
             }
-        })
+        }
+    )
 
     when (val signUpResponse = viewModel.signUpState.value) {
         is Response.Loading -> ProgressIndicator()

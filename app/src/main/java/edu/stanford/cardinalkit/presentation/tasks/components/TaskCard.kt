@@ -3,12 +3,20 @@ package edu.stanford.cardinalkit.presentation.tasks.components
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,8 +53,8 @@ fun TaskCard(
         is Response.Success -> {
             response.data?.let { taskLogs ->
                 completed.value = taskLogs.any { log ->
-                    log.taskID == task.id
-                            && log.date.toLocalDate() == viewModel.currentDate.value
+                    log.taskID == task.id &&
+                        log.date.toLocalDate() == viewModel.currentDate.value
                 }
             }
         }
@@ -143,7 +151,7 @@ fun TaskCard(
                     when (task.context.category) {
                         CKTaskCategory.STEPS -> {
                             // The progress should only be shown if the task is active today
-                            if(viewModel.currentDate.value == LocalDate.now()) {
+                            if (viewModel.currentDate.value == LocalDate.now()) {
                                 StepGoalProgress(
                                     task,
                                     completed.value

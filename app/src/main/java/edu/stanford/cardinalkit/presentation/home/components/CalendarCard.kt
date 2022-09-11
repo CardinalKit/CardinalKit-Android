@@ -1,7 +1,12 @@
 package edu.stanford.cardinalkit.presentation.home.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -17,7 +22,6 @@ import java.util.*
 
 @Preview
 @Composable
-
 fun CalendarCard() {
     val day = SimpleDateFormat("dd", Locale.getDefault())
     val month = SimpleDateFormat("MMMM", Locale.getDefault())
@@ -29,7 +33,7 @@ fun CalendarCard() {
             .height(165.dp)
             .clickable { },
         backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-        shape = RoundedCornerShape(18),
+        shape = RoundedCornerShape(18)
     ) {
         Column(
             modifier = Modifier

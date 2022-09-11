@@ -3,11 +3,28 @@ package edu.stanford.cardinalkit.presentation.onboarding
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -20,18 +37,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.google.accompanist.pager.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import kotlinx.coroutines.launch
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
 fun OnboardingScreen(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     val pages = listOf(
         OnboardingPage.First,
@@ -98,7 +118,6 @@ fun OnboardingScreen(
     )
 }
 
-
 @Composable
 fun PagerScreen(onboardingPage: OnboardingPage) {
     Column(
@@ -141,7 +160,7 @@ fun PagerScreen(onboardingPage: OnboardingPage) {
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
 @Composable
 fun BottomSection(
-    pagerState: PagerState,
+    pagerState: PagerState
 ) {
     val scope = rememberCoroutineScope()
     Row(
@@ -162,17 +181,19 @@ fun BottomSection(
                             pagerState.scrollToPage(pagerState.currentPage - 1)
                         }
                     }
-                })
-            NextButton(modifier = Modifier.padding(end = 40.dp),
+                }
+            )
+            NextButton(
+                modifier = Modifier.padding(end = 40.dp),
                 onClick = {
                     scope.launch {
                         pagerState.scrollToPage(pagerState.currentPage + 1)
                     }
-                })
+                }
+            )
         }
     }
 }
-
 
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
@@ -184,17 +205,16 @@ fun PreviousButton(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
-
         TextButton(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = MaterialTheme.colorScheme.primary
-            ),
+            )
 
-            ) {
+        ) {
             Text(
                 text = stringResource(R.string.previous),
                 fontSize = 16.sp,
@@ -214,23 +234,21 @@ fun NextButton(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
-
         TextButton(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = MaterialTheme.colorScheme.primary
-            ),
+            )
 
-            ) {
+        ) {
             Text(
                 text = stringResource(R.string.next),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Light
             )
-
         }
     }
 }
@@ -246,7 +264,7 @@ fun ReviewButton(
     Row(
         modifier = modifier.padding(horizontal = 50.dp),
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         AnimatedVisibility(
             modifier = Modifier.fillMaxWidth(),

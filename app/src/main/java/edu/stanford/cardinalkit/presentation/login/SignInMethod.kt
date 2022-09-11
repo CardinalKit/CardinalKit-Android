@@ -5,11 +5,29 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -29,7 +47,6 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,9 +108,9 @@ fun SignInMethod(
                 ) {
                     SignIn(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { navController.navigate(Screens.LoginScreen.route) })
+                        onClick = { navController.navigate(Screens.LoginScreen.route) }
+                    )
                     Spacer(modifier = Modifier.height(10.dp))
-
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
@@ -102,7 +119,7 @@ fun SignInMethod(
                         OutlinedButton(
                             onClick = { viewModel.oneTapSignIn() },
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
+                                containerColor = MaterialTheme.colorScheme.primary
                             ),
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -126,9 +143,7 @@ fun SignInMethod(
                             )
                         }
                     }
-
                 }
-
             }
         }
 
@@ -209,7 +224,6 @@ fun SignInMethod(
             }
         }
     }
-
 }
 
 @Composable
@@ -220,7 +234,7 @@ fun SignIn(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = onClick,
@@ -243,5 +257,3 @@ fun SignIn(
         }
     }
 }
-
-
