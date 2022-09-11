@@ -9,8 +9,8 @@ import edu.stanford.cardinalkit.common.toLocalDate
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTask
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
-import edu.stanford.cardinalkit.domain.use_cases.tasklogs.TaskLogUseCases
-import edu.stanford.cardinalkit.domain.use_cases.tasks.TasksUseCases
+import edu.stanford.cardinalkit.domain.usecases.tasklogs.TaskLogUseCases
+import edu.stanford.cardinalkit.domain.usecases.tasks.TasksUseCases
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.LocalDate

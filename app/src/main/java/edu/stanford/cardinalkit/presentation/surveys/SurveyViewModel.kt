@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.SurveyResult
-import edu.stanford.cardinalkit.domain.use_cases.surveys.SurveysUseCases
+import edu.stanford.cardinalkit.domain.usecases.surveys.SurveysUseCases
 import kotlinx.coroutines.launch
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 import java.util.*
