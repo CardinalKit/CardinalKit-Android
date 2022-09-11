@@ -65,7 +65,6 @@ class GetTasksTest {
         runBlocking {
             tasksToInsert.forEach { (fakeRepository as FakeTasksRepository).insertTask(it) }
         }
-
     }
 
     @Test
@@ -73,12 +72,11 @@ class GetTasksTest {
         val response = getTasks().first()
         var tasks = listOf<CKTask>()
 
-        if (response is Response.Success && response.data != null){
+        if (response is Response.Success && response.data != null) {
             tasks = response.data as List<CKTask>
         }
 
         assertThat(tasks[0].id).isEqualTo("XE7VeC86W2qU9J8Q3C0A")
         assertThat(tasks[1].id).isEqualTo("sIbsVjdnpkcaC5tjJwjQ")
     }
-
 }

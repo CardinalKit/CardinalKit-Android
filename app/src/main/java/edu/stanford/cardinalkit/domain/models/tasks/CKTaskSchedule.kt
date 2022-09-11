@@ -10,7 +10,7 @@ data class CKTaskSchedule(
     val endDate: Date? = null,
     val interval: Int = 1,
     val description: String? = null
-){
+) {
     fun isScheduledOn(date: LocalDate): Boolean {
         val startLocalDate = startDate.toLocalDate()
 

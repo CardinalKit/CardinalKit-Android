@@ -56,38 +56,41 @@ fun ProfileScreen(
                 colors = TopAppBarDefaults.smallTopAppBarColors()
             )
         },
-        containerColor =  MaterialTheme.colorScheme.surface,
+        containerColor = MaterialTheme.colorScheme.surface,
         content = { padding ->
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.Top
-            ) { Box(Modifier.padding(top=70.dp)){
-                Column(
-                    Modifier
-                        .padding(horizontal = 20.dp)
-                        .padding(vertical = 20.dp)) {
-                    Image(imageVector=Icons.Filled.AccountCircle ,
-                        contentDescription = "account image",
-                        modifier = Modifier
-                            .height(100.dp)
-                            .width(100.dp)
-                            .align(Alignment.CenterHorizontally),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 20.dp),
-                        text = stringResource(R.string.user_id),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    UserCard(
-                        userID = viewModel.userID
-                    )
+            ) {
+                Box(Modifier.padding(top = 70.dp)) {
+                    Column(
+                        Modifier
+                            .padding(horizontal = 20.dp)
+                            .padding(vertical = 20.dp)
+                    ) {
+                        Image(
+                            imageVector = Icons.Filled.AccountCircle,
+                            contentDescription = "account image",
+                            modifier = Modifier
+                                .height(100.dp)
+                                .width(100.dp)
+                                .align(Alignment.CenterHorizontally),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 20.dp),
+                            text = stringResource(R.string.user_id),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        UserCard(
+                            userID = viewModel.userID
+                        )
+                    }
                 }
-            }
                 ScreenContent(navController = navController)
                 Spacer(modifier = Modifier.height(25.dp))
                 Row(
@@ -96,10 +99,10 @@ fun ProfileScreen(
                         .align(Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Center,
-                )  {
+                ) {
                     androidx.compose.material.Button(
-                        onClick = {viewModel.signOut()},
-                        shape= RoundedCornerShape(50),
+                        onClick = { viewModel.signOut() },
+                        shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = MaterialTheme.colorScheme.onTertiary,
                             backgroundColor = MaterialTheme.colorScheme.tertiary
@@ -108,7 +111,8 @@ fun ProfileScreen(
                         androidx.compose.material.Text(
                             text = stringResource(R.string.sign_out_button),
                             fontSize = 16.sp,
-                            modifier = Modifier.padding(vertical=9.dp, horizontal = 70.dp))
+                            modifier = Modifier.padding(vertical = 9.dp, horizontal = 70.dp)
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.height(100.dp))
@@ -116,7 +120,7 @@ fun ProfileScreen(
         }
     )
 
-    when(val signOutResponse = viewModel.signOutState.value) {
+    when (val signOutResponse = viewModel.signOutState.value) {
         is Response.Loading -> ProgressIndicator()
         is Response.Success -> return
         is Response.Error -> signOutResponse.e?.let {
@@ -131,17 +135,17 @@ fun ProfileScreen(
 @Composable
 fun ScreenContent(
     navController: NavHostController,
-){
+) {
     Column() {
         val context = LocalContext.current
-        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)){
+        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
             ProfileCard(
                 title = stringResource(R.string.upload_health_data_button),
                 onClick = {},
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)){
+        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
             ProfileCard(
                 title = stringResource(R.string.report_issue_button),
                 onClick = {
@@ -153,7 +157,7 @@ fun ScreenContent(
             )
         }
         Spacer(modifier = Modifier.height(3.dp))
-        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)){
+        Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
             ProfileCard(
                 title = stringResource(R.string.support_button),
                 onClick = {
@@ -168,7 +172,8 @@ fun ScreenContent(
         Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
             ProfileCard(
                 title = stringResource(R.string.view_consent_button),
-                onClick = {navController.navigate(Screens.ReviewConsent.route)})
+                onClick = { navController.navigate(Screens.ReviewConsent.route) }
+            )
         }
     }
 }

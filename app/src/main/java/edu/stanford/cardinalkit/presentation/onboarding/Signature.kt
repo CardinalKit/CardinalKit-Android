@@ -125,7 +125,8 @@ fun Signature(
                             },
                             onSigned = {
                                 signed = true
-                            })
+                            }
+                        )
                     }
 
                     Column {

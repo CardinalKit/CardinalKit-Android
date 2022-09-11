@@ -84,6 +84,7 @@
     <string name="reset_password_instructions">Enter your email address and a link will be sent to reset your password.</string>
     <string name="email_invalid_message">The email you entered is invalid.</string>
     <string name="reset_password_email_message">An email has been sent to you with instructions to reset your password.</string>
+    <string name="password_complexity_requirements">Your password should contain a minimum of 8 characters with at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.</string>
 
     <!-- Error messages -->
     <string name="error_loading_survey_message">Error Loading Survey</string>

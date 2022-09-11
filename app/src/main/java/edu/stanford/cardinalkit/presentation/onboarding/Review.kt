@@ -159,5 +159,3 @@ fun DisplayList(items: List<OnboardingPage>) {
         }
     }
 }
-
-

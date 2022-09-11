@@ -40,7 +40,6 @@ class GetTaskLogsTest {
                 (fakeRepository as FakeTaskLogRepository).insertTaskLog(it)
             }
         }
-
     }
 
     @Test
@@ -48,12 +47,11 @@ class GetTaskLogsTest {
         val response = getTaskLogs().first()
         var taskLogs = listOf<CKTaskLog>()
 
-        if (response is Response.Success && response.data != null){
+        if (response is Response.Success && response.data != null) {
             taskLogs = response.data as List<CKTaskLog>
         }
 
         assertThat(taskLogs[0].taskID).isEqualTo("XE7VeC86W2qU9J8Q3C0A")
         assertThat(taskLogs[1].taskID).isEqualTo("sIbsVjdnpkcaC5tjJwjQ")
     }
-
 }

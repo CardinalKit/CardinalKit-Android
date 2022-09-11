@@ -82,7 +82,8 @@ class AuthRepositoryImpl @Inject constructor(
                         "email" to email,
                         "lastActive" to serverTimestamp(),
                         "createdDate" to serverTimestamp()
-                    ), SetOptions.merge()
+                    ),
+                    SetOptions.merge()
                 ).await()
                 emit(Response.Success(true))
             }
@@ -112,7 +113,8 @@ class AuthRepositoryImpl @Inject constructor(
                         "email" to email,
                         "lastActive" to serverTimestamp(),
                         "createdDate" to serverTimestamp()
-                    ), SetOptions.merge()
+                    ),
+                    SetOptions.merge()
                 ).await()
                 emit(Response.Success(true))
             }
@@ -128,7 +130,8 @@ class AuthRepositoryImpl @Inject constructor(
                 usersRef.document(uid).set(
                     mapOf(
                         "lastActive" to serverTimestamp()
-                    ), SetOptions.merge()
+                    ),
+                    SetOptions.merge()
                 ).await()
                 emit(Response.Success(true))
             }
@@ -151,5 +154,4 @@ class AuthRepositoryImpl @Inject constructor(
             emit(Response.Error(e))
         }
     }
-
 }

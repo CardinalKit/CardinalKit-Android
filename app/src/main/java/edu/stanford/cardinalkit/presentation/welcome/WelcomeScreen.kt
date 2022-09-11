@@ -21,7 +21,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
@@ -118,5 +117,3 @@ fun ReviewButton(
         }
     }
 }
-
-

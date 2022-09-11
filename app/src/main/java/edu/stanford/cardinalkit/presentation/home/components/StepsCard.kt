@@ -17,7 +17,7 @@ import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 @Composable
 fun StepsCard(
     viewModel: HealthViewModel = hiltViewModel()
-){
+) {
     viewModel.getTotalStepsToday()
     Card(
         modifier = Modifier
@@ -26,7 +26,7 @@ fun StepsCard(
             .clickable { },
         backgroundColor = MaterialTheme.colorScheme.secondary,
         shape = RoundedCornerShape(18),
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .padding(15.dp)
@@ -41,7 +41,7 @@ fun StepsCard(
                 color = MaterialTheme.colorScheme.onSecondary
             )
             Text(
-                text= viewModel.totalStepsToday.value.toString(),
+                text = viewModel.totalStepsToday.value.toString(),
                 fontSize = 40.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )

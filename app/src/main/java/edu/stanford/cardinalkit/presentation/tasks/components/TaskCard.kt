@@ -45,8 +45,8 @@ fun TaskCard(
         is Response.Success -> {
             response.data?.let { taskLogs ->
                 completed.value = taskLogs.any { log ->
-                    log.taskID == task.id
-                            && log.date.toLocalDate() == viewModel.currentDate.value
+                    log.taskID == task.id &&
+                        log.date.toLocalDate() == viewModel.currentDate.value
                 }
             }
         }
@@ -143,7 +143,7 @@ fun TaskCard(
                     when (task.context.category) {
                         CKTaskCategory.STEPS -> {
                             // The progress should only be shown if the task is active today
-                            if(viewModel.currentDate.value == LocalDate.now()) {
+                            if (viewModel.currentDate.value == LocalDate.now()) {
                                 StepGoalProgress(
                                     task,
                                     completed.value

@@ -24,7 +24,6 @@ import edu.stanford.cardinalkit.presentation.home.components.TaskCardUI
 import edu.stanford.cardinalkit.presentation.home.components.WeightCard
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(

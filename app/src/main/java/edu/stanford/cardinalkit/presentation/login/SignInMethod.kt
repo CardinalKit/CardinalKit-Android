@@ -30,7 +30,6 @@ import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInMethod(
@@ -91,9 +90,9 @@ fun SignInMethod(
                 ) {
                     SignIn(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { navController.navigate(Screens.LoginScreen.route) })
+                        onClick = { navController.navigate(Screens.LoginScreen.route) }
+                    )
                     Spacer(modifier = Modifier.height(10.dp))
-
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
@@ -126,9 +125,7 @@ fun SignInMethod(
                             )
                         }
                     }
-
                 }
-
             }
         }
 
@@ -209,7 +206,6 @@ fun SignInMethod(
             }
         }
     }
-
 }
 
 @Composable
@@ -243,5 +239,3 @@ fun SignIn(
         }
     }
 }
-
-

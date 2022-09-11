@@ -25,7 +25,6 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import kotlinx.coroutines.launch
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
@@ -98,7 +97,6 @@ fun OnboardingScreen(
     )
 }
 
-
 @Composable
 fun PagerScreen(onboardingPage: OnboardingPage) {
     Column(
@@ -162,17 +160,19 @@ fun BottomSection(
                             pagerState.scrollToPage(pagerState.currentPage - 1)
                         }
                     }
-                })
-            NextButton(modifier = Modifier.padding(end = 40.dp),
+                }
+            )
+            NextButton(
+                modifier = Modifier.padding(end = 40.dp),
                 onClick = {
                     scope.launch {
                         pagerState.scrollToPage(pagerState.currentPage + 1)
                     }
-                })
+                }
+            )
         }
     }
 }
-
 
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
@@ -194,7 +194,7 @@ fun PreviousButton(
                 containerColor = MaterialTheme.colorScheme.primary
             ),
 
-            ) {
+        ) {
             Text(
                 text = stringResource(R.string.previous),
                 fontSize = 16.sp,
@@ -224,13 +224,12 @@ fun NextButton(
                 containerColor = MaterialTheme.colorScheme.primary
             ),
 
-            ) {
+        ) {
             Text(
                 text = stringResource(R.string.next),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Light
             )
-
         }
     }
 }

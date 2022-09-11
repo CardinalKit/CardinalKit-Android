@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 @Preview
 @Composable
 
-fun TextCard(){
+fun TextCard() {
     Card(
         onClick = {},
         modifier = Modifier
@@ -25,16 +25,16 @@ fun TextCard(){
             .height(165.dp),
         backgroundColor = MaterialTheme.colorScheme.secondary,
         shape = RoundedCornerShape(18),
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .padding(15.dp)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center
         ) {
-            Row(){
+            Row() {
                 Text(
-                    text= "Edit Card",
+                    text = "Edit Card",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSecondary

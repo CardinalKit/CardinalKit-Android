@@ -11,7 +11,7 @@ class CKTaskScheduleTest {
     private lateinit var schedule: CKTaskSchedule
 
     @Before
-    fun setUp(){
+    fun setUp() {
         schedule = CKTaskSchedule(startDate = Date(), endDate = null, interval = 3, description = "test schedule")
     }
 

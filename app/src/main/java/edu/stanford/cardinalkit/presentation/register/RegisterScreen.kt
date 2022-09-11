@@ -30,7 +30,6 @@ import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.register.RegisterViewModel
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
@@ -141,7 +140,7 @@ fun RegisterScreen(
                     horizontalArrangement = Arrangement.Start
                 ) {
                     Text(
-                        text = "Your password should contain:\n- a minimum of 8 characters\n- at least 1 uppercase\n- at least 1 lowercase\n- 1 digit\n- 1 special character"
+                        text = stringResource(R.string.password_complexity_requirements)
                     )
                 }
                 OutlinedTextField(
@@ -235,14 +234,16 @@ fun RegisterScreen(
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 } else if (password.filter { it.isLetter() }
-                                        .filter { it.isUpperCase() }.firstOrNull() == null) {
+                                    .filter { it.isUpperCase() }.firstOrNull() == null
+                                ) {
                                     Toast.makeText(
                                         context,
                                         "Password has to contain 1 uppercase",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 } else if (password.filter { it.isLetter() }
-                                        .filter { it.isLowerCase() }.firstOrNull() == null) {
+                                    .filter { it.isLowerCase() }.firstOrNull() == null
+                                ) {
                                     Toast.makeText(
                                         context,
                                         "Password has to contain 1 lowercase",
@@ -273,7 +274,8 @@ fun RegisterScreen(
                     }
                 }
             }
-        })
+        }
+    )
 
     when (val signUpResponse = viewModel.signUpState.value) {
         is Response.Loading -> ProgressIndicator()

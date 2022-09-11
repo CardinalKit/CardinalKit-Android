@@ -7,7 +7,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -63,13 +62,16 @@ fun JoinStudyScreen(
                 Spacer(modifier = Modifier.height(30.dp))
                 JoinStudyButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigate(Screens.WelcomeScreen.route) })
+                    onClick = { navController.navigate(Screens.WelcomeScreen.route) }
+                )
                 Spacer(modifier = Modifier.height(15.dp))
                 ReturningUser(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigate(Screens.SignInMethod.route) })
+                    onClick = { navController.navigate(Screens.SignInMethod.route) }
+                )
             }
-        })
+        }
+    )
 }
 
 @Composable

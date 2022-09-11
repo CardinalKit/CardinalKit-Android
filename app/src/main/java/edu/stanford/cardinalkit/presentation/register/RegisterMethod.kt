@@ -37,7 +37,6 @@ import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.presentation.common.ProgressIndicator
 import edu.stanford.cardinalkit.presentation.navigation.Screens
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterMethod(
@@ -213,7 +212,6 @@ fun RegisterMethod(
             }
         }
     }
-
 }
 
 @Composable

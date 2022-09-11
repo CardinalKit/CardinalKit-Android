@@ -123,7 +123,8 @@ class AppModule {
                 .setSupported(true)
                 .setServerClientId(app.getString(R.string.web_client_id))
                 .setFilterByAuthorizedAccounts(true)
-                .build())
+                .build()
+        )
         .setAutoSelectEnabled(true)
         .build()
 
@@ -137,7 +138,8 @@ class AppModule {
                 .setSupported(true)
                 .setServerClientId(app.getString(R.string.web_client_id))
                 .setFilterByAuthorizedAccounts(false)
-                .build())
+                .build()
+        )
         .build()
 
     @Provides

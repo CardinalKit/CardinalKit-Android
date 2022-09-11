@@ -7,7 +7,7 @@ object Constants {
     const val TAG = "CardinalKit"
 
     // Firebase paths
-    const val FIRESTORE_BASE_DOCUMENT = "/studies/${APP_PACKAGE_NAME}"
+    const val FIRESTORE_BASE_DOCUMENT = "/studies/$APP_PACKAGE_NAME"
     const val FIRESTORE_USERS_COLLECTION = "users"
     const val FIRESTORE_SURVEYS_COLLECTION = "surveys"
     const val FIRESTORE_TASKS_COLLECTION = "tasks"
@@ -27,11 +27,10 @@ object Constants {
     const val SIGNATURE_SCREEN = "Signature"
     const val REGISTER_SCREEN = "Register"
     const val REGISTER_METHOD = "Register Method"
-    const val REVIEW_CONSENT="Review Consent"
+    const val REVIEW_CONSENT = "Review Consent"
     const val SIGN_IN_METHOD = "Sign In"
-    const val JOIN_STUDY_SCREEN="Join Study"
-    const val FORGOT_PASSWORD_SCREEN= "Forgot Password"
-
+    const val JOIN_STUDY_SCREEN = "Join Study"
+    const val FORGOT_PASSWORD_SCREEN = "Forgot Password"
 
     // Named dependencies to be injected
     const val USERS_REF = "usersRef"
@@ -61,5 +60,4 @@ object Constants {
     // Intents
     const val SURVEY_NAME = "edu.stanford.cardinalkit.SURVEY_NAME"
     const val TASK_ID = "edu.stanford.cardinalkit.TASK_ID"
-
 }

@@ -87,7 +87,8 @@ fun ContactCard(
                     }
                     .fillMaxWidth()
                     .padding(10.dp),
-                colors = cardColors(MaterialTheme.colorScheme.surfaceVariant)) {
+                colors = cardColors(MaterialTheme.colorScheme.surfaceVariant)
+            ) {
                 Column(
                     modifier = Modifier
                         .padding(15.dp)
@@ -193,7 +194,8 @@ fun sendAText(context: Context, smsNumber: String) {
 
 fun sendEmail(context: Context, recipientMail: String) {
     val emailIntent = Intent(
-        Intent.ACTION_SENDTO, Uri.fromParts(
+        Intent.ACTION_SENDTO,
+        Uri.fromParts(
             "mailto", recipientMail, null
         )
     )

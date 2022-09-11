@@ -13,12 +13,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
 
-
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     @Named(Constants.AUTH_USE_CASES)
     private val useCases: AuthUseCases
-): ViewModel() {
+) : ViewModel() {
 
     var signUpState = mutableStateOf<Response<Boolean>>(Response.Success(null))
         private set
@@ -40,10 +39,10 @@ class RegisterViewModel @Inject constructor(
         }
     }
     fun isValidPassword(password: String): Boolean {
-        if (password.length < 8) return false //minimum of 8 characters
-        if (password.firstOrNull { it.isDigit() } == null) return false //1 number
-        if (password.filter { it.isLetter() }.filter { it.isUpperCase() }.firstOrNull() == null) return false //1 uppercase
-        if (password.filter { it.isLetter() }.filter { it.isLowerCase() }.firstOrNull() == null) return false //1 lowercase
+        if (password.length < 8) return false // minimum of 8 characters
+        if (password.firstOrNull { it.isDigit() } == null) return false // 1 number
+        if (password.filter { it.isLetter() }.filter { it.isUpperCase() }.firstOrNull() == null) return false // 1 uppercase
+        if (password.filter { it.isLetter() }.filter { it.isLowerCase() }.firstOrNull() == null) return false // 1 lowercase
         if (password.firstOrNull { !it.isLetterOrDigit() } == null) return false // special character
 
         return true

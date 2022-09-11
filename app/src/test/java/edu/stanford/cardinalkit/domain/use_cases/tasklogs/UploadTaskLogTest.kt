@@ -31,5 +31,4 @@ class UploadTaskLogTest {
         val response = uploadTaskLog(log).first()
         assertThat(response).isInstanceOf(Response.Success::class.java)
     }
-
 }

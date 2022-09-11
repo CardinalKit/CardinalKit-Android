@@ -17,7 +17,7 @@ import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 @Composable
 fun WeightCard(
     viewModel: HealthViewModel = hiltViewModel()
-){
+) {
     viewModel.getWeeklyAverageWeight()
     val pounds = viewModel.weeklyAverageWeight.value?.inPounds?.toInt().toString() + " lbs"
 
@@ -28,7 +28,7 @@ fun WeightCard(
             .clickable { },
         backgroundColor = MaterialTheme.colorScheme.secondary,
         shape = RoundedCornerShape(18),
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .padding(15.dp)

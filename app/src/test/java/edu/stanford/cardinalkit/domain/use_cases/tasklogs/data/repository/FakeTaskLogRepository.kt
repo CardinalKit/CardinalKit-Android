@@ -6,7 +6,7 @@ import edu.stanford.cardinalkit.domain.repositories.TaskLogRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeTaskLogRepository: TaskLogRepository {
+class FakeTaskLogRepository : TaskLogRepository {
     private val taskLogs = mutableListOf<CKTaskLog>()
 
     override fun getTaskLogs(): Flow<Response<List<CKTaskLog>>> {

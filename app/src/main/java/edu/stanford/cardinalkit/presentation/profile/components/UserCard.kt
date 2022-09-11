@@ -22,8 +22,7 @@ fun UserCard(
             .clickable { },
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
     ) {
-        Column()
-        {
+        Column() {
             Text(
                 text = userID,
                 fontSize = 15.sp,
@@ -34,6 +33,6 @@ fun UserCard(
 }
 @Preview
 @Composable
-fun PreviewUserCard(){
+fun PreviewUserCard() {
     UserCard("")
 }

@@ -12,9 +12,9 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileCard(
-    title:String,
+    title: String,
     onClick: () -> Unit,
-){
+) {
     Card(
         onClick = onClick,
         modifier = Modifier

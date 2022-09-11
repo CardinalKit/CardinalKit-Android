@@ -1,6 +1,5 @@
 package edu.stanford.cardinalkit.presentation.home.components
 
-
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,7 +26,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 
-
 @Composable
 fun TaskCardUI(
     viewModel: TasksViewModel = hiltViewModel(),
@@ -36,16 +34,17 @@ fun TaskCardUI(
         val annotatedString1 =
             AnnotatedString.Builder(
                 "${viewModel.totalTasksCompleteToday.value} of ${viewModel.totalTasksToday.value} ${
-                    stringResource(
-                        R.string.complete
-                    )
+                stringResource(
+                    R.string.complete
+                )
                 }"
             )
                 .apply {
                     addStyle(
                         SpanStyle(
                             color = MaterialTheme.colorScheme.onPrimary,
-                        ), 0, 6
+                        ),
+                        0, 6
                     )
                 }
         Card(
@@ -139,6 +138,3 @@ fun TaskProgressBar(percentage: Float) {
         )
     }
 }
-
-
-

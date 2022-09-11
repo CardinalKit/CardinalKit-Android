@@ -42,10 +42,10 @@ fun TasksScreen(
         },
         containerColor = MaterialTheme.colorScheme.surface,
         content = { padding ->
-            Column(modifier = Modifier.padding(padding)){
+            Column(modifier = Modifier.padding(padding)) {
                 DatePickerTimeline(
                     modifier = Modifier,
-                    onDateSelected = {selectedDate: LocalDate->
+                    onDateSelected = { selectedDate: LocalDate ->
                         viewModel.setDate(selectedDate)
                     },
                     selectedBackgroundColor = MaterialTheme.colorScheme.secondary,
@@ -54,12 +54,14 @@ fun TasksScreen(
                     dateTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                     state = datePickerState
                 )
-                Row(modifier= Modifier
-                    .padding(horizontal = 20.dp)
-                    .padding(top = 15.dp),
-                verticalAlignment = Alignment.CenterVertically){
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .padding(top = 15.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text(
-                        text= stringResource(R.string.todo),
+                        text = stringResource(R.string.todo),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -74,13 +76,14 @@ fun TasksScreen(
                         Text(stringResource(R.string.today), color = MaterialTheme.colorScheme.primary)
                     }
                 }
-                Box(modifier= Modifier
-                    .padding(horizontal = 20.dp)
-                    .padding(top = 5.dp)) {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                        .padding(top = 5.dp)
+                ) {
                     TaskComponent()
                 }
             }
         }
     )
 }
-

@@ -20,7 +20,7 @@ fun StepGoalProgress(
     completed: Boolean,
     healthViewModel: HealthViewModel = hiltViewModel(),
     tasksViewModel: TasksViewModel = hiltViewModel()
-){
+) {
     // Fetch total step count and calculate metrics
     healthViewModel.getTotalStepsToday()
     val goal = task.context.integerGoal

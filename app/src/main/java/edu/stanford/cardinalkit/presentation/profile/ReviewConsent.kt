@@ -24,7 +24,6 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 import edu.stanford.cardinalkit.presentation.onboarding.DisplayList
 import edu.stanford.cardinalkit.presentation.onboarding.data
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReviewConsent(
@@ -63,8 +62,6 @@ fun ReviewConsent(
                     )
                 }
             }
-        })
+        }
+    )
 }
-
-
-
