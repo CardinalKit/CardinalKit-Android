@@ -119,7 +119,7 @@ fun RegisterMethod(
                         OutlinedButton(
                             onClick = { viewModel.oneTapSignIn() },
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = MaterialTheme.colorScheme.primary,
+                                backgroundColor = MaterialTheme.colorScheme.primary
                             ),
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -233,7 +233,7 @@ fun SignUp(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = onClick,

@@ -122,7 +122,7 @@ fun RegisterScreen(
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary
-                    ),
+                    )
                 )
                 OutlinedTextField(
                     value = lastName,
@@ -136,7 +136,7 @@ fun RegisterScreen(
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary
-                    ),
+                    )
                 )
                 OutlinedTextField(
                     value = email,
@@ -150,7 +150,7 @@ fun RegisterScreen(
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary
-                    ),
+                    )
                 )
                 Row(
                     modifier = Modifier
@@ -179,9 +179,9 @@ fun RegisterScreen(
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
-                        val image = if (passwordVisible)
+                        val image = if (passwordVisible) {
                             Icons.Filled.Visibility
-                        else Icons.Filled.VisibilityOff
+                        } else Icons.Filled.VisibilityOff
 
                         val description = if (passwordVisible) "Hide password" else "Show password"
 
@@ -206,9 +206,9 @@ fun RegisterScreen(
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
-                        val image = if (passwordVisible)
+                        val image = if (passwordVisible) {
                             Icons.Filled.Visibility
-                        else Icons.Filled.VisibilityOff
+                        } else Icons.Filled.VisibilityOff
 
                         val description = if (passwordVisible) "Hide password" else "Show password"
 
@@ -221,7 +221,7 @@ fun RegisterScreen(
                 Row(
                     Modifier.padding(top = 25.dp),
                     verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Button(
                         onClick = {

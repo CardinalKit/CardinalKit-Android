@@ -119,7 +119,7 @@ fun SignInMethod(
                         OutlinedButton(
                             onClick = { viewModel.oneTapSignIn() },
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
+                                containerColor = MaterialTheme.colorScheme.primary
                             ),
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -234,7 +234,7 @@ fun SignIn(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = onClick,

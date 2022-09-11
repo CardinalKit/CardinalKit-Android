@@ -156,7 +156,7 @@ fun DatePickerTimeline(
             modifier = Modifier
                 .then(if (orientation == Orientation.Vertical) Modifier.fillMaxHeight() else Modifier.fillMaxWidth())
                 .background(brush = backgroundBrush)
-                .padding(8.dp),
+                .padding(8.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -187,7 +187,7 @@ fun DatePickerTimeline(
 
             DatePickerLayout(
                 orientation = orientation,
-                listState = listState,
+                listState = listState
             ) {
                 items(Integer.MAX_VALUE) { position ->
                     val date = startDate.plusDays(position.toLong())
@@ -220,11 +220,12 @@ fun DatePickerTimeline(
         }
     }
 }
+
 @Composable
 private fun DatePickerLayout(
     orientation: Orientation,
     listState: LazyListState,
-    content: LazyListScope.() -> Unit,
+    content: LazyListScope.() -> Unit
 ) {
     when (orientation) {
         Orientation.Vertical -> {
@@ -274,7 +275,7 @@ fun DatePickerTimeline(
         onDateSelected = onDateSelected,
         selectedTextColor = selectedTextColor,
         dateTextColor = dateTextColor,
-        todayLabel = todayLabel,
+        todayLabel = todayLabel
     )
 }
 private val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -299,7 +300,7 @@ private fun DateCard(
                 if (isSelected) {
                     Modifier.background(
                         brush = selectedBackgroundBrush,
-                        alpha = 0.65f,
+                        alpha = 0.65f
                     )
                 } else Modifier
             )
@@ -308,7 +309,7 @@ private fun DateCard(
                 onDateSelected(date)
             }
             .padding(vertical = 2.dp, horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val textColor = if (isSelected) selectedTextColor else dateTextColor
 

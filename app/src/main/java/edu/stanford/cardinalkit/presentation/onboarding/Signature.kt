@@ -100,7 +100,7 @@ fun Signature(
                         },
                         label = {
                             Text(
-                                text = stringResource(R.string.first_name),
+                                text = stringResource(R.string.first_name)
                             )
                         },
                         singleLine = true,
@@ -138,7 +138,7 @@ fun Signature(
                             .fillMaxWidth()
                             .border(
                                 width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary,
+                                color = MaterialTheme.colorScheme.primary
                             )
                     ) {
                         SignaturePadView(

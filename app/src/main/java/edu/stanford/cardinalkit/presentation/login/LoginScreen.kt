@@ -147,9 +147,9 @@ fun LoginScreen(
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
-                        val image = if (passwordVisible)
+                        val image = if (passwordVisible) {
                             Icons.Filled.Visibility
-                        else Icons.Filled.VisibilityOff
+                        } else Icons.Filled.VisibilityOff
 
                         val description = if (passwordVisible) "Hide password" else "Show password"
 
@@ -171,7 +171,7 @@ fun LoginScreen(
                         colors = ButtonDefaults.buttonColors(
                             contentColor = MaterialTheme.colorScheme.onSurface,
                             containerColor = MaterialTheme.colorScheme.surface
-                        ),
+                        )
                     ) {
                         Text(
                             text = stringResource(R.string.forgot_password_button),
@@ -200,7 +200,7 @@ fun LoginScreen(
                         },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = MaterialTheme.colorScheme.onPrimary,
-                            containerColor = MaterialTheme.colorScheme.primary,
+                            containerColor = MaterialTheme.colorScheme.primary
                         )
                     ) {
                         Text(
@@ -217,7 +217,7 @@ fun LoginScreen(
                     colors = ButtonDefaults.buttonColors(
                         contentColor = MaterialTheme.colorScheme.onPrimary,
                         containerColor = MaterialTheme.colorScheme.primary
-                    ),
+                    )
                 ) {
                     Text(
                         text = stringResource(R.string.create_account_button),

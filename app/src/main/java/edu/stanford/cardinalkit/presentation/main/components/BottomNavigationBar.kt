@@ -55,7 +55,7 @@ fun BottomNavigationBar(
                         }) {
                             Icon(
                                 imageVector = navItem.image,
-                                contentDescription = navItem.title,
+                                contentDescription = navItem.title
                             )
                         }
                     },

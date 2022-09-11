@@ -90,7 +90,7 @@ fun JoinStudyButton(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = onClick,
@@ -118,7 +118,7 @@ fun ReturningUser(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = onClick,

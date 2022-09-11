@@ -96,7 +96,7 @@ fun ForgotPassword(
                     text = stringResource(R.string.forgot_password),
                     fontSize = 30.sp,
                     color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.SemiBold
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
@@ -121,7 +121,7 @@ fun ForgotPassword(
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
                             cursorColor = MaterialTheme.colorScheme.primary
-                        ),
+                        )
                     )
 
                     Row(
@@ -136,7 +136,7 @@ fun ForgotPassword(
                             },
                             colors = ButtonDefaults.buttonColors(
                                 contentColor = MaterialTheme.colorScheme.onPrimary,
-                                containerColor = MaterialTheme.colorScheme.primary,
+                                containerColor = MaterialTheme.colorScheme.primary
                             )
                         ) {
                             Text(

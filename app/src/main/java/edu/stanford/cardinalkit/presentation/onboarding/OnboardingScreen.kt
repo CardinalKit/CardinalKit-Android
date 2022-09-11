@@ -51,7 +51,7 @@ import kotlinx.coroutines.launch
 @ExperimentalPagerApi
 @Composable
 fun OnboardingScreen(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     val pages = listOf(
         OnboardingPage.First,
@@ -160,7 +160,7 @@ fun PagerScreen(onboardingPage: OnboardingPage) {
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
 @Composable
 fun BottomSection(
-    pagerState: PagerState,
+    pagerState: PagerState
 ) {
     val scope = rememberCoroutineScope()
     Row(
@@ -205,15 +205,14 @@ fun PreviousButton(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
-
         TextButton(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = MaterialTheme.colorScheme.primary
-            ),
+            )
 
         ) {
             Text(
@@ -235,15 +234,14 @@ fun NextButton(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
-
         TextButton(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = MaterialTheme.colorScheme.primary
-            ),
+            )
 
         ) {
             Text(
@@ -266,7 +264,7 @@ fun ReviewButton(
     Row(
         modifier = modifier.padding(horizontal = 50.dp),
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         AnimatedVisibility(
             modifier = Modifier.fillMaxWidth(),

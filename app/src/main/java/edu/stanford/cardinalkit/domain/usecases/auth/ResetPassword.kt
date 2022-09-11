@@ -6,6 +6,6 @@ class ResetPassword(
     private val repository: AuthRepository
 ) {
     suspend operator fun invoke(
-        email: String,
+        email: String
     ) = repository.resetPassword(email)
 }

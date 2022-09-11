@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun ProfileCard(
     title: String,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     Card(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant),
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(
             modifier = Modifier.padding(15.dp)

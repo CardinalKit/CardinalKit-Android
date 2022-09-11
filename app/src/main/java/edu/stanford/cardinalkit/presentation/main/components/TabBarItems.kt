@@ -12,12 +12,12 @@ object TabBarItems {
         TabBarItem(
             title = "Home",
             image = Icons.Filled.Home,
-            route = Screens.HomeScreen.route,
+            route = Screens.HomeScreen.route
         ),
         TabBarItem(
             title = "Tasks",
             image = Icons.Filled.CheckBox,
-            route = Screens.TasksScreen.route,
+            route = Screens.TasksScreen.route
         ),
         TabBarItem(
             title = "Contacts",

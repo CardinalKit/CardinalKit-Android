@@ -38,7 +38,7 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Review(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     Scaffold(
         topBar = {
@@ -79,14 +79,14 @@ fun Review(
                     ) {
                         RespondButton(
                             label = stringResource(R.string.disagree),
-                            modifier = Modifier,
+                            modifier = Modifier
                         ) {
                             navController.navigate(Screens.JoinStudyScreen.route)
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         RespondButton(
                             label = stringResource(R.string.agree),
-                            modifier = Modifier,
+                            modifier = Modifier
                         ) {
                             navController.navigate(Screens.SignatureScreen.route)
                         }
@@ -136,7 +136,7 @@ fun RespondButton(
         modifier = modifier
             .padding(horizontal = 5.dp),
         verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = onClick,

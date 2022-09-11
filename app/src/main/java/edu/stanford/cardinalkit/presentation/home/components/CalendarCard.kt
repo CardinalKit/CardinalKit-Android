@@ -22,7 +22,6 @@ import java.util.*
 
 @Preview
 @Composable
-
 fun CalendarCard() {
     val day = SimpleDateFormat("dd", Locale.getDefault())
     val month = SimpleDateFormat("MMMM", Locale.getDefault())
@@ -34,7 +33,7 @@ fun CalendarCard() {
             .height(165.dp)
             .clickable { },
         backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-        shape = RoundedCornerShape(18),
+        shape = RoundedCornerShape(18)
     ) {
         Column(
             modifier = Modifier

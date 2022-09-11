@@ -32,7 +32,7 @@ fun WeightCard(
             .height(165.dp)
             .clickable { },
         backgroundColor = MaterialTheme.colorScheme.secondary,
-        shape = RoundedCornerShape(18),
+        shape = RoundedCornerShape(18)
     ) {
         Column(
             modifier = Modifier

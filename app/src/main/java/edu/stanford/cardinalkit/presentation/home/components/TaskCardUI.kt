@@ -37,7 +37,7 @@ import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 
 @Composable
 fun TaskCardUI(
-    viewModel: TasksViewModel = hiltViewModel(),
+    viewModel: TasksViewModel = hiltViewModel()
 ) {
     if (viewModel.totalTasksToday.value > 0) {
         val annotatedString1 =
@@ -51,9 +51,10 @@ fun TaskCardUI(
                 .apply {
                     addStyle(
                         SpanStyle(
-                            color = MaterialTheme.colorScheme.onPrimary,
+                            color = MaterialTheme.colorScheme.onPrimary
                         ),
-                        0, 6
+                        0,
+                        6
                     )
                 }
         Card(

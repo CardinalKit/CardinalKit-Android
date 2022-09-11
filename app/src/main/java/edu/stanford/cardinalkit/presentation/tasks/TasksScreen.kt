@@ -81,7 +81,7 @@ fun TasksScreen(
                             val today = LocalDate.now()
                             datePickerState.smoothScrollToDate(today)
                             viewModel.setDate(today)
-                        },
+                        }
                     ) {
                         Text(stringResource(R.string.today), color = MaterialTheme.colorScheme.primary)
                     }

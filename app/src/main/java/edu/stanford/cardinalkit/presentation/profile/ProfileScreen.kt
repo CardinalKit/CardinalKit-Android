@@ -111,7 +111,7 @@ fun ProfileScreen(
                         .padding(top = 15.dp)
                         .align(Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     androidx.compose.material.Button(
                         onClick = { viewModel.signOut() },
@@ -147,14 +147,14 @@ fun ProfileScreen(
 
 @Composable
 fun ScreenContent(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     Column() {
         val context = LocalContext.current
         Row(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
             ProfileCard(
                 title = stringResource(R.string.upload_health_data_button),
-                onClick = {},
+                onClick = {}
             )
         }
         Spacer(modifier = Modifier.height(3.dp))

@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
-
 fun TextCard() {
     Card(
         onClick = {},
@@ -31,7 +30,7 @@ fun TextCard() {
             .width(165.dp)
             .height(165.dp),
         backgroundColor = MaterialTheme.colorScheme.secondary,
-        shape = RoundedCornerShape(18),
+        shape = RoundedCornerShape(18)
     ) {
         Column(
             modifier = Modifier

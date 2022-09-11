@@ -83,7 +83,7 @@ internal class DatePickerStateImpl(
                     selectedDate = LocalDate.of(
                         it[0].toString().toInt(), // year
                         it[1].toString().toInt(), // month
-                        it[2].toString().toInt(), // day
+                        it[2].toString().toInt() // day
                     ),
 
                     shouldScrollToSelectedDate = it[3].toString()

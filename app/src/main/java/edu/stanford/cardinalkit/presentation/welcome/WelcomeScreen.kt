@@ -41,7 +41,7 @@ import edu.stanford.cardinalkit.presentation.navigation.Screens
 @ExperimentalPagerApi
 @Composable
 fun WelcomeScreen(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     Scaffold(
         topBar = {
@@ -114,7 +114,7 @@ fun ReviewButton(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Center
     ) {
         Button(
             onClick = onClick,

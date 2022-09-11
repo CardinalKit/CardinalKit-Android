@@ -225,7 +225,7 @@ class AppModule {
     @Named(Constants.SURVEYS_USE_CASES)
     fun provideSurveysUseCases(
         @Named(Constants.SURVEY_REPOSITORY)
-        surveyRepository: SurveyRepository,
+        surveyRepository: SurveyRepository
     ) = SurveysUseCases(
         uploadSurveyResult = UploadSurveyResult(surveyRepository),
         getSurvey = GetSurvey(surveyRepository)
@@ -244,7 +244,7 @@ class AppModule {
     @Named(Constants.TASKS_USE_CASES)
     fun provideTasksUseCases(
         @Named(Constants.TASKS_REPOSITORY)
-        repository: TasksRepository,
+        repository: TasksRepository
     ) = TasksUseCases(
         getTasks = GetTasks(repository)
     )

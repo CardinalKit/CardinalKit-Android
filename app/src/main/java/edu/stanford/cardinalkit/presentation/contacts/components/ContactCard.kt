@@ -186,7 +186,9 @@ fun makeACall(context: Context, phoneNumber: String) {
         startActivity(context, intent, bundleOf())
     } else {
         ActivityCompat.requestPermissions(
-            context as Activity, arrayOf(android.Manifest.permission.CALL_PHONE), 777
+            context as Activity,
+            arrayOf(android.Manifest.permission.CALL_PHONE),
+            777
         )
     }
 }
@@ -200,7 +202,9 @@ fun sendAText(context: Context, smsNumber: String) {
         startActivity(context, intent, bundleOf())
     } else {
         ActivityCompat.requestPermissions(
-            context as Activity, arrayOf(android.Manifest.permission.SEND_SMS), 777
+            context as Activity,
+            arrayOf(android.Manifest.permission.SEND_SMS),
+            777
         )
     }
 }
@@ -209,7 +213,9 @@ fun sendEmail(context: Context, recipientMail: String) {
     val emailIntent = Intent(
         Intent.ACTION_SENDTO,
         Uri.fromParts(
-            "mailto", recipientMail, null
+            "mailto",
+            recipientMail,
+            null
         )
     )
     startActivity(context, Intent.createChooser(emailIntent, "Choose an email client:"), bundleOf())
