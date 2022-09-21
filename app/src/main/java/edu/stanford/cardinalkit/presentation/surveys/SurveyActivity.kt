@@ -70,7 +70,10 @@ class SurveyActivity : AppCompatActivity() {
                 is Response.Loading -> {}
                 is Response.Success -> {
                     val arguments =
-                        bundleOf(QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to it.data)
+                        bundleOf(
+                            QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to it.data,
+                            QuestionnaireFragment.EXTRA_ENABLE_REVIEW_PAGE to true
+                        )
                     if (savedInstanceState == null) {
                         supportFragmentManager.commit {
                             setReorderingAllowed(true)
@@ -116,7 +119,7 @@ class SurveyActivity : AppCompatActivity() {
     private fun submitSurvey() {
         // Get the survey results from QuestionnaireFragment and upload to cloud
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
-            as QuestionnaireFragment
+                as QuestionnaireFragment
         val questionnaireResponse = fragment.getQuestionnaireResponse()
         surveyName?.let { surveyViewModel.uploadSurveyResult(it, questionnaireResponse) }
     }
