@@ -119,7 +119,7 @@ class SurveyActivity : AppCompatActivity() {
     private fun submitSurvey() {
         // Get the survey results from QuestionnaireFragment and upload to cloud
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
-                as QuestionnaireFragment
+            as QuestionnaireFragment
         val questionnaireResponse = fragment.getQuestionnaireResponse()
         surveyName?.let { surveyViewModel.uploadSurveyResult(it, questionnaireResponse) }
     }
