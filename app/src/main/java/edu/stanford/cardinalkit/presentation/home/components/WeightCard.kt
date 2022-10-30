@@ -14,20 +14,33 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 import kotlin.math.roundToInt
 
 @Composable
 fun WeightCard(
-    viewModel: HealthViewModel = hiltViewModel()
+    viewModel: HealthViewModel = hiltViewModel(),
+    useMetricUnits: Boolean = true
 ) {
     viewModel.getWeeklyAverageWeight()
-    val avgWeightInPounds = viewModel.weeklyAverageWeight.value?.inPounds?.roundToInt()
+
     var avgWeightString = "-"
-    if (avgWeightInPounds != null) avgWeightString = "$avgWeightInPounds lbs"
+    val avgWeight = viewModel.weeklyAverageWeight.value
+
+    if (useMetricUnits) {
+        avgWeight?.inKilograms?.roundToInt().let {
+            avgWeightString = "$it kg"
+        }
+    } else {
+        avgWeight?.inPounds?.roundToInt().let {
+            avgWeightString = "$it lbs"
+        }
+    }
 
     Card(
         modifier = Modifier
@@ -46,7 +59,7 @@ fun WeightCard(
 
         ) {
             Text(
-                text = "Weight",
+                text = stringResource(R.string.weight_card_header),
                 fontSize = 25.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )
@@ -56,7 +69,7 @@ fun WeightCard(
                 color = MaterialTheme.colorScheme.onSecondary
             )
             Text(
-                text = "7-day average",
+                text = stringResource(R.string.weight_card_7_day_average),
                 fontSize = 15.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )
