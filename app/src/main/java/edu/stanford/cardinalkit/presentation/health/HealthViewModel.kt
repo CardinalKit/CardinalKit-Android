@@ -49,9 +49,12 @@ class HealthViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Gets the average weight over the past 7 days
+     */
     fun getWeeklyAverageWeight() = viewModelScope.launch {
-        val startOfWeek = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
-        val endOfWeek = startOfWeek.plus(7, ChronoUnit.DAYS)
+        val endOfWeek = Instant.now()
+        val startOfWeek = endOfWeek.minus(7, ChronoUnit.DAYS)
 
         if (permissionsGranted.value) {
             weeklyAverageWeight.value = healthConnectManager.getAverageWeight(

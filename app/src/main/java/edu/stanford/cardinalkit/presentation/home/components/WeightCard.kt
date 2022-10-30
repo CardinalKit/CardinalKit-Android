@@ -18,13 +18,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.stanford.cardinalkit.presentation.health.HealthViewModel
+import kotlin.math.roundToInt
 
 @Composable
 fun WeightCard(
     viewModel: HealthViewModel = hiltViewModel()
 ) {
     viewModel.getWeeklyAverageWeight()
-    val pounds = viewModel.weeklyAverageWeight.value?.inPounds?.toInt().toString() + " lbs"
+    val avgWeightInPounds = viewModel.weeklyAverageWeight.value?.inPounds?.roundToInt()
+    var avgWeightString = "-"
+    if (avgWeightInPounds != null) avgWeightString = "$avgWeightInPounds lbs"
 
     Card(
         modifier = Modifier
@@ -48,12 +51,12 @@ fun WeightCard(
                 color = MaterialTheme.colorScheme.onSecondary
             )
             Text(
-                text = pounds,
+                text = avgWeightString,
                 fontSize = 40.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )
             Text(
-                text = "Average Weekly",
+                text = "7-day average",
                 fontSize = 15.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )
