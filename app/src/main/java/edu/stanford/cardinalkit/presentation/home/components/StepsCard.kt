@@ -14,9 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.presentation.health.HealthViewModel
 
 @Composable
@@ -41,7 +43,7 @@ fun StepsCard(
 
         ) {
             Text(
-                text = "Steps",
+                text = stringResource(R.string.steps_card_header),
                 fontSize = 25.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )
@@ -51,7 +53,7 @@ fun StepsCard(
                 color = MaterialTheme.colorScheme.onSecondary
             )
             Text(
-                text = "Total Today",
+                text = stringResource(R.string.steps_card_total_today),
                 fontSize = 15.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )

@@ -97,4 +97,15 @@
     <string name="email_and_password_empty">Please enter an email address and password.</string>
     <string name="required_field_empty">All required fields must be completed.</string>
     <string name="passwords_unmatched">Passwords must match.</string>
+
+    <!-- Home Screen Cards -->
+    <string name="steps_card_header">Steps</string>
+    <string name="steps_card_total_today">Total Today</string>
+
+    <string name="weight_card_header">Weight</string>
+    <string name="weight_card_7_day_average">7-day-average</string>
+
+    <string name="learn_more_card_header">Customize Your App</string>
+    <string name="learn_more_card_text">This is a template app that you can customize to create your own digital health experience.</string>
+    <string name="learn_more_card_footer">Learn how at cardinalkit.org</string>
 </resources>
