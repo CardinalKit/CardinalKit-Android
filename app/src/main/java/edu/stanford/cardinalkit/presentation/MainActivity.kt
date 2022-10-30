@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.health.connect.client.PermissionController
 import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,9 +43,7 @@ class MainActivity : AppCompatActivity() {
          * if not already provided.
          */
         val requestPermissionsActivityContract =
-            healthViewModel.healthConnectManager.healthConnectClient
-                .permissionController
-                .createRequestPermissionActivityContract()
+            PermissionController.createRequestPermissionResultContract()
 
         val requestPermissions =
             registerForActivityResult(requestPermissionsActivityContract) { granted ->
