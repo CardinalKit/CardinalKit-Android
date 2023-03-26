@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregationResult
-import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
@@ -20,19 +19,23 @@ class HealthConnectManager @Inject constructor(
 ) {
     val healthConnectClient by lazy { HealthConnectClient.getOrCreate(context) }
 
-    var isAvailable = mutableStateOf(false); private set
+    var isAvailable = mutableStateOf(false)
+        private set
 
     init {
-        isAvailable.value = HealthConnectClient.isAvailable(context)
+        isAvailable.value = checkAvailabilityStatus()
+    }
+
+    fun checkAvailabilityStatus(): Boolean {
+        val availabilityStatus = HealthConnectClient.sdkStatus(context, "com.google.android.apps.healthdata")
+        return availabilityStatus == HealthConnectClient.SDK_AVAILABLE
     }
 
     /**
      * Determines if all requested permissions are granted.
      */
-    suspend fun hasAllPermissions(permissions: Set<HealthPermission>): Boolean {
-        return permissions == healthConnectClient.permissionController.getGrantedPermissions(
-            permissions
-        )
+    suspend fun hasAllPermissions(permissions: Set<String>): Boolean {
+        return healthConnectClient.permissionController.getGrantedPermissions().containsAll(permissions)
     }
 
     /**

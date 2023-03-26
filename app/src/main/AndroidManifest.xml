@@ -5,7 +5,11 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE"/>
+    <uses-permission android:name="android.permission.health.READ_STEPS"/>
+    <uses-permission android:name="android.permission.health.READ_WEIGHT"/>
 
     <application
         android:name=".CardinalKitApp"
@@ -29,16 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Health Connect Privacy Policy -->
             <intent-filter>
                 <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
             </intent-filter>
-
-            <!-- Specify which Health Connect permissions the app can request -->
-            <meta-data
-                android:name="health_permissions"
-                android:resource="@array/health_permissions"/>
-
         </activity>
 
         <activity
@@ -46,10 +43,15 @@
             android:theme="@style/Theme.CardinalKit"
             android:label="Survey">
         </activity>
+
     </application>
 
     <queries>
         <package android:name="com.google.android.apps.healthdata" />
+
+        <intent>
+            <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+        </intent>
     </queries>
 
 </manifest>

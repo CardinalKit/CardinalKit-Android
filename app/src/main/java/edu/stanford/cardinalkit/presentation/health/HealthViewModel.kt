@@ -29,8 +29,8 @@ class HealthViewModel @Inject constructor(
     private var permissionsGranted = mutableStateOf<Boolean>(false)
 
     val permissions = setOf(
-        HealthPermission.createReadPermission(StepsRecord::class),
-        HealthPermission.createReadPermission(WeightRecord::class)
+        HealthPermission.getReadPermission(StepsRecord::class),
+        HealthPermission.getReadPermission(WeightRecord::class)
     )
 
     init {

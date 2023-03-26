@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     .healthConnectManager
                     .healthConnectClient
                     .permissionController
-                    .getGrantedPermissions(permissions)
+                    .getGrantedPermissions()
                 if (!granted.containsAll(permissions)) {
                     requestPermissions.launch(permissions)
                 } else {
