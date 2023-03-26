@@ -13,7 +13,10 @@ import edu.stanford.cardinalkit.R
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
 import edu.stanford.cardinalkit.domain.models.tasks.CKTaskLog
+import edu.stanford.cardinalkit.presentation.profile.ProfileViewModel
 import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
+import org.hl7.fhir.r4.model.QuestionnaireResponse
+import java.util.*
 
 @AndroidEntryPoint
 class SurveyActivity : AppCompatActivity() {
@@ -21,6 +24,7 @@ class SurveyActivity : AppCompatActivity() {
     private var taskID: String? = null // id of the task
     private val surveyViewModel by viewModels<SurveyViewModel>()
     private val tasksViewModel by viewModels<TasksViewModel>()
+    private val profileViewModel by viewModels<ProfileViewModel>()
 
     companion object {
         const val QUESTIONNAIRE_FRAGMENT_TAG = "questionnaire_fragment"
@@ -118,6 +122,15 @@ class SurveyActivity : AppCompatActivity() {
         val fragment = supportFragmentManager.findFragmentByTag(QUESTIONNAIRE_FRAGMENT_TAG)
             as QuestionnaireFragment
         val questionnaireResponse = fragment.getQuestionnaireResponse()
-        surveyName?.let { surveyViewModel.uploadSurveyResult(it, questionnaireResponse) }
+        val userID = profileViewModel.userID
+
+        // Add metadata to QuestionnaireResponse
+        questionnaireResponse.authored = Date()
+        questionnaireResponse.id = UUID.randomUUID().toString()
+        questionnaireResponse.status = QuestionnaireResponse.QuestionnaireResponseStatus.COMPLETED
+        questionnaireResponse.subject.reference = "Patient/$userID"
+
+        // Upload the survey to the database
+        surveyViewModel.uploadSurveyResult(questionnaireResponse)
     }
 }
