@@ -27,7 +27,7 @@ class HealthConnectManager @Inject constructor(
     }
 
     fun checkAvailability(): Boolean {
-        val availabilityStatus = HealthConnectClient.sdkStatus(context, providerPackageName = "CARDINALKIT")
+        val availabilityStatus = HealthConnectClient.sdkStatus(context, providerPackageName = "com.google.android.apps.healthdata")
         return !(availabilityStatus == HealthConnectClient.SDK_UNAVAILABLE
                 || availabilityStatus == HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED)
     }
