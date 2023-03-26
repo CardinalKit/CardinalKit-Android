@@ -6,8 +6,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.google.android.fhir.datacapture.QuestionnaireFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,11 +17,14 @@ import edu.stanford.cardinalkit.presentation.tasks.TasksViewModel
 
 @AndroidEntryPoint
 class SurveyActivity : AppCompatActivity() {
-
     private var surveyName: String? = null // filename of the survey
     private var taskID: String? = null // id of the task
     private val surveyViewModel by viewModels<SurveyViewModel>()
     private val tasksViewModel by viewModels<TasksViewModel>()
+
+    companion object {
+        const val QUESTIONNAIRE_FRAGMENT_TAG = "questionnaire_fragment"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,17 +70,13 @@ class SurveyActivity : AppCompatActivity() {
             when (it) {
                 is Response.Loading -> {}
                 is Response.Success -> {
-                    val arguments =
-                        bundleOf(
-                            QuestionnaireFragment.EXTRA_QUESTIONNAIRE_JSON_STRING to it.data,
-                            QuestionnaireFragment.EXTRA_ENABLE_REVIEW_PAGE to true
-                        )
-                    if (savedInstanceState == null) {
+                    if (savedInstanceState == null && it.data != null) {
                         supportFragmentManager.commit {
                             setReorderingAllowed(true)
-                            add<QuestionnaireFragment>(
+                            add(
                                 R.id.fragment_container_view,
-                                args = arguments
+                                QuestionnaireFragment.builder().setQuestionnaire(it.data).build(),
+                                QUESTIONNAIRE_FRAGMENT_TAG
                             )
                         }
                     }
@@ -118,7 +115,7 @@ class SurveyActivity : AppCompatActivity() {
 
     private fun submitSurvey() {
         // Get the survey results from QuestionnaireFragment and upload to cloud
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view)
+        val fragment = supportFragmentManager.findFragmentByTag(QUESTIONNAIRE_FRAGMENT_TAG)
             as QuestionnaireFragment
         val questionnaireResponse = fragment.getQuestionnaireResponse()
         surveyName?.let { surveyViewModel.uploadSurveyResult(it, questionnaireResponse) }
