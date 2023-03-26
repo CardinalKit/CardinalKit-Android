@@ -4,7 +4,6 @@ import android.content.Context
 import com.google.firebase.firestore.CollectionReference
 import edu.stanford.cardinalkit.common.Constants
 import edu.stanford.cardinalkit.domain.models.Response
-import edu.stanford.cardinalkit.domain.models.SurveyResult
 import edu.stanford.cardinalkit.domain.repositories.SurveyRepository
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -19,11 +18,12 @@ class SurveyRepositoryImpl @Inject constructor(
     private val context: Context
 ) : SurveyRepository {
 
-    override suspend fun uploadSurveyResult(result: SurveyResult) = flow {
+    override suspend fun uploadSurveyResult(result: Map<String, Any>) = flow {
         surveysRef?.let {
             try {
                 emit(Response.Loading)
-                val upload = surveysRef.document(result.id).set(result).await()
+                val id = result["id"] as String
+                val upload = surveysRef.document(id).set(result).await()
                 emit(Response.Success(upload))
             } catch (e: Exception) {
                 emit(Response.Error(e))
