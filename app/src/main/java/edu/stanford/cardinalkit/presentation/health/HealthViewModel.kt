@@ -26,7 +26,7 @@ class HealthViewModel @Inject constructor(
     var weeklyAverageWeight = mutableStateOf<Mass?>(null)
         private set
 
-    private var permissionsGranted = mutableStateOf<Boolean>(false)
+    private var permissionsGranted = mutableStateOf<Boolean?>(false)
 
     val permissions = setOf(
         HealthPermission.getReadPermission(StepsRecord::class),
@@ -35,13 +35,15 @@ class HealthViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            permissionsGranted.value = healthConnectManager.hasAllPermissions(permissions)
-            getTotalStepsToday()
+            if (healthConnectManager.isAvailable.value) {
+                permissionsGranted.value = healthConnectManager.hasAllPermissions(permissions)
+                getTotalStepsToday()
+            }
         }
     }
 
     fun getTotalStepsToday() = viewModelScope.launch {
-        if (permissionsGranted.value) {
+        if (permissionsGranted.value == true) {
             totalStepsToday.value = healthConnectManager.aggregateSteps(
                 startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant(),
                 endTime = Instant.now()
@@ -56,7 +58,7 @@ class HealthViewModel @Inject constructor(
         val endOfWeek = Instant.now()
         val startOfWeek = endOfWeek.minus(7, ChronoUnit.DAYS)
 
-        if (permissionsGranted.value) {
+        if (permissionsGranted.value == true) {
             weeklyAverageWeight.value = healthConnectManager.getAverageWeight(
                 startTime = startOfWeek,
                 endTime = endOfWeek

@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
                 val granted = healthViewModel
                     .healthConnectManager
                     .healthConnectClient
-                    .permissionController
-                    .getGrantedPermissions()
-                if (!granted.containsAll(permissions)) {
+                    ?.permissionController
+                    ?.getGrantedPermissions()
+                if (granted != null && !granted.containsAll(permissions)) {
                     requestPermissions.launch(permissions)
                 } else {
                     healthViewModel.updatePermissionsStatus(true)
