@@ -32,15 +32,15 @@ fun WeightCard(
     var avgWeightString = "-"
     val avgWeight = viewModel.weeklyAverageWeight.value
 
-    if (useMetricUnits) {
-        avgWeight?.inKilograms?.roundToInt().let {
-            avgWeightString = "$it kg"
-        }
+    val weightInSelectedUnit = if (useMetricUnits) {
+        avgWeight?.inKilograms?.roundToInt()
     } else {
-        avgWeight?.inPounds?.roundToInt().let {
-            avgWeightString = "$it lbs"
-        }
+        avgWeight?.inPounds?.roundToInt()
     }
+
+    avgWeightString = weightInSelectedUnit?.let {
+        "$it ${if (useMetricUnits) "kg" else "lbs"}"
+    } ?: "-"
 
     Card(
         modifier = Modifier

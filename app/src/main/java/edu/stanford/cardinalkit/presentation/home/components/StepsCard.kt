@@ -26,6 +26,8 @@ fun StepsCard(
     viewModel: HealthViewModel = hiltViewModel()
 ) {
     viewModel.getTotalStepsToday()
+    val totalStepsString = viewModel.totalStepsToday.value?.toString() ?: "-"
+
     Card(
         modifier = Modifier
             .width(165.dp)
@@ -48,7 +50,7 @@ fun StepsCard(
                 color = MaterialTheme.colorScheme.onSecondary
             )
             Text(
-                text = viewModel.totalStepsToday.value.toString(),
+                text = totalStepsString,
                 fontSize = 40.sp,
                 color = MaterialTheme.colorScheme.onSecondary
             )

@@ -20,7 +20,7 @@ import javax.inject.Inject
 class HealthViewModel @Inject constructor(
     var healthConnectManager: HealthConnectManager
 ) : ViewModel() {
-    var totalStepsToday = mutableStateOf<Long>(0)
+    var totalStepsToday = mutableStateOf<Long?>(null)
         private set
 
     var weeklyAverageWeight = mutableStateOf<Mass?>(null)
@@ -35,10 +35,8 @@ class HealthViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            if (healthConnectManager.isAvailable.value) {
-                permissionsGranted.value = healthConnectManager.hasAllPermissions(permissions)
-                getTotalStepsToday()
-            }
+            permissionsGranted.value = healthConnectManager.hasAllPermissions(permissions)
+            getTotalStepsToday()
         }
     }
 

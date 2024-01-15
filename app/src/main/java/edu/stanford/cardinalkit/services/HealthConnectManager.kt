@@ -19,23 +19,16 @@ class HealthConnectManager @Inject constructor(
 ) {
     var healthConnectClient: HealthConnectClient? = null
 
-    var isAvailable = mutableStateOf(false)
-        private set
+    private var isAvailable = mutableStateOf(false)
 
     init {
         isAvailable.value = checkAvailabilityStatus()
         if (isAvailable.value) {
-            initClient()
-        }
-    }
-
-    private fun initClient() {
-        if (healthConnectClient == null && isAvailable.value) {
             healthConnectClient = HealthConnectClient.getOrCreate(context)
         }
     }
 
-    fun checkAvailabilityStatus(): Boolean {
+    private fun checkAvailabilityStatus(): Boolean {
         val availabilityStatus = HealthConnectClient.sdkStatus(context, "com.google.android.apps.healthdata")
         return availabilityStatus == HealthConnectClient.SDK_AVAILABLE
     }
@@ -123,6 +116,6 @@ class HealthConnectManager @Inject constructor(
                     timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                 )
             )
-            return response?.records
+        return response?.records
     }
 }
