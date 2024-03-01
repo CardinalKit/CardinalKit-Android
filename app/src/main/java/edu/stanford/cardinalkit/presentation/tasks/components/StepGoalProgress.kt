@@ -28,8 +28,9 @@ fun StepGoalProgress(
     // Fetch total step count and calculate metrics
     healthViewModel.getTotalStepsToday()
     val goal = task.context.integerGoal
-    val totalStepsToday = healthViewModel.totalStepsToday.value
-    var progress = healthViewModel.totalStepsToday.value.toFloat() / goal
+    val totalStepsToday = healthViewModel.totalStepsToday.value ?: 0
+
+    var progress = totalStepsToday.toFloat() / goal
     if (progress > 1.0F) {
         progress = 1.0F
     }

@@ -17,16 +17,18 @@ import javax.inject.Inject
 class HealthConnectManager @Inject constructor(
     private val context: Context
 ) {
-    val healthConnectClient by lazy { HealthConnectClient.getOrCreate(context) }
+    var healthConnectClient: HealthConnectClient? = null
 
-    var isAvailable = mutableStateOf(false)
-        private set
+    private var isAvailable = mutableStateOf(false)
 
     init {
         isAvailable.value = checkAvailabilityStatus()
+        if (isAvailable.value) {
+            healthConnectClient = HealthConnectClient.getOrCreate(context)
+        }
     }
 
-    fun checkAvailabilityStatus(): Boolean {
+    private fun checkAvailabilityStatus(): Boolean {
         val availabilityStatus = HealthConnectClient.sdkStatus(context, "com.google.android.apps.healthdata")
         return availabilityStatus == HealthConnectClient.SDK_AVAILABLE
     }
@@ -34,8 +36,8 @@ class HealthConnectManager @Inject constructor(
     /**
      * Determines if all requested permissions are granted.
      */
-    suspend fun hasAllPermissions(permissions: Set<String>): Boolean {
-        return healthConnectClient.permissionController.getGrantedPermissions().containsAll(permissions)
+    suspend fun hasAllPermissions(permissions: Set<String>): Boolean? {
+        return healthConnectClient?.permissionController?.getGrantedPermissions()?.containsAll(permissions)
     }
 
     /**
@@ -44,15 +46,15 @@ class HealthConnectManager @Inject constructor(
     suspend fun readStepsByTimeRange(
         startTime: Instant,
         endTime: Instant
-    ): List<StepsRecord> {
+    ): List<StepsRecord>? {
         val response =
-            healthConnectClient.readRecords(
+            healthConnectClient?.readRecords(
                 ReadRecordsRequest(
                     StepsRecord::class,
                     timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                 )
             )
-        return response.records
+        return response?.records
     }
 
     /**
@@ -63,13 +65,13 @@ class HealthConnectManager @Inject constructor(
         endTime: Instant
     ): Long {
         val response =
-            healthConnectClient.aggregate(
+            healthConnectClient?.aggregate(
                 AggregateRequest(
                     metrics = setOf(StepsRecord.COUNT_TOTAL),
                     timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                 )
             )
-        return response[StepsRecord.COUNT_TOTAL] ?: 0
+        return response?.get(StepsRecord.COUNT_TOTAL) ?: 0
     }
 
     /**
@@ -78,9 +80,9 @@ class HealthConnectManager @Inject constructor(
     suspend fun aggregateHeartRate(
         startTime: Instant,
         endTime: Instant
-    ): AggregationResult {
+    ): AggregationResult? {
         val response =
-            healthConnectClient.aggregate(
+            healthConnectClient?.aggregate(
                 AggregateRequest(
                     setOf(HeartRateRecord.BPM_MAX, HeartRateRecord.BPM_MIN),
                     timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
@@ -94,26 +96,26 @@ class HealthConnectManager @Inject constructor(
      */
     suspend fun getAverageWeight(startTime: Instant, endTime: Instant): Mass? {
         val response =
-            healthConnectClient.aggregate(
+            healthConnectClient?.aggregate(
                 AggregateRequest(
                     metrics = setOf(WeightRecord.WEIGHT_AVG),
                     timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                 )
             )
-        return response[WeightRecord.WEIGHT_AVG]
+        return response?.get(WeightRecord.WEIGHT_AVG)
     }
 
     /**
      * Get all weight records for a certain time period
      */
-    suspend fun getWeightRecords(startTime: Instant, endTime: Instant): List<WeightRecord> {
+    suspend fun getWeightRecords(startTime: Instant, endTime: Instant): List<WeightRecord>? {
         val response =
-            healthConnectClient.readRecords(
+            healthConnectClient?.readRecords(
                 ReadRecordsRequest(
                     recordType = WeightRecord::class,
                     timeRangeFilter = TimeRangeFilter.between(startTime, endTime)
                 )
             )
-        return response.records
+        return response?.records
     }
 }
