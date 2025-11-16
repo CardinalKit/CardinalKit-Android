@@ -33,8 +33,11 @@ Visit [cardinalkit.org](https://cardinalkit.org) to join our open-source communi
 ## Feedback & Help
 Bug reports, feature requests, etc. can be submitted via [Github issues](https://github.com/CardinalKit/CardinalKit-Android/issues).
 
-## Contacts
-Vishnu Ravi (Lead Developer) - <vishnur@stanford.edu>
+## How to Cite
+
+If you use CardinalKit in your research, please cite:
+
+Hittle, M. (2018). *CardinalKit: An Open, Interoperable Framework for Digital Health Application Development* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.17620129
 
 ## Disclaimer
 HL7®, and FHIR® are the registered trademarks of Health Level Seven International and their use of these trademarks does not constitute an endorsement by HL7.
